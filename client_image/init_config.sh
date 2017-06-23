@@ -13,4 +13,4 @@ done
 
 echo "master ip: ${MASTER_IP} init_token: ${init_token}"
 
-kubeadm client_config ${MASTER_IP} --token ${init_token} --skip-preflight-checks
+kubeadm client-config ${MASTER_IP} --token ${init_token} --skip-preflight-checks

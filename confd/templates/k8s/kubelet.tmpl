@@ -1,0 +1,33 @@
+###
+# kubernetes kubelet (node) config
+
+# logging to stderr means we get it in the systemd journal
+KUBE_LOGTOSTDERR="--logtostderr=true"
+
+# journal verbosity level, the higher is the more verbose
+KUBE_LOG_LEVEL="--v=4"
+
+# Should this cluster be allowed to run privileged docker containers
+KUBE_ALLOW_PRIV="--allow-privileged=true"
+
+# The address for the info server to serve on (set to 0.0.0.0 or "" for all interfaces)
+KUBELET_ADDRESS="--address=0.0.0.0"
+
+# The port for the info server to serve on
+KUBELET_PORT="--port=10250"
+
+# You may leave this blank to use the actual hostname
+#KUBELET_HOSTNAME="--hostname-override=i-qk3mor8r"
+KUBELET_HOSTNAME="--node-ip={{getv "/host/ip"}}"
+
+KUBELET_NETWORK_ARGS="--network-plugin=cni --cni-conf-dir=/etc/cni/net.d --cni-bin-dir=/opt/cni/bin"
+
+KUBELET_SYSTEM_PODS_ARGS="--pod-manifest-path=/etc/kubernetes/manifests --pod-infra-container-image=dockerhub.qingcloud.com/google_containers/pause-amd64:3.0"
+
+KUBELET_KUBECONFIG_ARGS="--kubeconfig=/etc/kubernetes/kubelet.conf --require-kubeconfig=true"
+
+KUBELET_DNS_ARGS="--cluster-dns=10.96.0.10 --cluster-domain={{getv "/env/cluster_domain"}}"
+
+KUBE_CLOUD_PROVIDER="--cloud-provider=qingcloud --cloud-config=/etc/kubernetes/qingcloud.conf"
+
+KUBELET_EXTRA_ARGS="--node-labels role={{getv "/host/role"}}"

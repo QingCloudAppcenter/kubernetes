@@ -1,0 +1,47 @@
+{
+  "kind": "Pod",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "kube-scheduler",
+    "namespace": "kube-system",
+    "creationTimestamp": null,
+    "labels": {
+      "component": "kube-scheduler",
+      "tier": "control-plane"
+    }
+  },
+  "spec": {
+    "containers": [
+      {
+        "name": "kube-scheduler",
+        "image": "dockerhub.qingcloud.com/google_containers/hyperkube-amd64:${HYPERKUBE_VERSION}",
+        "imagePullPolicy":"Never",
+        "command": [
+          "/hyperkube",
+          "scheduler",
+          "--v=5",
+          "--address=127.0.0.1",
+          "--leader-elect",
+          "--master=127.0.0.1:8080"
+        ],
+        "resources": {
+          "requests": {
+            "cpu": "100m"
+          }
+        },
+        "livenessProbe": {
+          "httpGet": {
+            "path": "/healthz",
+            "port": 10251,
+            "host": "127.0.0.1"
+          },
+          "initialDelaySeconds": 15,
+          "timeoutSeconds": 15,
+          "failureThreshold": 8
+        }
+      }
+    ],
+    "hostNetwork": true
+  },
+  "status": {}
+}

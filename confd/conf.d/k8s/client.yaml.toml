@@ -1,0 +1,7 @@
+[template]
+src = "k8s/client.yaml.tmpl"
+dest = "/etc/qingcloud/client.yaml"
+keys = [
+    "/",
+]
+reload_cmd = "/opt/kubernetes/script/reload.sh"

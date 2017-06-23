@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dockerbox
+spec:
+  replicas: 3
+  template:
+      metadata:
+        labels:
+          app: dockerbox
+      spec:
+        affinity:
+          podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    - dockerbox
+                topologyKey: kubernetes.io/hostname
+        containers:
+          - name: dockerbox
+            image: dockerhub.qingcloud.com/qingcloud/dockerbox
+            command: [ "darkhttpd","/work --port=80" ]
+            ports:
+              - name: web
+                containerPort: 80
+                protocol: TCP
+        imagePullSecrets:
+            - name: myregistrykey

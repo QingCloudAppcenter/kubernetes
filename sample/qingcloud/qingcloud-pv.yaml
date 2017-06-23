@@ -1,0 +1,14 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: qingcloud-pv
+  labels:
+    type: qingcloud
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  qingCloudStore:
+        volumeID: vol-caoxtgg3
+        fsType: ext4

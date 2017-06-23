@@ -1,0 +1,267 @@
+{
+  "type": "array",
+  "properties": [
+    {
+      "key": "cluster",
+      "description": "Kubernetes properties",
+      "type": "array",
+      "properties": [
+        {
+          "key": "name",
+          "label": "name",
+          "description": "The name of the kubernetes cluster",
+          "type": "string",
+          "default": "my k8s cluster",
+          "required": "yes"
+        },
+        {
+          "key": "description",
+          "label":"description",
+          "description": "Description kubernetes cluster",
+          "type": "string",
+          "default": "my k8s cluster",
+          "required": "yes"
+        },
+        {
+          "key": "vxnet",
+          "label": "VxNet",
+          "description": "Choose a vxnet to join",
+          "type": "string",
+          "default": "",
+          "required": "yes"
+        },
+        {
+          "key": "master",
+          "label": "master",
+          "description": "master properties",
+          "type": "array",
+          "properties": [
+            {
+              "key": "cpu",
+              "label": "CPU",
+              "description": "CPUs of each node",
+              "type": "integer",
+              "default": 4,
+              "range": [
+                2,
+                4,
+                8,
+                16
+              ],
+              "required": "yes"
+            },
+            {
+              "key": "memory",
+              "label": "Memory",
+              "description": "memory of each node (in MB)",
+              "type": "integer",
+              "default": 4096,
+              "range": [
+                2048,
+                4096,
+                8192,
+                16384,
+                32768
+              ],
+              "required": "yes"
+            },
+            {
+              "key": "count",
+              "label": "count",
+              "description": "Number of master for the cluster to create",
+              "type": "integer",
+              "default": 1,
+              "min":1,
+              "max":1,
+              "required": "yes"
+            },
+            {
+              "key": "instance_class",
+              "label": "resource type",
+              "description": "The instance type for the cluster to run, such as high performance, high performance plus",
+              "type": "integer",
+              "default": 0,
+              "range": [
+                0,
+                1
+              ],
+              "required": "yes"
+            },
+            {
+              "key": "volume_size",
+              "label": "volume size",
+              "description": "The volume size for each instance",
+              "type": "integer",
+              "default": 50,
+              "min": 10,
+              "max": 1000,
+              "step": 10,
+              "required": "yes"
+            }
+          ]
+        },
+        {
+          "key": "node",
+          "label": "node",
+          "description": "node properties",
+          "type": "array",
+          "properties": [
+            {
+              "key": "cpu",
+              "label": "CPU",
+              "description": "CPUs of each node",
+              "type": "integer",
+              "default": 4,
+              "range": [
+                2,
+                4,
+                8,
+                16
+              ],
+              "required": "yes"
+            },
+            {
+              "key": "memory",
+              "label": "Memory",
+              "description": "memory of each node (in MB)",
+              "type": "integer",
+              "default": 4096,
+              "range": [
+                2048,
+                4096,
+                8192,
+                16384,
+                32768
+              ],
+              "required": "yes"
+            },
+            {
+              "key": "count",
+              "label": "count",
+              "description": "Number of nodes for the cluster to create",
+              "type": "integer",
+              "default": 2,
+              "min":2,
+              "max":1000,
+              "required": "yes"
+            },
+            {
+              "key": "instance_class",
+              "label": "resource type",
+              "description": "The instance type for the cluster to run, such as high performance, high performance plus",
+              "type": "integer",
+              "default": 0,
+              "range": [
+                0,
+                1
+              ],
+              "required": "yes"
+            },
+            {
+              "key": "volume_size",
+              "label": "volume size",
+              "description": "The volume size for each instance",
+              "type": "integer",
+              "default": 50,
+              "min": 10,
+              "max": 1000,
+              "step": 10,
+              "required": "yes"
+            }
+          ]
+        },
+        {
+          "key": "client",
+          "label": "client",
+          "description": "client properties",
+          "type": "array",
+          "properties": [
+            {
+              "key": "cpu",
+              "label": "CPU",
+              "description": "CPUs of each node",
+              "type": "integer",
+              "default": 1,
+              "range": [
+                1,
+                2
+              ],
+              "required": "yes"
+            },
+            {
+              "key": "memory",
+              "label": "Memory",
+              "description": "memory of each node (in MB)",
+              "type": "integer",
+              "default": 1024,
+              "range": [
+                1024,
+                2048
+              ],
+              "required": "yes"
+            },
+            {
+              "key": "count",
+              "label": "count",
+              "description": "Number of nodes for the cluster to create",
+              "type": "integer",
+              "default": 1,
+              "min":1,
+              "max":1,
+              "required": "yes"
+            },
+            {
+              "key": "instance_class",
+              "label": "resource type",
+              "description": "The instance type for the cluster to run, such as high performance, high performance plus",
+              "type": "integer",
+              "default": 0,
+              "range": [
+                0,
+                1
+              ],
+              "required": "yes"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "env",
+      "description": "application configuration properties",
+      "type": "array",
+      "properties": [
+        {
+          "key": "access_key_id",
+          "label": "Access key id",
+          "description": "API密钥 ID",
+          "type": "string",
+          "required": "yes"
+        },
+        {
+          "key": "secret_access_key",
+          "label": "Secret access key",
+          "description": "API 密钥的私钥",
+          "type": "password",
+          "required": "yes"
+        },
+        {
+          "key": "cluster_domain",
+          "label": "Cluster domain",
+          "description": "The domain of the kubernetes cluster",
+          "type": "string",
+          "default": "cluster.local",
+          "required": "yes"
+        },
+        {
+          "key": "api_external_domain",
+          "label": "Api External Domain",
+          "description": "The domain of the kubernetes api server",
+          "type": "string",
+          "default": "k8s.cluster.local",
+          "required": "no"
+        }
+      ]
+    }
+  ]
+}

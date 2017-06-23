@@ -1,0 +1,6 @@
+[template]
+src = "k8s/hostnic.conf.tmpl"
+dest = "/etc/cni/net.d/10-hostnic.conf"
+keys = [
+    "/",
+]

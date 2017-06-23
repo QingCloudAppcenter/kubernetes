@@ -1,0 +1,12 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: qingcloud-pvc
+  annotations:
+    volume.beta.kubernetes.io/storage-class: qingcloud-storageclass
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi

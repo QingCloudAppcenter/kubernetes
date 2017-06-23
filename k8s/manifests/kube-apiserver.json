@@ -1,0 +1,82 @@
+{
+  "kind": "Pod",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "kube-apiserver",
+    "namespace": "kube-system",
+    "creationTimestamp": null,
+    "labels": {
+      "component": "kube-apiserver",
+      "tier": "control-plane"
+    }
+  },
+  "spec": {
+    "volumes": [
+      {
+        "name": "certs",
+        "hostPath": {
+          "path": "/etc/ssl/certs"
+        }
+      },
+      {
+        "name": "pki",
+        "hostPath": {
+          "path": "/etc/kubernetes"
+        }
+      }
+    ],
+    "containers": [
+      {
+        "name": "kube-apiserver",
+        "image": "dockerhub.qingcloud.com/google_containers/hyperkube-amd64:${HYPERKUBE_VERSION}",
+        "imagePullPolicy":"Never",
+        "command": [
+          "/hyperkube",
+          "apiserver",
+          "--v=5",
+          "--insecure-bind-address=127.0.0.1",
+          "--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota",
+          "--service-cluster-ip-range=10.96.0.0/16",
+          "--service-account-key-file=/etc/kubernetes/pki/apiserver-key.pem",
+          "--client-ca-file=/etc/kubernetes/pki/ca.pem",
+          "--tls-cert-file=/etc/kubernetes/pki/apiserver.pem",
+          "--tls-private-key-file=/etc/kubernetes/pki/apiserver-key.pem",
+          "--token-auth-file=/etc/kubernetes/pki/tokens.csv",
+          "--secure-port=6443",
+          "--allow-privileged",
+          "--etcd-servers=http://127.0.0.1:2379",
+          "--cloud-provider=qingcloud",
+          "--cloud-config=/etc/kubernetes/qingcloud.conf"
+        ],
+        "resources": {
+          "requests": {
+            "cpu": "250m"
+          }
+        },
+        "volumeMounts": [
+          {
+            "name": "certs",
+            "mountPath": "/etc/ssl/certs"
+          },
+          {
+            "name": "pki",
+            "readOnly": true,
+            "mountPath": "/etc/kubernetes/"
+          }
+        ],
+        "livenessProbe": {
+          "httpGet": {
+            "path": "/healthz",
+            "port": 8080,
+            "host": "127.0.0.1"
+          },
+          "initialDelaySeconds": 15,
+          "timeoutSeconds": 15,
+          "failureThreshold": 8
+        }
+      }
+    ],
+    "hostNetwork": true
+  },
+  "status": {}
+}

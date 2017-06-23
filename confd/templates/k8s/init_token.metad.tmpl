@@ -1,0 +1,1 @@
+{{range gets "/hosts/master/*/token"}}{{$data := json .Value}}{{$data.init_token}}{{end}}

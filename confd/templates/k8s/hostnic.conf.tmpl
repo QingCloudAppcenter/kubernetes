@@ -1,0 +1,14 @@
+{
+    "cniVersion": "0.3.0",
+    "name": "hostnic",
+    "type": "hostnic",
+    "provider": "qingcloud",
+    "args": {
+      "providerConfigFile":"/etc/qingcloud/client.yaml",
+      "vxNets":["{{getv "/cluster/vxnet"}}"]
+    },
+    "ipam":{
+      "routes":[{"dst":"10.96.0.0/16","gw":"0.0.0.0"}]
+    },
+    "isGateway": true
+}

@@ -18,8 +18,8 @@ cd app-agent-linux-amd64/
 cd ..
 rm -rf app-agent-linux-amd64/
 rm app-agent-linux-amd64.tar.gz
-pop
+popd
 
 cp -r confd/* /etc/confd/
 cp init_config.sh /usr/bin/
-chomd +x /usr/bin/init_config.sh
+chmod +x /usr/bin/init_config.sh

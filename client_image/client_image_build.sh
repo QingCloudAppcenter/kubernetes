@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 apt-get update
+apt-get upgrade -y
 apt-get install -y wget jq
 wget http://k8s-qingcloud.pek3a.qingstor.com/k8s/release/bin/linux/amd64/kubectl -O /usr/bin/kubectl
 wget http://k8s-qingcloud.pek3a.qingstor.com/k8s/release/bin/linux/amd64/kubeadm -O /usr/bin/kubeadm

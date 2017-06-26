@@ -144,7 +144,8 @@
             }
           }
         ],
-        "dnsPolicy": "Default"
+        "dnsPolicy": "Default",
+        "nodeSelector": {"role": "master"}
       }
     }
   }

@@ -18,7 +18,7 @@ ${K8S_HOME}/image/update-bin.sh
 
 ${K8S_HOME}/image/pull-images.sh
 
-if [ "${HOST_ROLE}" -eq "master" ]; then
+if [ "${HOST_ROLE}" = "master" ]; then
     ${K8S_HOME}/script/update-manifests.sh
 fi
 

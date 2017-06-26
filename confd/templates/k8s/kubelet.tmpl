@@ -30,4 +30,4 @@ KUBELET_DNS_ARGS="--cluster-dns=10.96.0.10 --cluster-domain={{getv "/env/cluster
 
 KUBE_CLOUD_PROVIDER="--cloud-provider=qingcloud --cloud-config=/etc/kubernetes/qingcloud.conf"
 
-KUBELET_EXTRA_ARGS="--node-labels role={{getv "/host/role"}}"
+KUBELET_EXTRA_ARGS="--node-labels role={{getv "/host/role"}} --max-pods 60"

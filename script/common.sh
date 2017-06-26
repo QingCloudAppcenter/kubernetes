@@ -75,3 +75,13 @@ function init_node(){
 
     touch ${NODE_INIT_LOCK}
 }
+
+function wait_kubelet(){
+    isactive=`systemctl is-active kubelet`
+    while [ "${isactive}" != "active" ]
+    do
+        echo "kubelet is ${isactive}, waiting 2 seconds to be active."
+        sleep 2
+        isactive=`systemctl is-active kubelet`
+    done
+}

@@ -8,3 +8,4 @@ source "${K8S_HOME}/script/common.sh"
 ensure_dir
 
 systemctl start kubelet
+wait_kubelet

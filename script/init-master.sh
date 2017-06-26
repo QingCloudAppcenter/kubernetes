@@ -15,3 +15,4 @@ update_k8s_manifests
 
 # start kubelet for node init join will connect to master.
 systemctl start kubelet
+wait_kubelet

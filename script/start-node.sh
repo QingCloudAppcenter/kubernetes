@@ -7,3 +7,4 @@ source "${K8S_HOME}/script/common.sh"
 
 init_node
 systemctl start kubelet
+wait_kubelet

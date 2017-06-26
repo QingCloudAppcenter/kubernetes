@@ -17,7 +17,6 @@ KUBELET_ADDRESS="--address=0.0.0.0"
 KUBELET_PORT="--port=10250"
 
 # You may leave this blank to use the actual hostname
-#KUBELET_HOSTNAME="--hostname-override=i-qk3mor8r"
 KUBELET_HOSTNAME="--node-ip={{getv "/host/ip"}}"
 
 KUBELET_NETWORK_ARGS="--network-plugin=cni --cni-conf-dir=/etc/cni/net.d --cni-bin-dir=/opt/cni/bin"
@@ -30,4 +29,4 @@ KUBELET_DNS_ARGS="--cluster-dns=10.96.0.10 --cluster-domain={{getv "/env/cluster
 
 KUBE_CLOUD_PROVIDER="--cloud-provider=qingcloud --cloud-config=/etc/kubernetes/qingcloud.conf"
 
-KUBELET_EXTRA_ARGS="--node-labels role={{getv "/host/role"}} --max-pods 60"
+KUBELET_EXTRA_ARGS="--node-labels role={{getv "/host/role"}} --max-pods 60 --feature-gates AllAlpha=true"

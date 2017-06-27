@@ -85,3 +85,11 @@ function wait_kubelet(){
         isactive=`systemctl is-active kubelet`
     done
 }
+
+function link_dynamic_dir(){
+    mkdir -p /data/var && mkdir /data/var/lib && mkdir /data/var/log
+    mv /var/lib/docker /data/var/lib/
+    ln -s /data/var/lib/docker /var/lib/docker
+    mkdir /data/var/log/containers && ln -s /data/var/log/containers /var/log/containers
+    mkdir /data/var/lib/kubelet && ln -s /data/var/lib/kubelet /var/lib/kubelet
+}

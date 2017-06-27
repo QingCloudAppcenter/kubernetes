@@ -5,6 +5,8 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 source "${K8S_HOME}/script/common.sh"
 
 ensure_dir
+link_dynamic_dir
+systemctl start docker
 
 init_token=$(get_or_gen_init_token)
 

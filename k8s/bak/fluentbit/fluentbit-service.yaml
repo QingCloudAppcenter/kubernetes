@@ -9,7 +9,6 @@ metadata:
     addonmanager.kubernetes.io/mode: Reconcile
     kubernetes.io/name: "Fluentbit"
 spec:
-  type: NodePort
   ports:
   - port: 24224
     protocol: TCP

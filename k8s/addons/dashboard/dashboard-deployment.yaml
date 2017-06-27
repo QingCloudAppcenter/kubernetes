@@ -16,8 +16,7 @@ spec:
       labels:
         k8s-app: kubernetes-dashboard
       annotations:
-        scheduler.alpha.kubernetes.io/critical-pod: ''
-        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"CriticalAddonsOnly", "operator":"Exists"}]'
+        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"master", "effect":"NoSchedule"}]'
     spec:
       containers:
       - name: kubernetes-dashboard

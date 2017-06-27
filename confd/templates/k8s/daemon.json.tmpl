@@ -1,0 +1,8 @@
+{
+    "live-restore": true,
+    "ipv6": false,
+    {{$registries := getv "/env/registries"}}
+    {{if ne $registries ""}}
+    "insecure-registries": ["{{ $registries }}"]
+    {{end}}
+}

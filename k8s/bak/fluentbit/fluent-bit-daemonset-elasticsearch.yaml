@@ -17,13 +17,14 @@ spec:
     spec:
       containers:
       - name: fluent-bit
-        image: dockerhub.qingcloud.com/fluent/fluent-bit-kubernetes-daemonset:0.11
+        image: fluent/fluent-bit-kubernetes-daemonset:0.11
+        ports:
+          - containerPort: 24224
         env:
           - name:  FLUENT_ELASTICSEARCH_HOST
             value: "elasticsearch-logging"
           - name:  FLUENT_ELASTICSEARCH_PORT
             value: "9200"
-        imagePullPolicy: Never
         resources:
           limits:
             memory: 100Mi
@@ -36,6 +37,10 @@ spec:
         - name: varlibdockercontainers
           mountPath: /var/lib/docker/containers
           readOnly: true
+        ports:
+        - containerPort: 24224
+          name: ui
+          protocol: TCP
       terminationGracePeriodSeconds: 10
       volumes:
       - name: varlog

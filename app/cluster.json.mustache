@@ -7,7 +7,7 @@
             "role": "master",
             "container": {
                 "type": "kvm",
-                "image": "img-9dq9ojj3",
+                "image": "img-gxcoibkv",
                 "zone": "pek3a"
             },
             "instance_class": {{cluster.master.instance_class}},
@@ -51,14 +51,13 @@
                 "unhealthy_threshold": 3,
                 "check_cmd": "/opt/kubernetes/script/check-master.sh",
                 "action_cmd": "/opt/kubernetes/script/restart-master.sh"
-            },
-            "user_access":true
+            }
         },
         {
                     "role": "node",
                     "container": {
                         "type": "kvm",
-                        "image": "img-9dq9ojj3",
+                        "image": "img-gxcoibkv",
                         "zone": "pek3a"
                     },
                     "instance_class": {{cluster.node.instance_class}},
@@ -73,6 +72,9 @@
                     },
                     "vertical_scaling_policy": "parallel",
                     "services": {
+                        "init": {
+                            "cmd": "/opt/kubernetes/script/init-node.sh"
+                        },
                          "start": {
                              "cmd": "/opt/kubernetes/script/start-node.sh"
                          },
@@ -97,8 +99,7 @@
                         "unhealthy_threshold": 3,
                         "check_cmd": "/opt/kubernetes/script/check-node.sh",
                         "action_cmd": "/opt/kubernetes/script/restart-node.sh"
-                    },
-                    "user_access":true
+                    }
            },
             {
                         "role": "client",
@@ -123,6 +124,7 @@
             "access_key_id": {{env.access_key_id}},
             "secret_access_key": {{env.secret_access_key}},
             "cluster_domain": {{env.cluster_domain}},
-            "api_external_domain": {{env.api_external_domain}}
+            "api_external_domain": {{env.api_external_domain}},
+            "insecure-registries": {{env.insecure-registries}}
         }
 }

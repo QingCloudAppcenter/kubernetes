@@ -260,6 +260,14 @@
           "type": "string",
           "default": "k8s.cluster.local",
           "required": "no"
+        },
+        {
+          "key": "insecure-registries",
+          "label": "Insecure registries",
+          "description": "The insecure docker registries",
+          "type": "string",
+          "default": "",
+          "required": "no"
         }
       ]
     }

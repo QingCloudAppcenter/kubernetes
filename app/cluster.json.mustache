@@ -51,7 +51,8 @@
                 "unhealthy_threshold": 3,
                 "check_cmd": "/opt/kubernetes/script/check-master.sh",
                 "action_cmd": "/opt/kubernetes/script/restart-master.sh"
-            }
+            },
+            "advanced_actions": ["scale_horizontal"]
         },
         {
                     "role": "node",
@@ -99,7 +100,8 @@
                         "unhealthy_threshold": 3,
                         "check_cmd": "/opt/kubernetes/script/check-node.sh",
                         "action_cmd": "/opt/kubernetes/script/restart-node.sh"
-                    }
+                    },
+                    "advanced_actions": ["scale_horizontal"]
            },
             {
                         "role": "client",

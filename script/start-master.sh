@@ -7,5 +7,8 @@ source "${K8S_HOME}/script/common.sh"
 
 ensure_dir
 
+systemctl start docker
 systemctl start kubelet
 wait_kubelet
+wait_apiserver
+uncordon_all

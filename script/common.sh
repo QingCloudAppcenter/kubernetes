@@ -54,7 +54,7 @@ function update_k8s_manifests(){
     done
 }
 
-function init_node(){
+function join_node(){
     ensure_dir
     if [ -f "${NODE_INIT_LOCK}" ]; then
         echo "node has bean inited."
@@ -83,6 +83,53 @@ function wait_kubelet(){
         echo "kubelet is ${isactive}, waiting 2 seconds to be active."
         sleep 2
         isactive=`systemctl is-active kubelet`
+    done
+}
+
+function wait_apiserver(){
+    while ! curl --output /dev/null --silent --fail http://localhost:8080/healthz;
+    do
+        echo "waiting k8s api server" && sleep 2
+    done;
+}
+
+function wait_system_pod(){
+    while [ "$(kubectl get pods -o custom-columns=STATUS:.status.phase --no-headers=true -n kube-system|uniq)" != "Running" ]
+    do
+        echo "wait all kube-system pods running, no ready pods: "
+        kubectl get pods --no-headers=true -n kube-system |grep -v Running
+        sleep 2
+    done
+}
+
+function train_master(){
+    kubectl taint nodes ${HOST_INSTANCE_ID} dedicated=master:NoSchedule
+}
+
+function cordon_all(){
+    for node in $(kubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
+    do
+        kubectl cordon $node
+    done
+}
+
+function uncordon_all(){
+    for node in $(kubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
+    do
+        kubectl uncordon $node
+    done
+}
+
+function clean_pod(){
+    for namespace in $(kubectl get namespaces --no-headers=true -o custom-columns=name:.metadata.name)
+    do
+        kubectl delete $(kubectl get pods --no-headers=true -o name -n ${namespace}) -n ${namespace}
+    done
+    while kubectl get pods --no-headers=true --all-namespaces |grep Terminating
+    do
+        echo "wait all pods terminating:"
+        kubectl get pods --no-headers=true --all-namespaces |grep Terminating
+        sleep 2
     done
 }
 

@@ -49,5 +49,3 @@ spec:
       - name: varlibdockercontainers
         hostPath:
           path: /var/lib/docker/containers
-      nodeSelector:
-        role: master

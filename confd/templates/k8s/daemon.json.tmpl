@@ -1,6 +1,6 @@
 {
     "live-restore": true,
-    {{$registries := getv "/env/nsecure-registries"}}
+    {{$registries := getv "/env/insecure-registries"}}
     {{if ne $registries ""}}
     "insecure-registries": ["{{ $insecure-registries }}"],
     {{end}}

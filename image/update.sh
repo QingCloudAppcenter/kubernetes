@@ -18,6 +18,8 @@ ${K8S_HOME}/image/update-bin.sh
 
 ${K8S_HOME}/image/update-cni.sh
 
+${K8S_HOME}/image/update-logrotate.sh
+
 ${K8S_HOME}/image/pull-images.sh
 
 if [ "${HOST_ROLE}" = "master" ]; then
@@ -25,4 +27,3 @@ if [ "${HOST_ROLE}" = "master" ]; then
 fi
 
 systemctl start kubelet
-

@@ -15,5 +15,8 @@ docker pull dockerhub.qingcloud.com/google_containers/kube-dnsmasq-amd64:1.3
 docker pull dockerhub.qingcloud.com/google_containers/exechealthz-amd64:1.1
 docker pull dockerhub.qingcloud.com/google_containers/kube-discovery-amd64:1.0
 docker pull dockerhub.qingcloud.com/google-containers/kube-addon-manager-amd64:v1.5.4.qingcloud
-docker pull dockerhub.qingcloud.com/coreos/flannel:v0.7.0-amd64
+#docker pull dockerhub.qingcloud.com/coreos/flannel:v0.7.0-amd64
 docker pull dockerhub.qingcloud.com/google_containers/kubernetes-dashboard-amd64:v1.5.0
+docker pull dockerhub.qingcloud.com/fluent/fluent-bit-kubernetes-daemonset:0.11
+docker pull dockerhub.qingcloud.com/google_containers/elasticsearch:v2.4.1-2
+docker pull dockerhub.qingcloud.com/google_containers/kibana:v4.6.1-1

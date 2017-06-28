@@ -48,3 +48,5 @@ spec:
       volumes:
       - name: es-persistent-storage
         emptyDir: {}
+      nodeSelector:
+        role: master

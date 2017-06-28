@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: fluent-bit
-        image: fluent/fluent-bit-kubernetes-daemonset:0.11
+        image: dockerhub.qingcloud.com/fluent/fluent-bit-kubernetes-daemonset:0.11
         ports:
           - containerPort: 24224
         env:
@@ -49,3 +49,5 @@ spec:
       - name: varlibdockercontainers
         hostPath:
           path: /var/lib/docker/containers
+      nodeSelector:
+        role: master

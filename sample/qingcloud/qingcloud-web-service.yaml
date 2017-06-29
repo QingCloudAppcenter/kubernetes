@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: qingcloud-web
   annotations:
-    service.beta.kubernetes.io/qingcloud-load-balancer-eip-ids: "eip-bto3b0gc"
+    service.beta.kubernetes.io/qingcloud-load-balancer-eip-ids: "eip-a1klhfqk"
     service.beta.kubernetes.io/qingcloud-load-balancer-type: "1"
 spec:
   ports:

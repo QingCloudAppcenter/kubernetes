@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: qingcloud-web
 spec:
-  replicas: 6
+  replicas: 1
   template:
       metadata:
         labels:
@@ -11,7 +11,8 @@ spec:
       spec:
         containers:
           - name: web
-            image: dockerhub.qingcloud.com/docker/nginx
+            image: dockerhub.qingcloud.com/qingcloud/dockerbox
+            command: [ "darkhttpd","/work --port=80" ]
             ports:
               - name: web
                 containerPort: 80

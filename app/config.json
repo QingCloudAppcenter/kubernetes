@@ -251,6 +251,7 @@
           "description": "The domain of the kubernetes cluster",
           "type": "string",
           "default": "cluster.local",
+          "changeable": false,
           "required": "yes"
         },
         {
@@ -259,6 +260,7 @@
           "description": "The domain of the kubernetes api server",
           "type": "string",
           "default": "k8s.cluster.local",
+          "changeable": false,
           "required": "no"
         },
         {
@@ -268,6 +270,15 @@
           "type": "string",
           "default": "",
           "required": "no"
+        },
+        {
+          "key": "pod_vxnets",
+          "label": "Pod vxnet",
+          "description": "The vxnet for kubernetes pod",
+          "type": "string",
+          "default": "",
+          "changeable": false,
+          "required": "yes"
         }
       ]
     }

@@ -5,7 +5,12 @@
     "provider": "qingcloud",
     "args": {
       "providerConfigFile":"/etc/qingcloud/client.yaml",
+      {{$pod_vxnets := getv "/env/pod_vxnets"}}
+      {{if eq $pod_vxnets ""}}
       "vxNets":["{{getv "/cluster/vxnet"}}"]
+      {{else}}
+      "vxNets":["{{getv "/env/pod_vxnets"}}"]
+      {{end}}
     },
     "ipam":{
       "routes":[{"dst":"10.96.0.0/16","gw":"0.0.0.0"}]

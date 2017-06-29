@@ -1,6 +1,5 @@
-#!/bin/bash
+#!/bin/sh
 
-set -m
 CONFIG_FILE="/config/config.toml"
 INFLUX_HOST="localhost"
 INFLUX_API_PORT="8086"
@@ -140,4 +139,4 @@ else
     echo "=> No database need to be pre-created"
 fi
 
-fg
+wait

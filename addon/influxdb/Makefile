@@ -19,7 +19,7 @@
 
 all: build
 
-VERSION?=v1.1.1
+VERSION?=v1.3.0
 PREFIX?=dockerhub.qingcloud.com/google_containers
 ARCH?=amd64
 

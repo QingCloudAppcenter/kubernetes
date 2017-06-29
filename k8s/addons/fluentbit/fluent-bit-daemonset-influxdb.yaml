@@ -40,6 +40,10 @@ spec:
         - name: varlibdockercontainers
           mountPath: /var/lib/docker/containers
           readOnly: true
+        ports: 
+        - containerPort: 24224
+          name: ui
+          protocol: TCP
       terminationGracePeriodSeconds: 10
       volumes:
       - name: varlog

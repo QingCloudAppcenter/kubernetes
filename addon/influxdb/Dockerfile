@@ -6,8 +6,8 @@ ENV INFLUXDB_VERSION 1.3.0
 ADD config.toml /config/config.toml
 ADD run.sh /bin/run.sh
 RUN chmod +x /bin/*.sh ;\
-    apk add --no-cache --virtual .build-deps sed ; \
-    apk del .build-deps
+    apk update; \
+    apk add sed bash curl; 
 
 ENV PRE_CREATE_DB **None**
 ENV SSL_SUPPORT **False**

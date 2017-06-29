@@ -1,5 +1,4 @@
-#!/bin/sh
-
+  #!/bin/bash
 CONFIG_FILE="/config/config.toml"
 INFLUX_HOST="localhost"
 INFLUX_API_PORT="8086"
@@ -95,7 +94,7 @@ if [ -n "${JOIN}" ]; then
 else
   exec influxd -config=${CONFIG_FILE} &
 fi
-
+pid=$!
 # Pre create database on the initiation of the container
 if [ -n "${PRE_CREATE_DB}" ]; then
     echo "=> About to create the following database: ${PRE_CREATE_DB}"
@@ -106,7 +105,7 @@ if [ -n "${PRE_CREATE_DB}" ]; then
 
         #wait for the startup of influxdb
         RET=1
-        while [[ RET -ne 0 ]]; do
+        while [[ $RET -ne 0 ]]; do
             echo "=> Waiting for confirmation of InfluxDB service startup ..."
             sleep 3
             curl -k ${API_URL}/ping 2> /dev/null
@@ -139,4 +138,4 @@ else
     echo "=> No database need to be pre-created"
 fi
 
-wait
+wait $pid

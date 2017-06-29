@@ -1,9 +1,7 @@
-FROM BASEIMAGE
-
-COPY influxd /usr/bin/
+FROM influxdb:1.3.0-alpine
 
 # Install InfluxDB
-ENV INFLUXDB_VERSION 1.1.1
+ENV INFLUXDB_VERSION 1.3.0
 
 ADD config.toml /config/config.toml
 ADD run.sh /run.sh

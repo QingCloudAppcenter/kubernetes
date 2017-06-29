@@ -3,22 +3,12 @@ kind: Deployment
 metadata:
   name: dockerbox
 spec:
-  replicas: 3
+  replicas: 1
   template:
       metadata:
         labels:
           app: dockerbox
       spec:
-        affinity:
-          podAntiAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-              - labelSelector:
-                  matchExpressions:
-                  - key: app
-                    operator: In
-                    values:
-                    - dockerbox
-                topologyKey: kubernetes.io/hostname
         containers:
           - name: dockerbox
             image: dockerhub.qingcloud.com/qingcloud/dockerbox

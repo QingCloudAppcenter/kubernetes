@@ -9,7 +9,7 @@
       {{if eq $pod_vxnets ""}}
       "vxNets":["{{getv "/cluster/vxnet"}}"]
       {{else}}
-      "vxNets":["{{getv "/env/pod_vxnets"}}"]
+      "vxNets":{{split $pod_vxnets " "|toJson}}
       {{end}}
     },
     "ipam":{

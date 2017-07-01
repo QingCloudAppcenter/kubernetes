@@ -7,6 +7,12 @@ source "${K8S_HOME}/version"
 
 NODE_INIT_LOCK="/data/kubernetes/init.lock"
 
+function mykubectl(){
+    kubectl --kubeconfig='/etc/kubernetes/kubelet.conf' $*
+}
+
+alias kubectl=mykubectl
+
 function ensure_dir(){
     mkdir -p /var/lib/kubelet
     mkdir -p /data/kubernetes
@@ -131,6 +137,10 @@ function clean_pod(){
         kubectl get pods --no-headers=true --all-namespaces |grep Terminating
         sleep 2
     done
+}
+
+function drain_node(){
+    kubectl drain --ignore-daemonsets=true $1
 }
 
 function link_dynamic_dir(){

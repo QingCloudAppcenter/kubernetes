@@ -21,7 +21,6 @@ spec:
         version: v1.4.0
       annotations:
         scheduler.alpha.kubernetes.io/critical-pod: ''
-        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"master", "effect":"NoSchedule"}]'
     spec:
       containers:
         - image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.0

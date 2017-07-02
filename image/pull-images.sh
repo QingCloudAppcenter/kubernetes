@@ -19,4 +19,4 @@ docker pull dockerhub.qingcloud.com/google-containers/kube-addon-manager-amd64:v
 docker pull dockerhub.qingcloud.com/google_containers/kubernetes-dashboard-amd64:v1.5.0
 docker pull dockerhub.qingcloud.com/fluent/fluent-bit-kubernetes-daemonset:0.11
 docker pull dockerhub.qingcloud.com/google_containers/elasticsearch:v2.4.1-2
-docker pull dockerhub.qingcloud.com/google_containers/kibana:v4.6.1-1
+docker pull dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.0

@@ -1,0 +1,57 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: helloworld
+spec:
+  replicas: 2
+  template:
+      metadata:
+        labels:
+          app: helloworld
+      spec:
+        containers:
+          - name: web
+            image: dockerhub.qingcloud.com/qingcloud/dockerbox
+            command: [ "darkhttpd","/work --port=80" ]
+            ports:
+              - name: web
+                containerPort: 80
+                protocol: TCP
+            volumeMounts:
+              - name: html-volume
+                mountPath: "/work"
+        volumes:
+           - name: html-volume
+             emptyDir: {}
+        imagePullSecrets:
+                    - name: qingcloud-registrykey
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloworld
+  annotations:
+    service.beta.kubernetes.io/qingcloud-load-balancer-eip-ids: "eip-pnvcczqp"
+    service.beta.kubernetes.io/qingcloud-load-balancer-type: "0"
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: helloworld
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloworld-internal
+  annotations:
+    service.beta.kubernetes.io/qingcloud-load-balancer-vxnet-id: "vxnet-3i39nue"
+    service.beta.kubernetes.io/qingcloud-load-balancer-type: "0"
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: helloworld
+  type: LoadBalancer

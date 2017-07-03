@@ -5,7 +5,7 @@ metadata:
   labels:
       addonmanager.kubernetes.io/mode: EnsureExists
   annotations:
-      storageclass.kubernetes.io/is-default-class: false
+      storageclass.beta.kubernetes.io/is-default-class: "false"
 provisioner: kubernetes.io/qingcloud-volume
 parameters:
   type: "2"

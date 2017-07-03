@@ -22,6 +22,7 @@ spec:
       annotations:
         scheduler.alpha.kubernetes.io/critical-pod: ''
     spec:
+      serviceAccount: "heapster"
       containers:
         - image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.0
           imagePullPolicy: Never
@@ -35,7 +36,7 @@ spec:
             timeoutSeconds: 5
           command:
             - /heapster
-            - --source=kubernetes.summary_api:''
+            - "--source=kubernetes:https://kubernetes.default.svc?useServiceAccount=true&kubeletPort=10250"
             - --sink=elasticsearch:http://elasticsearch-logging:9200
           volumeMounts:
             - name: ssl-certs
@@ -49,7 +50,7 @@ spec:
           name: eventer
           command:
             - /eventer
-            - --source=kubernetes:''
+            - "--source=kubernetes:https://kubernetes.default.svc?useServiceAccount=true&kubeletPort=10250"
             - --sink=elasticsearch:http://elasticsearch-logging:9200
           volumeMounts:
             - name: ssl-certs

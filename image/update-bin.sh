@@ -29,3 +29,5 @@ download_k8s_bin
 
 wget -c https://pek3a.qingstor.com/k8s-qingcloud/k8s/tool/nicleaner -O /usr/bin/nicleaner
 chmod +x /usr/bin/nicleaner
+
+pip install qingcloud-cli

@@ -1,11 +1,11 @@
 kind: StorageClass
 apiVersion: storage.k8s.io/v1beta1
 metadata:
-  name: qingcloud-storageclass
+  name: qingcloud-storageclass-capacity
   labels:
       addonmanager.kubernetes.io/mode: EnsureExists
   annotations:
-      storageclass.kubernetes.io/is-default-class: true
+      storageclass.kubernetes.io/is-default-class: false
 provisioner: kubernetes.io/qingcloud-volume
 parameters:
-  type: "${VOLUME_TYPE}"
+  type: "2"

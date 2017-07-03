@@ -58,6 +58,16 @@ function update_k8s_manifests(){
             replace_vars ${f} /data/kubernetes/addons/${addon_name}/${name}
         done
     done
+    # update storage-class parameter according to the instance_class
+    #TODO
+    instance_class=$(qingcloud iaas describe-instances -i ${HOST_INSTANCE_ID} -f /etc/qingcloud/client.yaml |jq ".instance_set[0].instance_class")
+    if [ ${instance_class} -eq 1 ]
+    then
+        VOLUME_TYPE=3
+    else
+        VOLUME_TYPE=1
+    fi
+    sed -i 's/${VOLUME_TYPE}/'"${VOLUME_TYPE}"'/g' /data/kubernetes/addons/qingcloud/qingcloud-storage-class.yaml
 }
 
 function join_node(){

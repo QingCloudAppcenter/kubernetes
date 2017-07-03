@@ -141,7 +141,7 @@
               "description": "Number of nodes for the cluster to create",
               "type": "integer",
               "default": 2,
-              "min":2,
+              "min":1,
               "max":1000,
               "required": "yes"
             },
@@ -266,15 +266,15 @@
         {
           "key": "insecure-registries",
           "label": "Insecure registries",
-          "description": "The insecure docker registries",
+          "description": "The insecure docker registries, use a blank to split multi registry",
           "type": "string",
           "default": "",
           "required": "no"
         },
         {
           "key": "pod_vxnets",
-          "label": "Pod vxnet",
-          "description": "The vxnet for kubernetes pod",
+          "label": "Pod vxnets",
+          "description": "The vxnets for kubernetes pod, use a blank to split multi vxnet",
           "type": "string",
           "default": "",
           "changeable": false,

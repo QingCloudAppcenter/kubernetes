@@ -65,7 +65,7 @@ function update_k8s_manifests(){
     then
         VOLUME_TYPE=3
     else
-        VOLUME_TYPE=1
+        VOLUME_TYPE=0
     fi
     sed -i 's/${VOLUME_TYPE}/'"${VOLUME_TYPE}"'/g' /data/kubernetes/addons/qingcloud/qingcloud-storage-class.yaml
 }

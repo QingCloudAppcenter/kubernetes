@@ -24,4 +24,4 @@ spec:
            - name: html-volume
              emptyDir: {}
         imagePullSecrets:
-                    - name: myregistrykey
+                    - name: qingcloud-registrykey

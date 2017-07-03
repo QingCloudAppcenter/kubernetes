@@ -141,6 +141,7 @@ function clean_pod(){
 
 function drain_node(){
     kubectl drain --ignore-daemonsets=true $1
+    return $?
 }
 
 function link_dynamic_dir(){

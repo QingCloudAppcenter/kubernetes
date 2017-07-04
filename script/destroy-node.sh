@@ -6,7 +6,7 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 source "${K8S_HOME}/script/common.sh"
 
 # if current host present in scala_in.info, mean destroy node, not destroy cluster.
-if grep ${HOST_INSTANCE_ID} "/etc/kubernetes/scala_in.info"
+if grep ${HOST_INSTANCE_ID} "/etc/kubernetes/scale_in.info"
 then
     drain_node ${HOST_INSTANCE_ID}
     if [ $? -eq 1 ];

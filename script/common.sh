@@ -148,7 +148,7 @@ function clean_pod(){
 }
 
 function drain_node(){
-    mykubectl drain --ignore-daemonsets=true $1
+    mykubectl drain --delete-local-data=true --ignore-daemonsets=true $1
     return $?
 }
 

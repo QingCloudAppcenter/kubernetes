@@ -24,5 +24,8 @@
   "Number of nodes for the cluster to create":"要创建的从节点数量",
   "Choose a vxnet to join":"选择要加入的私网",
   "The domain of the kubernetes cluster":"kubernetes集群的域名",
-  "The domain of the kubernetes api server":"kubernetes API服务域名"
+  "The domain of the kubernetes api server":"kubernetes API服务域名",
+  "client": "跳板机",
+  "The vxnets for kubernetes pod, use a blank to split multi vxnet":"kubernetes的pod所在的私有网络，使用空格分割多个私有网络id",
+  "update": "更新"
 }

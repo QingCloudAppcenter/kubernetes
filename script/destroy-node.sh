@@ -15,7 +15,7 @@ then
         exit 1
     fi
 fi
-kubetl delete node/${HOST_INSTANCE_ID}
+kubectl delete node/${HOST_INSTANCE_ID}
 echo "cleaner hostnic gateway nic"
 niccleaner
 

@@ -58,8 +58,8 @@ function update_k8s_manifests(){
     done
     # update storage-class parameter according to the instance_class
     #TODO
-    instance_class=$(qingcloud iaas describe-instances -i ${HOST_INSTANCE_ID} -f /etc/qingcloud/client.yaml |jq ".instance_set[0].instance_class")
-    if [ ${instance_class} -eq 1 ]
+    instance_class=$(/usr/local/bin/qingcloud iaas describe-instances -i ${HOST_INSTANCE_ID} -f /etc/qingcloud/client_cli.yaml |jq ".instance_set[0].instance_class")
+    if [ "${instance_class}" == "1" ]
     then
         VOLUME_TYPE=3
     else

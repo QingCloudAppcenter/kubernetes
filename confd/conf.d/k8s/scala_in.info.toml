@@ -1,6 +1,0 @@
-[template]
-src = "k8s/scala_in.info.tmpl"
-dest = "/data/kubernetes/scala_in.info"
-keys = [
-    "/",
-]

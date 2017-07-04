@@ -34,7 +34,7 @@ spec:
         - name: www
           mountPath: /usr/share/nginx/html
       imagePullSecrets:
-        - name: myregistrykey
+        - name: qingcloud-registrykey
   volumeClaimTemplates:
   - metadata:
       name: www

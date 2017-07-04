@@ -11,8 +11,6 @@ function mykubectl(){
     kubectl --kubeconfig='/etc/kubernetes/kubelet.conf' $*
 }
 
-alias kubectl=mykubectl
-
 function ensure_dir(){
     mkdir -p /var/lib/kubelet
     mkdir -p /data/kubernetes
@@ -58,6 +56,16 @@ function update_k8s_manifests(){
             replace_vars ${f} /data/kubernetes/addons/${addon_name}/${name}
         done
     done
+    # update storage-class parameter according to the instance_class
+    #TODO
+    instance_class=$(qingcloud iaas describe-instances -i ${HOST_INSTANCE_ID} -f /etc/qingcloud/client.yaml |jq ".instance_set[0].instance_class")
+    if [ ${instance_class} -eq 1 ]
+    then
+        VOLUME_TYPE=3
+    else
+        VOLUME_TYPE=0
+    fi
+    sed -i 's/${VOLUME_TYPE}/'"${VOLUME_TYPE}"'/g' /data/kubernetes/addons/qingcloud/qingcloud-storage-class.yaml
 }
 
 function join_node(){
@@ -100,22 +108,22 @@ function wait_apiserver(){
 }
 
 function wait_system_pod(){
-    while [ "$(kubectl get pods -o custom-columns=STATUS:.status.phase --no-headers=true -n kube-system|uniq)" != "Running" ]
+    while [ "$(mykubectl get pods -o custom-columns=STATUS:.status.phase --no-headers=true -n kube-system|uniq)" != "Running" ]
     do
         echo "wait all kube-system pods running, no ready pods: "
-        kubectl get pods --no-headers=true -n kube-system |grep -v Running
+        mykubectl get pods --no-headers=true -n kube-system |grep -v Running
         sleep 2
     done
 }
 
 function train_master(){
-    kubectl taint nodes ${HOST_INSTANCE_ID} dedicated=master:NoSchedule
+    mykubectl taint nodes ${HOST_INSTANCE_ID} dedicated=master:NoSchedule
 }
 
 function cordon_all(){
     for node in $(kubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
     do
-        kubectl cordon $node
+        mykubectl cordon $node
     done
 }
 
@@ -127,20 +135,20 @@ function uncordon_all(){
 }
 
 function clean_pod(){
-    for namespace in $(kubectl get namespaces --no-headers=true -o custom-columns=name:.metadata.name)
+    for namespace in $(mykubectl get namespaces --no-headers=true -o custom-columns=name:.metadata.name)
     do
-        kubectl delete $(kubectl get pods --no-headers=true -o name -n ${namespace}) -n ${namespace}
+        mykubectl delete $(mykubectl get pods --no-headers=true -o name -n ${namespace}) -n ${namespace}
     done
-    while kubectl get pods --no-headers=true --all-namespaces |grep Terminating
+    while mykubectl get pods --no-headers=true --all-namespaces |grep Terminating
     do
         echo "wait all pods terminating:"
-        kubectl get pods --no-headers=true --all-namespaces |grep Terminating
+        mykubectl get pods --no-headers=true --all-namespaces |grep Terminating
         sleep 2
     done
 }
 
 function drain_node(){
-    kubectl drain --ignore-daemonsets=true $1
+    mykubectl drain --delete-local-data=true --ignore-daemonsets=true $1
     return $?
 }
 

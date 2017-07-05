@@ -9,7 +9,7 @@ metadata:
     kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: EnsureExists
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     k8s-app: elasticsearch-logging
     version: v1
@@ -19,6 +19,8 @@ spec:
         k8s-app: elasticsearch-logging
         version: v1
         kubernetes.io/cluster-service: "true"
+      annotations:
+        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"master", "effect":"NoSchedule"}]'
     spec:
       containers:
       - image: dockerhub.qingcloud.com/google_containers/elasticsearch:v2.4.1-2

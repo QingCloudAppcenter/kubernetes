@@ -47,6 +47,8 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
+        - name: "MINIMUM_MASTER_NODES"
+          value: 1
       volumes:
       - name: es-persistent-storage
         hostPath:

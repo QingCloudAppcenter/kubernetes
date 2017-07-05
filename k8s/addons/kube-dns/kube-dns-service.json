@@ -9,7 +9,7 @@
       "kubernetes.io/cluster-service": "true",
       "name": "kube-dns",
       "tier": "node",
-      "addonmanager.kubernetes.io/mode": "Reconcile"
+      "addonmanager.kubernetes.io/mode": "EnsureExists"
     }
   },
   "spec": {

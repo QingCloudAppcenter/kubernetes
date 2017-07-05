@@ -4,7 +4,7 @@
   "metadata": {
     "name": "kube-proxy",
     "labels":{
-      "addonmanager.kubernetes.io/mode": "Reconcile"
+      "addonmanager.kubernetes.io/mode": "EnsureExists"
     }
   },
   "spec": {

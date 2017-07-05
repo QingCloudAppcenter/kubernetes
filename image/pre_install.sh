@@ -26,5 +26,5 @@ EOF
 
 sysctl -p
 
-apt install -y python-pip
+apt install -y python-pip jq
 pip install qingcloud-cli

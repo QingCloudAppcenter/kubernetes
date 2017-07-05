@@ -40,12 +40,11 @@ function replace_vars(){
 
 function update_k8s_manifests(){
     echo "echo update k8s manifests"
-    mkdir -p /data/kubernetes
     mkdir /data/kubernetes/manifests/ || rm -rf /data/kubernetes/manifests/*
     mkdir /data/kubernetes/addons/ || rm -rf /data/kubernetes/addons/*
 
     for f in ${K8S_HOME}/k8s/manifests/*; do
-        name=$(basename $f)
+        name=$(basename ${f})
         replace_vars ${f} /data/kubernetes/manifests/${name}
     done
 
@@ -53,7 +52,7 @@ function update_k8s_manifests(){
         addon_name=$(basename $addon)
         mkdir /data/kubernetes/addons/${addon_name}
         for f in ${addon}/*; do
-            name=$(basename $f)
+            name=$(basename ${f})
             replace_vars ${f} /data/kubernetes/addons/${addon_name}/${name}
         done
     done
@@ -131,14 +130,29 @@ function cordon_all(){
 function uncordon_all(){
     for node in $(kubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
     do
-        kubectl uncordon $node
+        mykubectl uncordon $node
     done
 }
 
+function clean_addons(){
+    echo "stop addons-manager" && rm /data/kubernetes/manifests/kube-addon-manager.yam && mykubectl delete "pods/kube-addon-manager-${MASTER_INSTANCE_ID}" -n kube-system
+    mykubectl delete --force --grace-period=120 -R -f /data/kubernetes/addons/
+    echo "clean addons" && rm -rf /data/kubernetes/addons
+}
+
+function clean_static_pod(){
+    echo "clean static pod" && rm -rf /data/kubernetes/manifests
+    sleep 2
+}
+
 function clean_pod(){
+    clean_addons
     for namespace in $(mykubectl get namespaces --no-headers=true -o custom-columns=name:.metadata.name)
     do
-        mykubectl delete $(mykubectl get pods --no-headers=true -o name -n ${namespace}) -n ${namespace}
+        if [ "${namespace}" != "kube-system" ]
+        then
+            mykubectl delete --force --grace-period=120 --all pods -n ${namespace}
+        fi
     done
     while mykubectl get pods --no-headers=true --all-namespaces |grep Terminating
     do
@@ -146,6 +160,7 @@ function clean_pod(){
         mykubectl get pods --no-headers=true --all-namespaces |grep Terminating
         sleep 2
     done
+    clean_static_pod
 }
 
 function drain_node(){
@@ -158,4 +173,15 @@ function link_dynamic_dir(){
     mv /var/lib/docker /data/var/lib/
     ln -s /data/var/lib/docker /var/lib/docker
     mkdir /data/var/lib/kubelet && ln -s /data/var/lib/kubelet /var/lib/kubelet
+}
+
+function docker_stop_rm_all () {
+    for i in `docker ps -q`
+    do
+        docker stop $i;
+    done
+    for i in `docker ps -aq`
+    do
+        docker rm $i;
+    done
 }

@@ -8,4 +8,5 @@ cordon_all
 clean_pod
 
 systemctl stop kubelet
+docker_stop_rm_all
 systemctl stop docker

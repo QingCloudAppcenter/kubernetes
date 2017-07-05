@@ -4,7 +4,7 @@
   "metadata": {
     "name": "kube-dns",
     "labels":{
-      "addonmanager.kubernetes.io/mode": "Reconcile"
+      "addonmanager.kubernetes.io/mode": "EnsureExists"
     }
   },
   "spec": {

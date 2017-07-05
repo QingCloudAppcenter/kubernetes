@@ -36,7 +36,7 @@ spec:
             timeoutSeconds: 5
           command:
             - /heapster
-            - "--source=kubernetes:https://kubernetes.default.svc?useServiceAccount=true&kubeletPort=10250"
+            - "--source=kubernetes:https://kubernetes.default.svc?insecure=true&kubeletHttps=true&useServiceAccount=true&kubeletPort=10250"
             - --sink=elasticsearch:http://elasticsearch-logging:9200
           volumeMounts:
             - name: ssl-certs
@@ -50,7 +50,7 @@ spec:
           name: eventer
           command:
             - /eventer
-            - "--source=kubernetes:https://kubernetes.default.svc?useServiceAccount=true&kubeletPort=10250"
+            - "--source=kubernetes:https://kubernetes.default.svc?insecure=true&kubeletHttps=true&useServiceAccount=true&kubeletPort=10250"
             - --sink=elasticsearch:http://elasticsearch-logging:9200
           volumeMounts:
             - name: ssl-certs

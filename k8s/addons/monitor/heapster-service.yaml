@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  namespace: kube-system
   name: heapster
 ---
 kind: Service

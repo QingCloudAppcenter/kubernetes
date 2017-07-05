@@ -14,6 +14,7 @@ function mykubectl(){
 function ensure_dir(){
     mkdir -p /var/lib/kubelet
     mkdir -p /data/kubernetes
+    mkdir -p /data/es
     if [ ! -L /etc/kubernetes ]; then
       ln -s /data/kubernetes /etc/kubernetes
     fi

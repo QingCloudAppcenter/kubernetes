@@ -49,4 +49,5 @@ spec:
               fieldPath: metadata.namespace
       volumes:
       - name: es-persistent-storage
-        emptyDir: {}
+        hostPath:
+          path: /data/es

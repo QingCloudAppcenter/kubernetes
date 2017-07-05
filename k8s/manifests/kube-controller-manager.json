@@ -51,6 +51,8 @@
           "--insecure-experimental-approve-all-kubelet-csrs-for-group=system:kubelet-bootstrap",
           "--allocate-node-cidrs=false",
           "--service-cluster-ip-range=10.96.0.0/16",
+          "--feature-gates",
+          "AllAlpha=true",
           "--cloud-provider=qingcloud",
           "--cloud-config=/etc/kubernetes/qingcloud.conf"
         ],

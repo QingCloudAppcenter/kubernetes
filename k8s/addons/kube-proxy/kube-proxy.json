@@ -58,8 +58,8 @@
               "proxy",
               "--v=5",
               "--masquerade-all",
-              "--cleanup-iptables",
-              "--feature-gates AllAlpha=true",
+              "--feature-gates",
+              "AllAlpha=true",
               "--kubeconfig=/run/kubeconfig"
             ],
             "resources": {},

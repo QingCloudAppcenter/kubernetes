@@ -7,3 +7,4 @@ source "${K8S_HOME}/script/common.sh"
 systemctl stop kubelet
 docker_stop_rm_all
 systemctl stop docker
+flush_iptables

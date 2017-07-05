@@ -180,3 +180,8 @@ function docker_stop_rm_all () {
         docker rm $i;
     done
 }
+
+function flush_iptables(){
+    iptables --flush -t nat
+    iptables --flush
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-apt-get install -y git
+apt-get install -y git wget jq
 
 cd /tmp
 wget https://pek3a.qingstor.com/appcenter/developer/packages/app-agent-linux-amd64.tar.gz
@@ -25,6 +25,3 @@ net.ipv4.conf.all.rp_filter = 2
 EOF
 
 sysctl -p
-
-apt install -y python-pip jq
-pip install qingcloud-cli

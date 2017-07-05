@@ -1,6 +1,0 @@
-[template]
-src = "k8s/client_cli.yaml.tmpl"
-dest = "/etc/qingcloud/client_cli.yaml"
-keys = [
-    "/",
-]

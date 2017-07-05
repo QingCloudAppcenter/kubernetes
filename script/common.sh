@@ -56,16 +56,6 @@ function update_k8s_manifests(){
             replace_vars ${f} /data/kubernetes/addons/${addon_name}/${name}
         done
     done
-    # update storage-class parameter according to the instance_class
-    #TODO
-    instance_class=$(/usr/local/bin/qingcloud iaas describe-instances -i ${HOST_INSTANCE_ID} -f /etc/qingcloud/client_cli.yaml |jq ".instance_set[0].instance_class")
-    if [ "${instance_class}" == "1" ]
-    then
-        VOLUME_TYPE=3
-    else
-        VOLUME_TYPE=0
-    fi
-    sed -i 's/${VOLUME_TYPE}/'"${VOLUME_TYPE}"'/g' /data/kubernetes/addons/qingcloud/qingcloud-storage-class.yaml
 }
 
 function join_node(){
@@ -117,7 +107,7 @@ function wait_system_pod(){
 }
 
 function train_master(){
-    mykubectl taint nodes ${HOST_INSTANCE_ID} dedicated=master:NoSchedule
+    mykubectl taint nodes ${MASTER_INSTANCE_ID} --overwrite dedicated=master:NoSchedule
 }
 
 function cordon_all(){

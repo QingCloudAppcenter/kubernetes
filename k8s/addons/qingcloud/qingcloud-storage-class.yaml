@@ -7,5 +7,3 @@ metadata:
   annotations:
       storageclass.beta.kubernetes.io/is-default-class: "true"
 provisioner: kubernetes.io/qingcloud-volume
-parameters:
-  type: "${VOLUME_TYPE}"

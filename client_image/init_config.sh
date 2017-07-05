@@ -12,5 +12,5 @@ do
 done
 
 echo "master ip: ${MASTER_IP} init_token: ${init_token}"
-
+kubectl completion bash >>/etc/profile
 kubeadm client-config ${MASTER_IP} --token ${init_token} --skip-preflight-checks

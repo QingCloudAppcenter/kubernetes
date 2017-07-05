@@ -3,6 +3,8 @@ kind: ServiceAccount
 metadata:
   namespace: kube-system
   name: heapster
+  labels:
+    addonmanager.kubernetes.io/mode: EnsureExists
 ---
 kind: Service
 apiVersion: v1

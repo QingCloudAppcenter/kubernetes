@@ -134,7 +134,7 @@ function uncordon_all(){
 }
 
 function clean_addons(){
-    echo "stop addons-manager" && rm /data/kubernetes/manifests/kube-addon-manager.yam && mykubectl delete "pods/kube-addon-manager-${MASTER_INSTANCE_ID}" -n kube-system
+    echo "stop addons-manager" && rm /data/kubernetes/manifests/kube-addon-manager.yaml && mykubectl delete "pods/kube-addon-manager-${MASTER_INSTANCE_ID}" -n kube-system
     mykubectl delete --force --grace-period=120 -R -f /data/kubernetes/addons/
     echo "clean addons" && rm -rf /data/kubernetes/addons
 }

@@ -136,7 +136,7 @@ function clean_static_pod(){
     do
         echo "wait all containers to be rm:"
         docker ps -a
-        sleep 2
+        sleep 10
     done
 }
 
@@ -153,7 +153,7 @@ function clean_pod(){
     do
         echo "wait all pods terminating:"
         mykubectl get pods --no-headers=true --all-namespaces |grep Terminating
-        sleep 2
+        sleep 5
     done
     clean_static_pod
 }

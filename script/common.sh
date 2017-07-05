@@ -132,7 +132,12 @@ function clean_addons(){
 
 function clean_static_pod(){
     echo "clean static pod" && rm -rf /data/kubernetes/manifests
-    sleep 2
+    while [ "$(docker ps -aq)" != "" ]
+    do
+        echo "wait all containers to be rm:"
+        docker ps -a
+        sleep 2
+    done
 }
 
 function clean_pod(){

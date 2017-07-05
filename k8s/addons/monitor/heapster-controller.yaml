@@ -20,7 +20,7 @@ spec:
         k8s-app: heapster
         version: v1.4.0
       annotations:
-        scheduler.alpha.kubernetes.io/critical-pod: ''
+        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"master", "effect":"NoSchedule"}]'
     spec:
       serviceAccount: "heapster"
       containers:
@@ -126,3 +126,5 @@ spec:
         - name: usr-ca-certs
           hostPath:
             path: "/usr/share/ca-certificates"
+      nodeSelector:
+              role: master

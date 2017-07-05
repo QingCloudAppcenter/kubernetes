@@ -13,6 +13,5 @@ systemctl start docker
 systemctl start kubelet
 wait_kubelet
 wait_apiserver
-wait_system_pod
 train_master
 uncordon_all

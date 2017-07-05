@@ -49,8 +49,7 @@
           "--cluster-signing-cert-file=/etc/kubernetes/pki/ca.pem",
           "--cluster-signing-key-file=/etc/kubernetes/pki/ca-key.pem",
           "--insecure-experimental-approve-all-kubelet-csrs-for-group=system:kubelet-bootstrap",
-          "--allocate-node-cidrs=true",
-          "--cluster-cidr=10.244.0.0/16",
+          "--allocate-node-cidrs=false",
           "--service-cluster-ip-range=10.96.0.0/16",
           "--cloud-provider=qingcloud",
           "--cloud-config=/etc/kubernetes/qingcloud.conf"

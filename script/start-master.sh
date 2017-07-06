@@ -15,5 +15,4 @@ wait_kubelet
 wait_apiserver
 train_master
 mykubectl uncordon ${MASTER_INSTANCE_ID}
-wait_system_pod
 uncordon_all

@@ -14,7 +14,6 @@ then
         echo "drain node fail."
         exit 1
     fi
-    mykubectl delete node/${HOST_INSTANCE_ID}
 fi
 echo "cleaner hostnic gateway nic"
 niccleaner

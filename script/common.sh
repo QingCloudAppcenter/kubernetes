@@ -117,6 +117,11 @@ function cordon_all(){
     done
 }
 
+function cordon_node(){
+    mykubectl cordon $1
+    return $?
+}
+
 function uncordon_all(){
     for node in $(kubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
     do

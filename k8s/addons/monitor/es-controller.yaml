@@ -23,7 +23,7 @@ spec:
         scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"master", "effect":"NoSchedule"}]'
     spec:
       containers:
-      - image: dockerhub.qingcloud.com/google_containers/elasticsearch:v2.4.1-2
+      - image: dockerhub.qingcloud.com/google_containers/elasticsearch:v2.4.1-qingcloud
         imagePullPolicy: Never
         name: elasticsearch-logging
         resources:

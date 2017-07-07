@@ -21,5 +21,5 @@ docker pull dockerhub.qingcloud.com/fluent/fluent-bit-kubernetes-daemonset:0.11
 docker pull dockerhub.qingcloud.com/google_containers/elasticsearch:v2.4.1-2
 docker pull dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.0
 docker pull dockerhub.qingcloud.com/google_containers/addon-resizer:1.7
-docker pull dockerhub.qingcloud.com/google_containers/kibana:v4.6.1-1
+docker pull dockerhub.qingcloud.com/google_containers/kibana:v5.4.0
 docker pull dockerhub.qingcloud.com/google_containers/elasticsearch:v2.4.1-qingcloud

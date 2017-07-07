@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: kibana-logging
-        image: dockerhub.qingcloud.com/google_containers/kibana:v4.6.1-1
+        image: dockerhub.qingcloud.com/google_containers/kibana:v5.4.0
         imagePullPolicy: Never
         resources:
           # keep request = limit to keep this container in guaranteed class

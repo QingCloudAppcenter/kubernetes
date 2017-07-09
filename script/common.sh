@@ -192,7 +192,7 @@ function flush_iptables(){
 }
 
 function wait_qingcloudvolume_detach(){
-    while ! df |grep "qingcloud-volume" > /dev/null;
+    while df |grep "qingcloud-volume" > /dev/null;
     do
         echo "waiting qingcloud-volume detach" && df |grep "qingcloud-volume" && sleep 2
     done

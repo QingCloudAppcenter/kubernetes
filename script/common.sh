@@ -190,3 +190,10 @@ function flush_iptables(){
     iptables --flush -t nat
     iptables --flush
 }
+
+function wait_qingcloudvolume_detach(){
+    while ! df |grep "qingcloud-volume" > /dev/null;
+    do
+        echo "waiting qingcloud-volume detach" && df |grep "qingcloud-volume" && sleep 2
+    done
+}

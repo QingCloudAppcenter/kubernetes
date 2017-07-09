@@ -14,6 +14,7 @@ then
         echo "drain node fail."
         exit 1
     fi
+    wait_qingcloudvolume_detach
 fi
 echo "cleaner hostnic gateway nic"
 niccleaner

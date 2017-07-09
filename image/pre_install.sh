@@ -26,3 +26,7 @@ vm.max_map_count=262144
 EOF
 
 sysctl -p
+
+cp /etc/systemd/journald.conf /etc/systemd/journald.conf.org
+sed -i 's/#Storage=auto/Storage=persistent/g' /etc/systemd/journald.conf
+sed -i 's/#ForwardToSyslog=yes/ForwardToSyslog=no/g' /etc/systemd/journald.conf

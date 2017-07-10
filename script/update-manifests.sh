@@ -7,3 +7,4 @@ source "${K8S_HOME}/script/common.sh"
 
 clean_addons
 update_k8s_manifests
+systemctl restart kubelet

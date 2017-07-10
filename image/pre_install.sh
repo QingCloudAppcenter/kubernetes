@@ -28,3 +28,7 @@ fs.inotify.max_user_watches=1048576
 EOF
 
 sysctl -p
+
+cp /etc/systemd/journald.conf /etc/systemd/journald.conf.org
+sed -i 's/#Storage=auto/Storage=persistent/g' /etc/systemd/journald.conf
+sed -i 's/#ForwardToSyslog=yes/ForwardToSyslog=no/g' /etc/systemd/journald.conf

@@ -35,7 +35,7 @@ spec:
           - name: "KIBANA_BASE_URL"
             value: "/api/v1/proxy/namespaces/kube-system/services/kibana-logging"
           - name: "KIBANA_HOST"
-            value: "localhost"
+            value: "0.0.0.0"
         ports:
         - containerPort: 5601
           name: ui

@@ -20,7 +20,7 @@ spec:
         k8s-app: heapster
         version: v1.4.0
       annotations:
-        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"master", "effect":"NoSchedule"}]'
+        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"log", "effect":"NoSchedule"}]'
     spec:
       serviceAccount: "heapster"
       containers:
@@ -127,4 +127,4 @@ spec:
           hostPath:
             path: "/usr/share/ca-certificates"
       nodeSelector:
-              role: master
+              role: log

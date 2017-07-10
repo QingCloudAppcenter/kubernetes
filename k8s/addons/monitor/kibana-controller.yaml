@@ -17,16 +17,13 @@ spec:
       labels:
         k8s-app: kibana-logging
       annotations:
-        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"master", "effect":"NoSchedule"}]'
+        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"log", "effect":"NoSchedule"}]'
     spec:
       containers:
       - name: kibana-logging
         image: dockerhub.qingcloud.com/google_containers/kibana:v5.4.0
         imagePullPolicy: Never
         resources:
-          # keep request = limit to keep this container in guaranteed class
-          limits:
-            cpu: 100m
           requests:
             cpu: 100m
         env:
@@ -41,4 +38,4 @@ spec:
           name: ui
           protocol: TCP
       nodeSelector:
-        role: master
+        role: log

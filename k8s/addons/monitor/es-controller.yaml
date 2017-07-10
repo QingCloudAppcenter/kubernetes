@@ -9,7 +9,7 @@ metadata:
     kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: EnsureExists
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     k8s-app: elasticsearch-logging
     version: v1
@@ -20,18 +20,15 @@ spec:
         version: v1
         kubernetes.io/cluster-service: "true"
       annotations:
-        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"master", "effect":"NoSchedule"}]'
+        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"log", "effect":"NoSchedule"}]'
     spec:
       containers:
       - image: dockerhub.qingcloud.com/google_containers/elasticsearch:v5.4.0-1
         imagePullPolicy: Never
         name: elasticsearch-logging
         resources:
-          # need more cpu upon initialization, therefore burstable class
-          limits:
-            cpu: 1000m
           requests:
-            cpu: 100m
+            cpu: 1
         ports:
         - containerPort: 9200
           name: db
@@ -53,3 +50,7 @@ spec:
       - name: es-persistent-storage
         hostPath:
           path: /data/es
+      # Forcing es instance not to schedule to the same node.
+      hostNetwork: true
+      nodeSelector:
+          role: log

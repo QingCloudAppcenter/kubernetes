@@ -171,6 +171,76 @@
           ]
         },
         {
+          "key": "log",
+          "label": "node",
+          "description": "node properties",
+          "type": "array",
+          "properties": [
+            {
+              "key": "cpu",
+              "label": "CPU",
+              "description": "CPUs of each node",
+              "type": "integer",
+              "default": 4,
+              "range": [
+                2,
+                4,
+                8,
+                16
+              ],
+              "required": "yes"
+            },
+            {
+              "key": "memory",
+              "label": "Memory",
+              "description": "memory of each node (in MB)",
+              "type": "integer",
+              "default": 4096,
+              "range": [
+                2048,
+                4096,
+                8192,
+                16384,
+                32768
+              ],
+              "required": "yes"
+            },
+            {
+              "key": "count",
+              "label": "count",
+              "description": "Number of nodes for the cluster to create",
+              "type": "integer",
+              "default": 2,
+              "min":2,
+              "max":1000,
+              "required": "yes"
+            },
+            {
+              "key": "instance_class",
+              "label": "resource type",
+              "description": "The instance type for the cluster to run, such as high performance, high performance plus",
+              "type": "integer",
+              "default": 0,
+              "range": [
+                0,
+                1
+              ],
+              "required": "yes"
+            },
+            {
+              "key": "volume_size",
+              "label": "volume size",
+              "description": "The volume size for each instance",
+              "type": "integer",
+              "default": 50,
+              "min": 10,
+              "max": 1000,
+              "step": 10,
+              "required": "yes"
+            }
+          ]
+        },
+        {
           "key": "client",
           "label": "client",
           "description": "client properties",

@@ -172,8 +172,8 @@
         },
         {
           "key": "log",
-          "label": "node",
-          "description": "node properties",
+          "label": "log",
+          "description": "log properties",
           "type": "array",
           "properties": [
             {
@@ -304,14 +304,14 @@
         {
           "key": "access_key_id",
           "label": "Access key id",
-          "description": "API密钥 ID",
+          "description": "API access key id",
           "type": "string",
           "required": "yes"
         },
         {
           "key": "secret_access_key",
           "label": "Secret access key",
-          "description": "API 密钥的私钥",
+          "description": "API secret access key",
           "type": "password",
           "required": "yes"
         },

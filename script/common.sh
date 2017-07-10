@@ -110,6 +110,13 @@ function train_master(){
     mykubectl taint nodes ${MASTER_INSTANCE_ID} --overwrite dedicated=master:NoSchedule
 }
 
+function train_node(){
+    if [ "${HOST_ROLE}" == "log" ]
+    then
+        mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=log:NoSchedule
+    fi
+}
+
 function cordon_all(){
     for node in $(kubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
     do

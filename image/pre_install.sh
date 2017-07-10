@@ -23,6 +23,8 @@ net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv6.conf.lo.disable_ipv6 = 1
 net.ipv4.conf.all.rp_filter = 2
 vm.max_map_count=262144
+fs.file-max=65536
+fs.inotify.max_user_watches=1048576
 EOF
 
 sysctl -p

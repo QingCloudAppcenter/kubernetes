@@ -34,6 +34,8 @@ spec:
             value: "http://elasticsearch-logging:9200"
           - name: "KIBANA_BASE_URL"
             value: "/api/v1/proxy/namespaces/kube-system/services/kibana-logging"
+          - name: "KIBANA_HOST"
+            value: "localhost"
         ports:
         - containerPort: 5601
           name: ui

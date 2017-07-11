@@ -363,7 +363,7 @@
           "key": "dockerhub_password",
           "label": "Dockerhub Password",
           "description": "The password of dockerhub.qingcloud.com user",
-          "type": "string",
+          "type": "password",
           "default": "",
           "changeable": true,
           "required": "false"

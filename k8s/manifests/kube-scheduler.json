@@ -19,7 +19,7 @@
         "command": [
           "/hyperkube",
           "scheduler",
-          "--v=5",
+          "--v=1",
           "--address=127.0.0.1",
           "--leader-elect",
           "--master=127.0.0.1:8080"

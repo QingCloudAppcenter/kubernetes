@@ -208,11 +208,11 @@
             {
               "key": "count",
               "label": "count",
-              "description": "Number of nodes for the cluster to create",
+              "description": "Number of log nodes for the cluster to create",
               "type": "integer",
               "default": 2,
               "min":2,
-              "max":1000,
+              "max":5,
               "required": "yes"
             },
             {
@@ -273,7 +273,7 @@
             {
               "key": "count",
               "label": "count",
-              "description": "Number of nodes for the cluster to create",
+              "description": "Number of client nodes for the cluster to create",
               "type": "integer",
               "default": 1,
               "min":1,
@@ -349,6 +349,24 @@
           "default": "",
           "changeable": false,
           "required": "yes"
+        },
+        {
+          "key": "dockerhub_username",
+          "label": "Dockerhub Username",
+          "description": "The username of dockerhub.qingcloud.com",
+          "type": "string",
+          "default": "",
+          "changeable": true,
+          "required": "false"
+        },
+        {
+          "key": "dockerhub_password",
+          "label": "Dockerhub Password",
+          "description": "The password of dockerhub.qingcloud.com user",
+          "type": "string",
+          "default": "",
+          "changeable": true,
+          "required": "false"
         }
       ]
     }

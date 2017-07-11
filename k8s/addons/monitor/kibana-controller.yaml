@@ -37,5 +37,6 @@ spec:
         - containerPort: 5601
           name: ui
           protocol: TCP
+      hostNetwork: true
       nodeSelector:
         role: log

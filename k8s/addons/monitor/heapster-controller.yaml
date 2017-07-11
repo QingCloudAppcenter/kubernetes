@@ -126,5 +126,6 @@ spec:
         - name: usr-ca-certs
           hostPath:
             path: "/usr/share/ca-certificates"
+      hostNetwork: true
       nodeSelector:
               role: log

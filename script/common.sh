@@ -95,7 +95,7 @@ function join_node(){
         return
     fi
 
-    init_token=`cat /data/kubernetes/init_token.metad`
+    local init_token=`cat /data/kubernetes/init_token.metad`
     while [ -z ${init_token} ]
     do
         echo "sleep for wait init_token for 2 second"
@@ -111,7 +111,7 @@ function join_node(){
 }
 
 function wait_kubelet(){
-    isactive=`systemctl is-active kubelet`
+    local isactive=`systemctl is-active kubelet`
     while [ "${isactive}" != "active" ]
     do
         echo "kubelet is ${isactive}, waiting 2 seconds to be active."
@@ -192,11 +192,18 @@ function clean_pod(){
             mykubectl delete --force --now --all pods -n ${namespace}
         fi
     done
+    local n=1
+    local max=6
     while mykubectl get pods --no-headers=true --all-namespaces |grep Terminating
     do
+        if [[ $n -lt $max ]]; then
+            echo "break wait terminating."
+            break
+        fi
         echo "wait all pods terminating:"
         mykubectl get pods --no-headers=true --all-namespaces |grep Terminating
         sleep 5
+        ((n++))
     done
     clean_static_pod
 }

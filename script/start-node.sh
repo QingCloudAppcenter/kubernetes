@@ -7,6 +7,6 @@ source "${K8S_HOME}/script/common.sh"
 
 systemctl start docker
 join_node
-train_node
 systemctl start kubelet
 wait_kubelet
+train_node

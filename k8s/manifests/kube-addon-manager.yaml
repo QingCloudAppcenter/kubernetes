@@ -8,7 +8,7 @@ spec:
   hostNetwork: true
   containers:
   - name: kube-addon-manager
-    image: dockerhub.qingcloud.com/google-containers/kube-addon-manager-amd64:v1.5.4.qingcloud
+    image: dockerhub.qingcloud.com/google_containers/kube-addon-manager-amd64:v1.5.4.qingcloud
     imagePullPolicy: IfNotPresent
     resources:
       requests:

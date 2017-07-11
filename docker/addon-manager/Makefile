@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-IMAGE=dockerhub.qingcloud.com/google-containers/kube-addon-manager
+IMAGE=dockerhub.qingcloud.com/google_containers/kube-addon-manager
 ARCH?=amd64
 TEMP_DIR:=$(shell mktemp -d)
 VERSION=v1.5.4.qingcloud

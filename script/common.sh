@@ -7,6 +7,28 @@ source "${K8S_HOME}/version"
 
 NODE_INIT_LOCK="/data/kubernetes/init.lock"
 
+function fail {
+  echo $1 >&2
+  exit 1
+}
+
+function retry {
+  local n=1
+  local max=5
+  local delay=5
+  while true; do
+    "$@" && break || {
+      if [[ $n -lt $max ]]; then
+        ((n++))
+        echo "Command failed. Attempt $n/$max:"
+        sleep $delay;
+      else
+        fail "The command has failed after $n attempts."
+      fi
+    }
+  done
+}
+
 function mykubectl(){
     kubectl --kubeconfig='/etc/kubernetes/kubelet.conf' $*
 }
@@ -64,7 +86,7 @@ function process_es_config(){
 }
 
 function scale_es(){
-    mykubectl scale --replicas=$1 deployments/elasticsearch-logging-v1
+    retry mykubectl scale --replicas=$1 deployments/elasticsearch-logging-v1
 }
 
 function join_node(){
@@ -84,7 +106,7 @@ function join_node(){
 
     echo "master ip: ${MASTER_IP} init_token: ${init_token}"
 
-    kubeadm join ${MASTER_IP} --token ${init_token} --skip-preflight-checks
+    retry kubeadm join ${MASTER_IP} --token ${init_token} --skip-preflight-checks
 
     touch ${NODE_INIT_LOCK}
 }
@@ -116,13 +138,13 @@ function wait_system_pod(){
 }
 
 function train_master(){
-    mykubectl taint nodes ${MASTER_INSTANCE_ID} --overwrite dedicated=master:NoSchedule
+    retry mykubectl taint nodes ${MASTER_INSTANCE_ID} --overwrite dedicated=master:NoSchedule
 }
 
 function train_node(){
     if [ "${HOST_ROLE}" == "log" ]
     then
-        mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=log:NoSchedule
+        retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=log:NoSchedule
     fi
 }
 

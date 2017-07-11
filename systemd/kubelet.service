@@ -5,7 +5,7 @@ After=docker.service
 Requires=docker.service
 
 [Service]
-WorkingDirectory=/var/lib/kubelet
+WorkingDirectory=/data/var/lib/kubelet
 EnvironmentFile=-/etc/kubernetes/kubelet
 ExecStart=/usr/bin/kubelet \
             $KUBE_LOGTOSTDERR \

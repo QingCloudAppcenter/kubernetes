@@ -82,7 +82,7 @@ function update_k8s_manifests(){
 }
 
 function process_es_config(){
-    sed -i 's/replicas: \d+/replicas: '"${LOG_COUNT}"'/g' /data/kubernetes/addons/monitor/es-controller.yaml
+    sed -i 's/replicas:\s./replicas: '"${LOG_COUNT}"'/g' /data/kubernetes/addons/monitor/es-controller.yaml
 }
 
 function scale_es(){

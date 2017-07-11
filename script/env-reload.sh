@@ -9,3 +9,4 @@ if [ -f "/data/kubernetes/addons/monitor/es-controller.yaml" ]
 then
 process_es_config
 fi
+docker_login

@@ -6,3 +6,4 @@ source "${K8S_HOME}/script/common.sh"
 
 ensure_dir
 link_dynamic_dir
+docker_login

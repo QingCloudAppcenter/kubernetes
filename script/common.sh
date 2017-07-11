@@ -212,6 +212,7 @@ function link_dynamic_dir(){
     mv /var/lib/docker /data/var/lib/
     ln -s /data/var/lib/docker /var/lib/docker
     mkdir /data/var/lib/kubelet && ln -s /data/var/lib/kubelet /var/lib/kubelet
+    ln -s /root/.docker /data/var/lib/kubelet/.docker
 }
 
 function docker_stop_rm_all () {
@@ -235,4 +236,11 @@ function wait_qingcloudvolume_detach(){
     do
         echo "waiting qingcloud-volume detach" && df |grep "qingcloud-volume" && sleep 2
     done
+}
+
+function docker_login(){
+    if [ ! -z "${DOCKERHUB_USERNAME}" ] && [ ! -z "${DOCKERHUB_PASSWORD}" ]
+    then
+        retry docker login dockerhub.qingcloud.com -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}
+    fi
 }

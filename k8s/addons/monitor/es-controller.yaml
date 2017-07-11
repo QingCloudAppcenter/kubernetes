@@ -33,9 +33,12 @@ spec:
         - containerPort: 9200
           name: db
           protocol: TCP
+          # Forcing es instance not to schedule to the same node.
+          hostPort: 9200
         - containerPort: 9300
           name: transport
           protocol: TCP
+          hostPort: 9300
         volumeMounts:
         - name: es-persistent-storage
           mountPath: /data
@@ -50,7 +53,5 @@ spec:
       - name: es-persistent-storage
         hostPath:
           path: /data/es
-      # Forcing es instance not to schedule to the same node.
-      hostNetwork: true
       nodeSelector:
           role: log

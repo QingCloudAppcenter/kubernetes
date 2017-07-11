@@ -5,6 +5,9 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 
 source ${K8S_HOME}/version
 
+CNI_VERSION=v0.5.2
+HOSTNIC_VERSION=v0.4
+
 pushd /tmp
 wget -c https://pek3a.qingstor.com/k8s-qingcloud/k8s/tool/cni-amd64-${CNI_VERSION}.tgz
 mkdir -p /opt/cni/bin

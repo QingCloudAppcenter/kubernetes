@@ -16,8 +16,6 @@ ${K8S_HOME}/image/update-confd.sh
 
 ${K8S_HOME}/image/update-bin.sh
 
-${K8S_HOME}/image/update-cni.sh
-
 ${K8S_HOME}/image/update-logrotate.sh
 
 ${K8S_HOME}/image/pull-images.sh

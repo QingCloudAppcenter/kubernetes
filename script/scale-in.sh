@@ -8,7 +8,6 @@ source "${K8S_HOME}/script/common.sh"
 if [ "${HOST_ROLE}" == "log" ]
 then
     scale_es $((LOG_COUNT-1))
-    process_es_config $((LOG_COUNT-1))
 fi
 
 for node in $(cat "/etc/kubernetes/scale_in.info")

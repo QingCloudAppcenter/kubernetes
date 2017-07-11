@@ -78,11 +78,11 @@ function update_k8s_manifests(){
             replace_vars ${f} /data/kubernetes/addons/${addon_name}/${name}
         done
     done
-    process_es_config ${LOG_COUNT}
+    process_es_config
 }
 
 function process_es_config(){
-    sed -i 's/replicas: \d+/replicas: '"$1"'/g' /data/kubernetes/addons/monitor/es-controller.yaml
+    sed -i 's/replicas: \d+/replicas: '"${LOG_COUNT}"'/g' /data/kubernetes/addons/monitor/es-controller.yaml
 }
 
 function scale_es(){

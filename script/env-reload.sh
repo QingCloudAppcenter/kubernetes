@@ -5,7 +5,7 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 
 source "${K8S_HOME}/script/common.sh"
 
-if [ "${HOST_ROLE}" == "log" ]
+if [ -f "/data/kubernetes/addons/monitor/es-controller.yaml" ]
 then
-    scale_es ${LOG_COUNT}
+process_es_config
 fi

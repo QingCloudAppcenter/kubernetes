@@ -8,4 +8,5 @@ source "${K8S_HOME}/script/common.sh"
 if [ "${HOST_ROLE}" == "log" ]
 then
     scale_es ${LOG_COUNT}
+    process_es_config ${LOG_COUNT}
 fi

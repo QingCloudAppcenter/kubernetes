@@ -78,15 +78,15 @@ function update_k8s_manifests(){
             replace_vars ${f} /data/kubernetes/addons/${addon_name}/${name}
         done
     done
-    process_es_config
+    process_es_config ${LOG_COUNT}
 }
 
 function process_es_config(){
-    sed -i 's/replicas: \d+/replicas: '"${LOG_COUNT}"'/g' /data/kubernetes/addons/monitor/es-controller.yaml
+    sed -i 's/replicas: \d+/replicas: '"$1"'/g' /data/kubernetes/addons/monitor/es-controller.yaml
 }
 
 function scale_es(){
-    retry mykubectl scale --replicas=$1 deployments/elasticsearch-logging-v1
+    retry mykubectl scale --replicas=$1 deployments/elasticsearch-logging-v1 -n kube-system
 }
 
 function join_node(){

@@ -22,7 +22,7 @@ spec:
       containers:
       - name: kibana-logging
         image: dockerhub.qingcloud.com/google_containers/kibana:v5.4.0
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         resources:
           requests:
             cpu: 100m

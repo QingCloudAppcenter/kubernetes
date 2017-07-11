@@ -52,7 +52,7 @@
           {
             "name": "kube-proxy",
             "image": "dockerhub.qingcloud.com/google_containers/hyperkube-amd64:${HYPERKUBE_VERSION}",
-            "imagePullPolicy": "Never",
+            "imagePullPolicy":"IfNotPresent",
             "command": [
               "/hyperkube",
               "proxy",

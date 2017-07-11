@@ -22,7 +22,7 @@
       {
         "name": "kube-discovery",
         "image": "dockerhub.qingcloud.com/google_containers/kube-discovery-amd64:1.0",
-        "imagePullPolicy": "Never",
+        "imagePullPolicy":"IfNotPresent",
         "command": [
           "/usr/local/bin/kube-discovery"
         ],

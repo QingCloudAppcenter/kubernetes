@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - image: dockerhub.qingcloud.com/google_containers/elasticsearch:v5.4.0-1
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         name: elasticsearch-logging
         resources:
           requests:

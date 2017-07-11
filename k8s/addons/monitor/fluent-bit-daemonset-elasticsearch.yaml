@@ -20,7 +20,7 @@ spec:
       containers:
       - name: fluent-bit
         image: dockerhub.qingcloud.com/fluent/fluent-bit-kubernetes-daemonset:0.11
-        imagePullPolicy: Never
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 24224
         env:

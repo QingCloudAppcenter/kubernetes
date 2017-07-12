@@ -59,6 +59,29 @@
                 "check_cmd": "/opt/kubernetes/script/check-master.sh",
                 "action_cmd": "/opt/kubernetes/script/restart-master.sh"
             },
+            "monitor": {
+            "enable": true,
+            "cmd": "/opt/kubernetes/script/prom2json  -insecure https://localhost:10250/metrics",
+            "items": {
+                "kubelet_running_container_count": {
+                    "unit": "",
+                    "value_type": "int",
+                    "statistics_type": "latest",
+                    "scale_factor_when_display": 0.001
+                },
+                "kubelet_running_pod_count": {
+                    "unit": "",
+                    "value_type": "int",
+                    "statistics_type": "latest",
+                    "scale_factor_when_display": 0.001
+                }
+            },
+            "groups": {
+                "kubelet": ["kubelet_running_pod_count","kubelet_running_container_count"]
+            },
+            "display": ["kubelet"],
+            "alarm": ["kubelet_running_container_count"]
+            },
             "advanced_actions": ["scale_horizontal"]
         },
         {
@@ -119,6 +142,29 @@
                         "unhealthy_threshold": 3,
                         "check_cmd": "/opt/kubernetes/script/check-node.sh",
                         "action_cmd": "/opt/kubernetes/script/restart-node.sh"
+                    },
+                    "monitor": {
+                    "enable": true,
+                    "cmd": "/opt/kubernetes/script/prom2json  -insecure https://localhost:10250/metrics",
+                    "items": {
+                        "kubelet_running_container_count": {
+                            "unit": "",
+                            "value_type": "int",
+                            "statistics_type": "latest",
+                            "scale_factor_when_display": 0.001
+                        },
+                        "kubelet_running_pod_count": {
+                            "unit": "",
+                            "value_type": "int",
+                            "statistics_type": "latest",
+                            "scale_factor_when_display": 0.001
+                        }
+                    },
+                    "groups": {
+                        "kubelet": ["kubelet_running_pod_count","kubelet_running_container_count"]
+                    },
+                    "display": ["kubelet"],
+                    "alarm": ["kubelet_running_container_count"]
                     },
                     "advanced_actions": ["scale_horizontal"]
            },

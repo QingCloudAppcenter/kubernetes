@@ -5,8 +5,8 @@
 # Also remember that all examples have 'disable_action' set to True.  If you
 # want to use this action as a template, be sure to set this to False after
 # copying it.
-{{$keep_log_days=getv "/env/keep_log_days"}}
-{{if eq $keep_log_days "0"}}{{$disable_action="True"}}{{else}}{{$disable_action="False"}}{{end}}
+{{$keep_log_days = getv "/env/keep_log_days"}}
+{{if eq $keep_log_days "0"}}{{$disable_action = "True"}}{{else}}{{$disable_action = "False"}}{{end}}
 actions:
   1:
     action: delete_indices

@@ -1,0 +1,6 @@
+[template]
+src = "k8s/curator-config.yaml.tmpl"
+dest = "/data/kubernetes/curator/config.yaml"
+keys = [
+    "/env",
+]

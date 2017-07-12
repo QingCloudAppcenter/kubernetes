@@ -1,0 +1,26 @@
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: clean-log
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: elasticsearch-curator
+            image: dockerhub.qingcloud.com/qingcloud/elasticsearch-curator:5.1.1
+            args:
+            - --config /etc/kubernetes/elasticsearch-curator.yaml
+            - --host elasticsearch-logging
+            - --port 9200
+            volumeMounts:
+            - mountPath: /etc/kubernetes/
+              name: config
+              readOnly: true
+          restartPolicy: OnFailure
+          volumes:
+          - hostPath:
+              path: /etc/kubernetes/
+            name: config

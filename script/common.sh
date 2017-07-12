@@ -85,7 +85,7 @@ function process_es_config(){
 }
 
 function scale_es(){
-    retry mykubectl scale --replicas=$1 deployments/elasticsearch-logging-v1 -n kube-system
+    retry mykubectl scale --replicas=$1 statefulsets/elasticsearch-logging-v1 -n kube-system
 }
 
 function join_node(){

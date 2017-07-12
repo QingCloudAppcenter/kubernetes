@@ -5,6 +5,8 @@
 # Also remember that all examples have 'disable_action' set to True.  If you
 # want to use this action as a template, be sure to set this to False after
 # copying it.
+{{$keep_log_days=getv "/env/keep_log_days"}}
+{{if eq $keep_log_days "0"}}{{$disable_action="True"}}{{else}}{{$disable_action="False"}}{{end}}
 actions:
   1:
     action: delete_indices
@@ -14,7 +16,7 @@ actions:
       actionable list of indices (ignore_empty_list) and exit cleanly.
     options:
       ignore_empty_list: True
-      disable_action: False
+      disable_action: {{$disable_action}}
     filters:
     - filtertype: pattern
       kind: regex
@@ -24,4 +26,4 @@ actions:
       direction: older
       timestring: '%Y.%m.%d'
       unit: days
-      unit_count: 1
+      unit_count: {{$keep_log_days}}

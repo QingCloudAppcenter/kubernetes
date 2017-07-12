@@ -22,3 +22,4 @@ docker pull dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.0
 docker pull dockerhub.qingcloud.com/google_containers/addon-resizer:1.7
 docker pull dockerhub.qingcloud.com/google_containers/kibana:v5.4.0
 docker pull dockerhub.qingcloud.com/google_containers/elasticsearch:v5.4.0-1
+docker pull dockerhub.qingcloud.com/qingcloud/elasticsearch-curator:5.1.1

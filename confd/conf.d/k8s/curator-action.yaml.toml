@@ -4,4 +4,4 @@ dest = "/data/kubernetes/curator/action.yaml"
 keys = [
     "/env",
 ]
-reload_cmd = "/opt/kubernetes/script/curator-reload.sh"
+reload_cmd = "/opt/kubernetes/script/reload-curator.sh"

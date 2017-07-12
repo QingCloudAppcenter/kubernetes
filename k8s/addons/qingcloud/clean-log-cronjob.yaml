@@ -2,6 +2,8 @@ apiVersion: batch/v2alpha1
 kind: CronJob
 metadata:
   name: clean-log
+  labels:
+    addonmanager.kubernetes.io/mode: EnsureExists
 spec:
   schedule: "*/1 * * * *"
   jobTemplate:

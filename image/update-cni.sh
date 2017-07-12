@@ -20,5 +20,5 @@ rm hostnic.tar.gz
 
 popd
 
-wget -c https://pek3a.qingstor.com/k8s-qingcloud/k8s/tool/nicleaner -O /usr/bin/niccleaner
+wget -c https://pek3a.qingstor.com/k8s-qingcloud/k8s/tool/niccleaner -O /usr/bin/niccleaner
 chmod +x /usr/bin/niccleaner

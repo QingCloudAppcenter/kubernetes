@@ -367,6 +367,17 @@
           "default": "",
           "changeable": true,
           "required": "false"
+        },
+        {
+          "key": "keep_log_days",
+          "label": "Keep log days",
+          "description": "Keep log on log node for x days, 0 indicates that the log is not cleared",
+          "type": "integer",
+          "default": 3,
+          "min":0,
+          "max":30,
+          "changeable": true,
+          "required": "true"
         }
       ]
     }

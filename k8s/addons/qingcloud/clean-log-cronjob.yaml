@@ -2,10 +2,11 @@ apiVersion: batch/v2alpha1
 kind: CronJob
 metadata:
   name: clean-log
+  namespace: kube-system
   labels:
     addonmanager.kubernetes.io/mode: EnsureExists
 spec:
-  schedule: "*/1 * * * *"
+  schedule: "0 1 * * *"
   jobTemplate:
     spec:
       template:
@@ -14,9 +15,7 @@ spec:
           - name: elasticsearch-curator
             image: dockerhub.qingcloud.com/qingcloud/elasticsearch-curator:5.1.1
             args:
-            - --config /etc/kubernetes/elasticsearch-curator.yaml
-            - --host elasticsearch-logging
-            - --port 9200
+            - --config /etc/kubernetes/curator/config.yaml /etc/kubernetes/curator-action.yaml
             volumeMounts:
             - mountPath: /etc/kubernetes/
               name: config

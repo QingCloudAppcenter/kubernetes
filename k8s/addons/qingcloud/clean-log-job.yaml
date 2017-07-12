@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: clean-log
+  namespace: kube-system
+  #job not manager by addon-manager,  for script/curator-reload.sh
+spec:
+  template:
+    metadata:
+      name: clean-log
+    spec:
+      containers:
+      - name: elasticsearch-curator
+        image: dockerhub.qingcloud.com/qingcloud/elasticsearch-curator:5.1.1
+        args:
+        - --config /etc/kubernetes/curator/config.yaml /etc/kubernetes/curator-action.yaml
+        volumeMounts:
+        - mountPath: /etc/kubernetes/
+          name: config
+          readOnly: true
+      restartPolicy: OnFailure
+      volumes:
+      - hostPath:
+          path: /etc/kubernetes/
+        name: config

@@ -14,8 +14,11 @@ spec:
           containers:
           - name: elasticsearch-curator
             image: dockerhub.qingcloud.com/qingcloud/elasticsearch-curator:5.1.1
-            args:
-            - --config /etc/kubernetes/curator/config.yaml /etc/kubernetes/curator-action.yaml
+            command:
+            - /usr/bin/curator
+            - --config
+            - /etc/kubernetes/curator/config.yaml
+            - /etc/kubernetes/curator/action.yaml
             volumeMounts:
             - mountPath: /etc/kubernetes/
               name: config

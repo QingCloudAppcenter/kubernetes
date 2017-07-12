@@ -22,7 +22,7 @@
   "The vxnet for pod network":"给Pod预留网段",
   "CPUs of each node":"每个节点CPU",
   "Number of nodes for the cluster to create":"要创建的从节点数量",
-  "Number of log nodes for the cluster to create":"要创建的日志节点数量",
+  "Number of log nodes for the cluster to create":"要创建的日志节点数量，集群创建后不能增删日志节点",
   "Number of client nodes for the cluster to create":"要创建的客户端节点数量",
   "Choose a vxnet to join":"选择要加入的私网",
   "The domain of the kubernetes cluster":"kubernetes 集群的域名",
@@ -40,5 +40,5 @@
   "The password of dockerhub.qingcloud.com user":"您在 dockerhub.qingcloud.com 的密码",
   "The insecure docker registries, use a blank to split multi registry":"需要通过非安全的方式（http）访问的 docker 仓库，多个地址通过空格切分",
   "Keep log days":"日志保留天数",
-  "Keep log on log node for x days, 0 indicates that the log is not cleared":"在日志节点上保留多少天的日志，0表示不清理日志。"
+  "Keep log on log node for x days, 0 indicates that the log is not cleared":"在日志节点上保留多少天的日志，0表示不清理日志"
 }

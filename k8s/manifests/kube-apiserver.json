@@ -43,6 +43,8 @@
           "--tls-private-key-file=/etc/kubernetes/pki/apiserver-key.pem",
           "--token-auth-file=/etc/kubernetes/pki/tokens.csv",
           "--secure-port=6443",
+          "--runtime-config",
+          "batch/v2alpha1=true",
           "--allow-privileged",
           "--etcd-servers=http://127.0.0.1:2379",
           "--cloud-provider=qingcloud",

@@ -1,0 +1,6 @@
+[template]
+src = "k8s/kubelet.tmpl"
+dest = "/data/kubernetes/elasticsearch-curator.yaml"
+keys = [
+    "/",
+]

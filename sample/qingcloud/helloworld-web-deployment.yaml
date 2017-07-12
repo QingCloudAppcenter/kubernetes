@@ -23,8 +23,6 @@ spec:
         volumes:
            - name: html-volume
              emptyDir: {}
-        imagePullSecrets:
-                    - name: qingcloud-registrykey
 ---
 apiVersion: v1
 kind: Service

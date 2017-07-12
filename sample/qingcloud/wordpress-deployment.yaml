@@ -65,8 +65,6 @@ spec:
       - name: wordpress-persistent-storage
         persistentVolumeClaim:
           claimName: wp-pv-claim
-      imagePullSecrets:
-              - name: qingcloud-registrykey
 ---
 apiVersion: v1
 kind: Service
@@ -133,5 +131,3 @@ spec:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
           claimName: mysql-pv-claim
-      imagePullSecrets:
-              - name: qingcloud-registrykey

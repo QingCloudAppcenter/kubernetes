@@ -23,5 +23,3 @@ spec:
            - name: html-volume
              hostPath:
                path: "/data/html"
-        imagePullSecrets:
-            - name: qingcloud-registrykey

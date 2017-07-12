@@ -5,7 +5,11 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 
 source "${K8S_HOME}/script/common.sh"
 
-if [ "${HOST_ROLE}" == "master" ]
-then
-    kubectl create -f /etc/kubernetes/addons/qingcloud/clean-log-job.yaml
-fi
+systemctl is-active kubelet >/dev/null 2>&1 && {
+    if [ "${HOST_ROLE}" == "master" ]
+    then
+        kubectl delete -f /etc/kubernetes/addons/qingcloud/clean-log-job.yaml
+        kubectl create -f /etc/kubernetes/addons/qingcloud/clean-log-job.yaml
+    fi
+}
+

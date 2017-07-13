@@ -357,7 +357,7 @@
           "type": "string",
           "default": "",
           "changeable": true,
-          "required": "false"
+          "required": "yes"
         },
         {
           "key": "dockerhub_password",
@@ -366,7 +366,7 @@
           "type": "password",
           "default": "",
           "changeable": true,
-          "required": "false"
+          "required": "yes"
         },
         {
           "key": "keep_log_days",
@@ -377,7 +377,7 @@
           "min":0,
           "max":30,
           "changeable": true,
-          "required": "true"
+          "required": "yes"
         },
         {
           "key": "kube_log_level",
@@ -388,7 +388,7 @@
           "min":0,
           "max":10,
           "changeable": true,
-          "required": "false"
+          "required": "no"
         }
       ]
     }

@@ -42,5 +42,7 @@
   "Keep log days":"日志保留天数",
   "Keep log on log node for x days, 0 indicates that the log is not cleared":"在日志节点上保留多少天的日志，0表示不清理日志",
   "Kubernetes log level":"Kubernetes 日志级别",
-  "The log level for kubernetes system":"Kubernetes 的日志级别，数字越大记录越详细，也会占用更多日志空间。遇到问题可以调整日志级别进行 debug"
+  "The log level for kubernetes system":"Kubernetes 的日志级别，数字越大记录越详细，也会占用更多日志空间。遇到问题可以调整日志级别进行 debug",
+  "kubelet_running_container_count":"正在运行的容器数量",
+  "kubelet_running_pod_count":"正在运行的Pod数量"
 }

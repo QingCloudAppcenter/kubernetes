@@ -33,7 +33,7 @@
         "command": [
           "/hyperkube",
           "apiserver",
-          "--v=1",
+          "--v=${KUBE_LOG_LEVEL}",
           "--insecure-bind-address=127.0.0.1",
           "--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota",
           "--service-cluster-ip-range=10.96.0.0/16",

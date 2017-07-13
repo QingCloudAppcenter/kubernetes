@@ -39,7 +39,7 @@
         "command": [
           "/hyperkube",
           "controller-manager",
-          "--v=4",
+          "--v=${KUBE_LOG_LEVEL}",
           "--address=127.0.0.1",
           "--leader-elect",
           "--master=127.0.0.1:8080",

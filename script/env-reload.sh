@@ -5,8 +5,8 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 
 source "${K8S_HOME}/script/common.sh"
 
-if [ -f "/data/kubernetes/addons/monitor/es-controller.yaml" ]
+if [ "${HOST_ROLE}" == "master" ] && [ -d "/data/kubernetes/manifests/" ]
 then
-process_es_config
+process_manifests
 fi
 docker_login

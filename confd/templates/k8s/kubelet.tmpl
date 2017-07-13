@@ -5,7 +5,7 @@
 KUBE_LOGTOSTDERR="--logtostderr=true"
 
 # journal verbosity level, the higher is the more verbose
-KUBE_LOG_LEVEL="--v=4"
+KUBE_LOG_LEVEL="--v={{getv "/env/kube_log_level"}}"
 
 # Should this cluster be allowed to run privileged docker containers
 KUBE_ALLOW_PRIV="--allow-privileged=true"

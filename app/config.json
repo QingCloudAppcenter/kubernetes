@@ -378,6 +378,17 @@
           "max":30,
           "changeable": true,
           "required": "true"
+        },
+        {
+          "key": "kube_log_level",
+          "label": "Kubernetes log level",
+          "description": "The log level for kubernetes system",
+          "type": "integer",
+          "default": 1,
+          "min":0,
+          "max":10,
+          "changeable": true,
+          "required": "false"
         }
       ]
     }

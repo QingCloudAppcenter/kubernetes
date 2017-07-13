@@ -56,6 +56,7 @@ function replace_vars(){
     from=$1
     to=$2
     sed 's/${HYPERKUBE_VERSION}/'"${HYPERKUBE_VERSION}"'/g' ${from} >${to}
+    sed 's/${KUBE_LOG_LEVEL}/'"${KUBE_LOG_LEVEL}"'/g' ${from} >${to}
     echo "process ${from} to ${to}"
 }
 
@@ -63,7 +64,10 @@ function update_k8s_manifests(){
     echo "echo update k8s manifests"
     mkdir /data/kubernetes/manifests/ || rm -rf /data/kubernetes/manifests/*
     mkdir /data/kubernetes/addons/ || rm -rf /data/kubernetes/addons/*
+    process_manifests
+}
 
+function process_manifests(){
     for f in ${K8S_HOME}/k8s/manifests/*; do
         name=$(basename ${f})
         replace_vars ${f} /data/kubernetes/manifests/${name}
@@ -81,7 +85,10 @@ function update_k8s_manifests(){
 }
 
 function process_es_config(){
+    if [ -f "/data/kubernetes/addons/monitor/es-controller.yaml" ]
+    then
     sed -i 's/replicas:\s./replicas: '"${LOG_COUNT}"'/g' /data/kubernetes/addons/monitor/es-controller.yaml
+    fi
 }
 
 function scale_es(){

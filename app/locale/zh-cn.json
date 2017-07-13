@@ -40,5 +40,7 @@
   "The password of dockerhub.qingcloud.com user":"您在 dockerhub.qingcloud.com 的密码",
   "The insecure docker registries, use a blank to split multi registry":"需要通过非安全的方式（http）访问的 docker 仓库，多个地址通过空格切分",
   "Keep log days":"日志保留天数",
-  "Keep log on log node for x days, 0 indicates that the log is not cleared":"在日志节点上保留多少天的日志，0表示不清理日志"
+  "Keep log on log node for x days, 0 indicates that the log is not cleared":"在日志节点上保留多少天的日志，0表示不清理日志",
+  "Kubernetes log level":"Kubernetes 日志级别",
+  "The log level for kubernetes system":"Kubernetes 的日志级别，数字越大记录越详细，也会占用更多日志空间。遇到问题可以调整日志级别进行 debug"
 }

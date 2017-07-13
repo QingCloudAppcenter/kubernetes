@@ -56,7 +56,7 @@ function replace_vars(){
     from=$1
     to=$2
     sed 's/${HYPERKUBE_VERSION}/'"${HYPERKUBE_VERSION}"'/g' ${from} >${to}
-    sed 's/${KUBE_LOG_LEVEL}/'"${ENV_KUBE_LOG_LEVEL}"'/g' ${from} >${to}
+    sed -i 's/${KUBE_LOG_LEVEL}/'"${ENV_KUBE_LOG_LEVEL}"'/g' ${to}
     echo "process ${from} to ${to}"
 }
 

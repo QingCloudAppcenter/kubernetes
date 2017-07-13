@@ -23,12 +23,8 @@ net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv6.conf.lo.disable_ipv6 = 1
 net.ipv4.conf.all.rp_filter = 2
 vm.max_map_count=262144
-fs.file-max=65536
+fs.file-max=200000
 fs.inotify.max_user_watches=1048576
 EOF
 
 sysctl -p
-
-cp /etc/systemd/journald.conf /etc/systemd/journald.conf.org
-sed -i 's/#Storage=auto/Storage=persistent/g' /etc/systemd/journald.conf
-sed -i 's/#ForwardToSyslog=yes/ForwardToSyslog=no/g' /etc/systemd/journald.conf

@@ -175,7 +175,7 @@ function uncordon_all(){
 
 function clean_addons(){
     echo "stop addons-manager" && rm /data/kubernetes/manifests/kube-addon-manager.yaml && mykubectl delete --ignore-not-found=true "pods/kube-addon-manager-${MASTER_INSTANCE_ID}" -n kube-system
-    mykubectl delete --timeout=60 --force --now -R -f /data/kubernetes/addons/
+    mykubectl delete --timeout=60s --force --now -R -f /data/kubernetes/addons/
     echo "clean addons" && rm -rf /data/kubernetes/addons
 }
 
@@ -196,7 +196,7 @@ function clean_pod(){
     do
         if [ "${namespace}" != "kube-system" ]
         then
-            mykubectl delete --force --now --all --timeout=60 pods -n ${namespace}
+            mykubectl delete --force --now --all --timeout=60s pods -n ${namespace}
         fi
     done
     local n=1

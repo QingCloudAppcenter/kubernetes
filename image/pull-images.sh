@@ -17,7 +17,7 @@ docker pull dockerhub.qingcloud.com/google_containers/kube-discovery-amd64:1.0
 docker pull dockerhub.qingcloud.com/google_containers/kube-addon-manager-amd64:v1.5.4.qingcloud
 #docker pull dockerhub.qingcloud.com/coreos/flannel:v0.7.0-amd64
 docker pull dockerhub.qingcloud.com/google_containers/kubernetes-dashboard-amd64:v1.5.0
-docker pull dockerhub.qingcloud.com/fluent/fluent-bit-kubernetes-daemonset:0.11
+docker pull dockerhub.qingcloud.com/fluent/fluent-bit-kubernetes-daemonset:0.11.13
 docker pull dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.0
 docker pull dockerhub.qingcloud.com/google_containers/addon-resizer:1.7
 docker pull dockerhub.qingcloud.com/google_containers/kibana:v5.4.0

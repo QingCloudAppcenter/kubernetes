@@ -1,4 +1,4 @@
-FROM fluent/fluent-bit:0.11.10
+FROM fluent/fluent-bit:0.11.13
 USER root
 
 COPY fluent-bit.conf /fluent-bit/etc/

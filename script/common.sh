@@ -59,9 +59,21 @@ function get_or_gen_init_token(){
 function replace_vars(){
     from=$1
     to=$2
-    sed 's/${HYPERKUBE_VERSION}/'"${HYPERKUBE_VERSION}"'/g' ${from} >${to}
-    sed -i 's/${KUBE_LOG_LEVEL}/'"${ENV_KUBE_LOG_LEVEL}"'/g' ${to}
+    prefix=$(timestamp)
+    name=$(basename ${from})
+    tmpfile="/tmp/${prefix}-${name}"
+    sed 's/${HYPERKUBE_VERSION}/'"${HYPERKUBE_VERSION}"'/g' ${from} > ${tmpfile}
+    sed -i 's/${KUBE_LOG_LEVEL}/'"${ENV_KUBE_LOG_LEVEL}"'/g' ${tmpfile}
     echo "process ${from} to ${to}"
+    diff ${tmpfile} ${to} >> /dev/null
+    if [ "$?" -ne 0 ]
+    then
+        cp ${tmpfile} ${to}
+        echo "${to} update"
+    else
+        echo "${to} in sync"
+    fi
+    rm ${tmpfile}
 }
 
 function update_k8s_manifests(){

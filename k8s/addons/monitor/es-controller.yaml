@@ -6,7 +6,6 @@ metadata:
   labels:
     k8s-app: elasticsearch-logging
     version: v1
-    kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: EnsureExists
 spec:
   serviceName: "elasticsearch-logging"
@@ -20,7 +19,6 @@ spec:
       labels:
         k8s-app: elasticsearch-logging
         version: v1
-        kubernetes.io/cluster-service: "true"
       annotations:
         scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"log", "effect":"NoSchedule"}]'
     spec:

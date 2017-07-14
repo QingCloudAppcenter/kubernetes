@@ -14,7 +14,6 @@
       "matchLabels": {
         "component": "kube-dns",
         "k8s-app": "kube-dns",
-        "kubernetes.io/cluster-service": "true",
         "name": "kube-dns",
         "tier": "node"
       }
@@ -24,7 +23,6 @@
         "labels": {
           "component": "kube-dns",
           "k8s-app": "kube-dns",
-          "kubernetes.io/cluster-service": "true",
           "name": "kube-dns",
           "tier": "node"
         },

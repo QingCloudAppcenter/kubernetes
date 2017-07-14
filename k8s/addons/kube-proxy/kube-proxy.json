@@ -13,7 +13,6 @@
       "matchLabels": {
         "component": "kube-proxy",
         "k8s-app": "kube-proxy",
-        "kubernetes.io/cluster-service": "true",
         "name": "kube-proxy",
         "tier": "node"
       }
@@ -24,7 +23,6 @@
         "labels": {
           "component": "kube-proxy",
           "k8s-app": "kube-proxy",
-          "kubernetes.io/cluster-service": "true",
           "name": "kube-proxy",
           "tier": "node"
         },

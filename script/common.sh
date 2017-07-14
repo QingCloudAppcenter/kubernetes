@@ -29,6 +29,10 @@ function retry {
   done
 }
 
+timestamp() {
+  date +"%s"
+}
+
 function mykubectl(){
     kubectl --kubeconfig='/etc/kubernetes/kubelet.conf' $*
 }

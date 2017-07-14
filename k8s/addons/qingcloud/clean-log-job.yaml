@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: clean-log
+  name: clean-log-${JOB_ID}
   namespace: kube-system
   #job not manager by addon-manager,  for script/curator-reload.sh
 spec:

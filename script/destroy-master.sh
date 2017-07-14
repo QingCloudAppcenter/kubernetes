@@ -5,6 +5,4 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 
 source "${K8S_HOME}/script/common.sh"
 
-echo "cleaner hostnic gateway nic"
-niccleaner
 

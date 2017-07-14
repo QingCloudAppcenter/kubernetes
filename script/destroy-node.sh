@@ -16,6 +16,3 @@ then
     fi
     wait_qingcloudvolume_detach
 fi
-echo "cleaner hostnic gateway nic"
-niccleaner
-

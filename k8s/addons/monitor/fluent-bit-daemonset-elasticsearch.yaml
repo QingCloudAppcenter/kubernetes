@@ -21,16 +21,12 @@ spec:
       - name: fluent-bit
         image: dockerhub.qingcloud.com/fluent/fluent-bit-kubernetes-daemonset:0.11
         imagePullPolicy: IfNotPresent
-        ports:
-          - containerPort: 24224
         env:
           - name:  FLUENT_ELASTICSEARCH_HOST
             value: "elasticsearch-logging"
           - name:  FLUENT_ELASTICSEARCH_PORT
             value: "9200"
         resources:
-          limits:
-            memory: 100Mi
           requests:
             cpu: 100m
             memory: 100Mi

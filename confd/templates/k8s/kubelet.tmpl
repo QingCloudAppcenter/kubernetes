@@ -25,7 +25,7 @@ KUBELET_SYSTEM_PODS_ARGS="--pod-manifest-path=/etc/kubernetes/manifests --pod-in
 
 KUBELET_KUBECONFIG_ARGS="--kubeconfig=/etc/kubernetes/kubelet.conf --require-kubeconfig=true"
 
-KUBELET_DNS_ARGS="--cluster-dns=10.96.0.10 --cluster-domain={{getv "/env/cluster_domain"}}"
+KUBELET_DNS_ARGS="--cluster-dns=10.96.0.10 --cluster-domain=cluster.local"
 
 KUBE_CLOUD_PROVIDER="--cloud-provider=qingcloud --cloud-config=/etc/kubernetes/qingcloud.conf"
 

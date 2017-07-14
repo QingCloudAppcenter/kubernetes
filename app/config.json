@@ -313,15 +313,6 @@
           "required": "yes"
         },
         {
-          "key": "cluster_domain",
-          "label": "Cluster domain",
-          "description": "The domain of the kubernetes cluster",
-          "type": "string",
-          "default": "cluster.local",
-          "changeable": false,
-          "required": "yes"
-        },
-        {
           "key": "api_external_domain",
           "label": "Api External Domain",
           "description": "The domain of the kubernetes api server",

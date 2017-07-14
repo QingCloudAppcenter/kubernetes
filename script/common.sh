@@ -91,7 +91,7 @@ function process_manifests(){
 
     for addon in ${K8S_HOME}/k8s/addons/*; do
         addon_name=$(basename $addon)
-        mkdir /data/kubernetes/addons/${addon_name}
+        mkdir -p /data/kubernetes/addons/${addon_name}
         for f in ${addon}/*; do
             name=$(basename ${f})
             replace_vars ${f} /data/kubernetes/addons/${addon_name}/${name}

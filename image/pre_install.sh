@@ -30,3 +30,12 @@ fs.inotify.max_user_watches=1048576
 EOF
 
 sysctl -p
+
+#only allow dhcp to manager eth0, not auto hotplug other interface.
+cat << EOF > /etc/network/interfaces
+auto lo
+iface lo inet loopback
+
+allow-hotplug eth0
+iface eth0 inet dhcp
+EOF

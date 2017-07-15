@@ -35,7 +35,7 @@
       {
         "name": "etcd",
         "image": "dockerhub.qingcloud.com/google_containers/etcd-amd64:2.2.5",
-        "imagePullPolicy":"Never",
+        "imagePullPolicy":"IfNotPresent",
         "command": [
           "etcd",
           "--listen-client-urls=http://127.0.0.1:2379",

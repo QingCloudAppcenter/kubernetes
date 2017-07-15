@@ -35,7 +35,7 @@
       {
         "name": "kube-controller-manager",
         "image": "dockerhub.qingcloud.com/google_containers/hyperkube-amd64:${HYPERKUBE_VERSION}",
-        "imagePullPolicy":"Never",
+        "imagePullPolicy":"IfNotPresent",
         "command": [
           "/hyperkube",
           "controller-manager",

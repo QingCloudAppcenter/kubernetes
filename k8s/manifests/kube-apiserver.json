@@ -76,6 +76,35 @@
           "timeoutSeconds": 15,
           "failureThreshold": 8
         }
+      },
+      {
+        "name": "hosts-sync",
+        "image": "dockerhub.qingcloud.com/qingcloud/file-sync:0.1",
+        "imagePullPolicy":"IfNotPresent",
+        "env":[
+          {
+            "name":"FROM_FILE",
+            "value":"/etc/kubernetes/hosts"
+          },
+          {
+            "name":"TO_FILE",
+            "value":"/etc/hosts"
+          },
+          {
+            "name":"CHECK_INTERVAL",
+            "value":"2"
+          }
+        ],
+        "resources": {
+          "limits": {
+            "cpu": "10m",
+            "memory": "50Mi"
+          },
+          "requests": {
+            "cpu": "10m",
+            "memory": "50Mi"
+          }
+        }
       }
     ],
     "hostNetwork": true

@@ -59,12 +59,18 @@ function get_or_gen_init_token(){
 function replace_vars(){
     from=$1
     to=$2
+    echo "process ${from} to ${to}"
     prefix=$(timestamp)
     name=$(basename ${from})
     tmpfile="/tmp/${prefix}-${name}"
     sed 's/${HYPERKUBE_VERSION}/'"${HYPERKUBE_VERSION}"'/g' ${from} > ${tmpfile}
     sed -i 's/${KUBE_LOG_LEVEL}/'"${ENV_KUBE_LOG_LEVEL}"'/g' ${tmpfile}
-    echo "process ${from} to ${to}"
+
+    if [ "${to}" == "/data/kubernetes/addons/monitor/es-controller.yaml" ]
+    then
+        sed -i 's/replicas:\s./replicas: '"${LOG_COUNT}"'/g' ${tmpfile}
+    fi
+
     diff ${tmpfile} ${to} >> /dev/null
     if [ "$?" -ne 0 ]
     then
@@ -97,14 +103,6 @@ function process_manifests(){
             replace_vars ${f} /data/kubernetes/addons/${addon_name}/${name}
         done
     done
-    process_es_config
-}
-
-function process_es_config(){
-    if [ -f "/data/kubernetes/addons/monitor/es-controller.yaml" ]
-    then
-    sed -i 's/replicas:\s./replicas: '"${LOG_COUNT}"'/g' /data/kubernetes/addons/monitor/es-controller.yaml
-    fi
 }
 
 function scale_es(){

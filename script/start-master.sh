@@ -7,7 +7,7 @@ source "${K8S_HOME}/script/common.sh"
 
 ensure_dir
 
-update_k8s_manifests
+process_manifests
 
 systemctl start docker
 systemctl start kubelet

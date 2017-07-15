@@ -23,12 +23,6 @@
         "hostPath": {
           "path": "/etc/kubernetes"
         }
-      },
-      {
-        "name":"hosts",
-        "hostPath": {
-          "path": "/etc/hosts"
-        }
       }
     ],
     "containers": [
@@ -70,11 +64,6 @@
             "name": "pki",
             "readOnly": true,
             "mountPath": "/etc/kubernetes/"
-          },
-          {
-            "name": "host",
-            "readOnly":true,
-            "mountPath": "/etc/hosts"
           }
         ],
         "livenessProbe": {

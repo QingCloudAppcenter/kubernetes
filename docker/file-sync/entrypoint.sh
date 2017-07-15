@@ -5,6 +5,8 @@ function sync_file(){
     if [ "$?" -ne 0 ]
     then
         echo "copy file fail."
+    else
+	echo "${TO_FILE} in sync"
     fi
 }
 
@@ -25,5 +27,5 @@ do
        sync_file
        LTIME=$ATIME
    fi
-   sleep 1
+   sleep ${CHECK_INTERVAL:-1}
 done

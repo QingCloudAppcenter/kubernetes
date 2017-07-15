@@ -7,5 +7,6 @@ COPY entrypoint.sh /entrypoint.sh
 
 ENV FROM_FILE ""
 ENV TO_FILE ""
+ENV CHECK_INTERVAL 1
 
 ENTRYPOINT ["/entrypoint.sh"]

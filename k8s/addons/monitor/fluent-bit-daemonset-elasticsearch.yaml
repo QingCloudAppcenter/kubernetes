@@ -26,6 +26,8 @@ spec:
           - name:  FLUENT_ELASTICSEARCH_PORT
             value: "9200"
         resources:
+          limits:
+            memory: 150Mi
           requests:
             cpu: 100m
             memory: 100Mi

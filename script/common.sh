@@ -90,6 +90,8 @@ function update_k8s_manifests(){
 }
 
 function process_manifests(){
+    mkdir -p /data/kubernetes/manifests/
+    mkdir -p /data/kubernetes/addons/
     for f in ${K8S_HOME}/k8s/manifests/*; do
         name=$(basename ${f})
         replace_vars ${f} /data/kubernetes/manifests/${name}

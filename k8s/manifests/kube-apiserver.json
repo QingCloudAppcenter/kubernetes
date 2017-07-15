@@ -104,7 +104,14 @@
             "cpu": "10m",
             "memory": "50Mi"
           }
-        }
+        },
+        "volumeMounts": [
+          {
+            "name": "pki",
+            "readOnly": true,
+            "mountPath": "/etc/kubernetes/"
+          }
+        ]
       }
     ],
     "hostNetwork": true

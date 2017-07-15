@@ -176,7 +176,7 @@ function cordon_all(){
 }
 
 function cordon_node(){
-    mykubectl cordon $1
+    mykubectl cordon ${HOST_INSTANCE_ID}
     return $?
 }
 

@@ -14,5 +14,3 @@ systemctl start kubelet
 wait_kubelet
 wait_apiserver
 train_master
-mykubectl uncordon ${MASTER_INSTANCE_ID}
-uncordon_all

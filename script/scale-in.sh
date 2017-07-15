@@ -14,3 +14,4 @@ do
         mykubectl delete node/${n}
     fi
 done
+exit 0

@@ -79,7 +79,7 @@
       },
       {
         "name": "hosts-sync",
-        "image": "dockerhub.qingcloud.com/qingcloud/file-sync:0.1",
+        "image": "dockerhub.qingcloud.com/qingcloud/file-sync:0.2",
         "imagePullPolicy":"IfNotPresent",
         "env":[
           {

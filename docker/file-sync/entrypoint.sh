@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 function sync_file(){
-    cp -f ${FROM_FILE}  ${TO_FILE}
+    d=$(dirname ${TO_FILE})
+    mkdir -p "${d}"
+    cat ${FROM_FILE} > ${TO_FILE}
     if [ "$?" -ne 0 ]
     then
         echo "copy file fail."

@@ -7,7 +7,7 @@
             "role": "master",
             "container": {
                 "type": "kvm",
-                "image": "img-o87deecw",
+                "image": "img-khsejnd7",
                 "zone": "pek3a"
             },
             "instance_class": {{cluster.master.instance_class}},
@@ -23,11 +23,13 @@
             "services": {
                  "init": {
                     "order": 1,
-                    "cmd": "/opt/kubernetes/script/init-master.sh"
+                    "cmd": "/opt/kubernetes/script/init-master.sh",
+                    "timeout": 300
                 },
                 "start": {
                     "order": 1,
-                    "cmd": "/opt/kubernetes/script/start-master.sh"
+                    "cmd": "/opt/kubernetes/script/start-master.sh",
+                    "timeout": 300
                 },
                 "stop": {
                     "order": 1,
@@ -39,11 +41,6 @@
                     "nodes_to_execute_on": 1,
                     "post_stop_service": true,
                     "cmd": "/opt/kubernetes/script/destroy-master.sh"
-                },
-                "update": {
-                        "type": "custom",
-                        "cmd": "/opt/kubernetes/image/update.sh",
-                        "timeout": 86400
                 }
             },
             "custom_metadata": {
@@ -87,7 +84,7 @@
                     "role": "node",
                     "container": {
                         "type": "kvm",
-                        "image": "img-o87deecw",
+                        "image": "img-khsejnd7",
                         "zone": "pek3a"
                     },
                     "instance_class": {{cluster.node.instance_class}},
@@ -104,15 +101,18 @@
                     "services": {
                         "init": {
                             "order": 3,
-                            "cmd": "/opt/kubernetes/script/init-node.sh"
+                            "cmd": "/opt/kubernetes/script/init-node.sh",
+                            "timeout": 300
                         },
                          "start": {
                              "order": 3,
-                             "cmd": "/opt/kubernetes/script/start-node.sh"
+                             "cmd": "/opt/kubernetes/script/start-node.sh",
+                             "timeout": 300
                          },
                          "stop": {
                              "order": 3,
-                             "cmd": "/opt/kubernetes/script/stop-node.sh"
+                             "cmd": "/opt/kubernetes/script/stop-node.sh",
+                             "timeout": 300
                          },
                          "scale_in": {
                              "nodes_to_execute_on": 1,
@@ -125,11 +125,6 @@
                             "post_stop_service": false,
                             "cmd": "/opt/kubernetes/script/destroy-node.sh",
                             "timeout": 86400
-                         },
-                         "update": {
-                                 "type": "custom",
-                                 "cmd": "/opt/kubernetes/image/update.sh",
-                                 "timeout": 86400
                          }
                     },
                     "health_check": {
@@ -171,7 +166,7 @@
                     "role": "log",
                     "container": {
                         "type": "kvm",
-                        "image": "img-o87deecw",
+                        "image": "img-khsejnd7",
                         "zone": "pek3a"
                     },
                     "instance_class": {{cluster.log.instance_class}},
@@ -188,15 +183,18 @@
                     "services": {
                         "init": {
                             "order": 2,
-                            "cmd": "/opt/kubernetes/script/init-node.sh"
+                            "cmd": "/opt/kubernetes/script/init-node.sh",
+                            "timeout": 300
                         },
                          "start": {
                              "order": 2,
-                             "cmd": "/opt/kubernetes/script/start-node.sh"
+                             "cmd": "/opt/kubernetes/script/start-node.sh",
+                             "timeout": 300
                          },
                          "stop": {
                              "order": 2,
-                             "cmd": "/opt/kubernetes/script/stop-node.sh"
+                             "cmd": "/opt/kubernetes/script/stop-node.sh",
+                             "timeout": 300
                          },
                          "scale_in": {
                              "nodes_to_execute_on": 1,
@@ -209,11 +207,6 @@
                             "post_stop_service": false,
                             "cmd": "/opt/kubernetes/script/destroy-node.sh",
                             "timeout": 86400
-                         },
-                         "update": {
-                                 "type": "custom",
-                                 "cmd": "/opt/kubernetes/image/update.sh",
-                                 "timeout": 86400
                          }
                     },
                     "health_check": {

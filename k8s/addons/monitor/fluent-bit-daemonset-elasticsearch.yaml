@@ -14,7 +14,7 @@ spec:
         k8s-app: fluent-bit-logging
         version: v1
       annotations:
-        scheduler.alpha.kubernetes.io/tolerations: '[{"operator": "Exists"}]'
+        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated","operator": "Exists"}]'
     spec:
       containers:
       - name: fluent-bit

@@ -27,7 +27,7 @@
           "tier": "node"
         },
         "annotations": {
-          "scheduler.alpha.kubernetes.io/tolerations": "[{\"operator\": \"Exists\"}]"
+          "scheduler.alpha.kubernetes.io/tolerations": "[{\"key\":\"dedicated\", \"operator\": \"Exists\"}]"
         }
       },
       "spec": {

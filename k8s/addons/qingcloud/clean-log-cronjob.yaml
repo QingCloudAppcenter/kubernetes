@@ -7,8 +7,12 @@ metadata:
     addonmanager.kubernetes.io/mode: EnsureExists
 spec:
   schedule: "0 1 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
+      labels:
+        k8s-app: clean-log
       activeDeadlineSeconds: 60
       template:
         spec:

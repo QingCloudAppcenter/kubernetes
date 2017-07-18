@@ -3,6 +3,8 @@ kind: Job
 metadata:
   name: clean-log-${JOB_ID}
   namespace: kube-system
+  labels:
+    k8s-app: clean-log
   #job not manager by addon-manager,  for script/curator-reload.sh
 spec:
   activeDeadlineSeconds: 60

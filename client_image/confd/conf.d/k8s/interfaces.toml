@@ -1,0 +1,7 @@
+[template]
+src = "k8s/interfaces.tmpl"
+dest = "/etc/network/interfaces"
+keys = [
+    "/",
+]
+reload_cmd = "/usr/bin/reload-interface.sh"

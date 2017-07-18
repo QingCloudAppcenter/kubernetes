@@ -22,5 +22,15 @@ rm app-agent-linux-amd64.tar.gz
 popd
 
 cp -r confd/* /etc/confd/
-cp init_config.sh /usr/bin/
-chmod +x /usr/bin/init_config.sh
+cp script/* /usr/bin/
+chmod +x /usr/bin/*.sh
+
+cat << EOF > /etc/network/interfaces
+auto lo
+iface lo inet loopback
+
+allow-hotplug eth0
+iface eth0 inet dhcp
+    dns-search default.svc.cluster.local svc.cluster.local cluster.local pek3a.qingcloud.com
+    dns-nameservers 192.168.8.10
+EOF

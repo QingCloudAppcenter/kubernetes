@@ -11,10 +11,10 @@ spec:
 #  successfulJobsHistoryLimit: 1
 #  failedJobsHistoryLimit: 1
   jobTemplate:
+    metadata:
+      labels:
+        k8s-app: clean-log
     spec:
-      metadata:
-        labels:
-          k8s-app: clean-log
       activeDeadlineSeconds: 60
       template:
         spec:

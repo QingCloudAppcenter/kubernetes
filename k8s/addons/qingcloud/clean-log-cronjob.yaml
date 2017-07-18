@@ -7,8 +7,9 @@ metadata:
     addonmanager.kubernetes.io/mode: EnsureExists
 spec:
   schedule: "0 1 * * *"
-  successfulJobsHistoryLimit: 1
-  failedJobsHistoryLimit: 1
+# The following two option are supported from version 1.6
+#  successfulJobsHistoryLimit: 1
+#  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       labels:

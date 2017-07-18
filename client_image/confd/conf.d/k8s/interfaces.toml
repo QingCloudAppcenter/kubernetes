@@ -4,4 +4,4 @@ dest = "/etc/network/interfaces"
 keys = [
     "/",
 ]
-reload_cmd = "/usr/bin/reload-interface.sh"
+reload_cmd = "/usr/bin/reload_interface.sh"

@@ -1,8 +1,8 @@
 auto lo
 iface lo inet loopback
-{{$masters := gets "/hosts/master/*/*"}}
+{{$masters := getvs "/hosts/master/*/ip"}}
 allow-hotplug eth0
 iface eth0 inet dhcp
     dns-search default.svc.cluster.local svc.cluster.local cluster.local
     dns-nameservers 10.96.0.10
-    up route add -net 10.96.0.0 netmask 255.255.0.0 gw {{(index $masters 0).Value}}
+    up route add -net 10.96.0.0 netmask 255.255.0.0 gw {{index $masters 0}}

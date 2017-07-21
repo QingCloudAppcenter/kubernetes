@@ -32,3 +32,5 @@ iface lo inet loopback
 allow-hotplug eth0
 iface eth0 inet dhcp
 EOF
+
+sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config

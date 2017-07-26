@@ -11,18 +11,11 @@ spec:
       spec:
         containers:
           - name: web
-            image: dockerhub.qingcloud.com/qingcloud/dockerbox
-            command: [ "darkhttpd","/work --port=80" ]
+            image: dockerhub.qingcloud.com/qingcloud/go-probe
             ports:
               - name: web
                 containerPort: 80
                 protocol: TCP
-            volumeMounts:
-              - name: html-volume
-                mountPath: "/work"
-        volumes:
-           - name: html-volume
-             emptyDir: {}
 ---
 apiVersion: v1
 kind: Service

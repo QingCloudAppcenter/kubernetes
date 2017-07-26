@@ -10,5 +10,5 @@ spec:
   accessModes:
     - ReadWriteOnce
   qingCloudStore:
-        volumeID: vol-caoxtgg3
+        volumeID: vol-xxxxxx
         fsType: ext4

@@ -22,7 +22,7 @@ kind: Service
 metadata:
   name: helloworld
   annotations:
-    service.beta.kubernetes.io/qingcloud-load-balancer-eip-ids: "eip-pnvcczqp"
+    service.beta.kubernetes.io/qingcloud-load-balancer-eip-ids: "${EIP}"
     service.beta.kubernetes.io/qingcloud-load-balancer-type: "0"
 spec:
   ports:
@@ -37,7 +37,7 @@ kind: Service
 metadata:
   name: helloworld-internal
   annotations:
-    service.beta.kubernetes.io/qingcloud-load-balancer-vxnet-id: "vxnet-3i39nue"
+    service.beta.kubernetes.io/qingcloud-load-balancer-vxnet-id: "${VXNET}"
     service.beta.kubernetes.io/qingcloud-load-balancer-type: "0"
 spec:
   ports:

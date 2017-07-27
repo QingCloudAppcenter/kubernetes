@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: wordpress
   annotations:
-      service.beta.kubernetes.io/qingcloud-load-balancer-eip-ids: "eip-7se5vda7"
+      service.beta.kubernetes.io/qingcloud-load-balancer-eip-ids: "${EIP}"
   labels:
     app: wordpress
 spec:

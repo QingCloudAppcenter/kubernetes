@@ -9,6 +9,7 @@
       "k8s-app": "kube-dns",
       "name": "kube-dns",
       "tier": "node",
+      "kubernetes.io/cluster-service": "true",
       "addonmanager.kubernetes.io/mode": "EnsureExists"
     }
   },

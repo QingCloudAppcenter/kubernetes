@@ -8,6 +8,6 @@ ensure_dir
 link_dynamic_dir
 
 init_token=$(get_or_gen_init_token)
-
+retry kubeadm check --cloud-provider-name qingcloud --cloud-provider-config /etc/kubernetes/qingcloud.conf
 kubeadm config --token ${init_token} --api-advertise-addresses ${HOST_IP} --skip-preflight-checks --api-external-dns-names ${ENV_API_EXTERNAL_DOMAIN}
 docker_login

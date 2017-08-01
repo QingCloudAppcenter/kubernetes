@@ -34,3 +34,4 @@ iface eth0 inet dhcp
 EOF
 
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+kubectl completion bash >>/etc/profile

@@ -38,8 +38,12 @@ function mykubectl(){
 }
 
 function ensure_dir(){
-    mkdir -p /data/kubernetes
-    mkdir -p /data/es
+    if [ ! -d /data/kubernetes ]; then
+        mkdir -p /data/kubernetes
+    fi
+    if [ ! -d /data/es ]; then
+        mkdir -p /data/es
+    fi
     if [ ! -L /etc/kubernetes ]; then
       ln -s /data/kubernetes /etc/kubernetes
     fi
@@ -272,4 +276,16 @@ function docker_login(){
     then
         retry docker login dockerhub.qingcloud.com -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}
     fi
+}
+
+function upgrade_docker(){
+    #clear old aufs
+    rm -rf /data/var/lib/docker/aufs
+    rm -rf /data/var/lib/docker/image
+    #copy overlays2
+    mv /var/lib/docker/image /data/var/lib/docker/
+    mv /var/lib/docker/overlay2 /data/var/lib/docker/
+    rm -rf /var/lib/docker
+    ln -s /data/var/lib/docker /var/lib/docker
+    n -s /data/var/lib/kubelet /var/lib/kubelet
 }

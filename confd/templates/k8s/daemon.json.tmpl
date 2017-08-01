@@ -1,6 +1,7 @@
 {
     "live-restore": true,
     "graph": "/data/var/lib/docker",
+    "storage-driver": "overlay2",
     {{$registries := getv "/env/insecure-registries"}}
     {{if ne $registries ""}}
     "insecure-registries": {{split $registries " "|toJson}},

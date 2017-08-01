@@ -307,6 +307,7 @@
           "label": "Access key id",
           "description": "API access key id",
           "type": "string",
+          "pattern": "^[A-Z]{20}$",
           "required": "yes"
         },
         {
@@ -314,6 +315,7 @@
           "label": "Secret access key",
           "description": "API secret access key",
           "type": "password",
+          "pattern": "^[A-Za-z0-9]{40}$",
           "required": "yes"
         },
         {
@@ -338,8 +340,8 @@
           "label": "Pod vxnets",
           "description": "The vxnets for kubernetes pod, use a blank to split multi vxnet",
           "type": "string",
-          "default": "",
-          "changeable": false,
+          "changeable": true,
+          "pattern":"^vxnet\\-[a-z0-9]{5,10}(\\svxnet\\-[a-z0-9]{5,10})*$",
           "required": "yes"
         },
         {

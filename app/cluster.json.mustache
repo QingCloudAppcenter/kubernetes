@@ -2,12 +2,15 @@
         "name": {{cluster.name}},
         "description": {{cluster.description}},
         "vxnet": {{cluster.vxnet}},
+        "upgrade_policy": [
+            "appv-i6bzyuxw"
+        ],
         "nodes": [
         {
             "role": "master",
             "container": {
                 "type": "kvm",
-                "image": "img-95peafzi",
+                "image": "img-03nuflem",
                 "zone": "pek3a"
             },
             "instance_class": {{cluster.master.instance_class}},
@@ -41,6 +44,9 @@
                     "nodes_to_execute_on": 1,
                     "post_stop_service": true,
                     "cmd": "/opt/kubernetes/script/destroy-master.sh"
+                },
+                "upgrade": {
+                    "cmd": "/opt/kubernetes/script/upgrade-master.sh"
                 }
             },
             "custom_metadata": {
@@ -84,7 +90,7 @@
                     "role": "node",
                     "container": {
                         "type": "kvm",
-                        "image": "img-95peafzi",
+                        "image": "img-03nuflem",
                         "zone": "pek3a"
                     },
                     "instance_class": {{cluster.node.instance_class}},
@@ -100,7 +106,7 @@
                     "vertical_scaling_policy": "sequential",
                     "services": {
                         "init": {
-                            "order": 3,
+                            "order": 1,
                             "cmd": "/opt/kubernetes/script/init-node.sh",
                             "timeout": 300
                         },
@@ -125,6 +131,9 @@
                             "post_stop_service": false,
                             "cmd": "/opt/kubernetes/script/destroy-node.sh",
                             "timeout": 86400
+                         },
+                         "upgrade": {
+                            "cmd": "/opt/kubernetes/script/upgrade-node.sh"
                          }
                     },
                     "health_check": {
@@ -166,7 +175,7 @@
                     "role": "log",
                     "container": {
                         "type": "kvm",
-                        "image": "img-95peafzi",
+                        "image": "img-03nuflem",
                         "zone": "pek3a"
                     },
                     "instance_class": {{cluster.log.instance_class}},
@@ -182,7 +191,7 @@
                     "vertical_scaling_policy": "sequential",
                     "services": {
                         "init": {
-                            "order": 2,
+                            "order": 1,
                             "cmd": "/opt/kubernetes/script/init-node.sh",
                             "timeout": 300
                         },
@@ -247,7 +256,7 @@
                         "role": "client",
                         "container": {
                             "type": "kvm",
-                            "image": "img-fdk976fi",
+                            "image": "img-8zk1b5oi",
                             "zone": "pek3a"
                         },
                         "instance_class": {{cluster.client.instance_class}},

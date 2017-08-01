@@ -287,5 +287,6 @@ function upgrade_docker(){
     mv /var/lib/docker/overlay2 /data/var/lib/docker/
     rm -rf /var/lib/docker
     ln -s /data/var/lib/docker /var/lib/docker
-    n -s /data/var/lib/kubelet /var/lib/kubelet
+    ln -s /data/var/lib/kubelet /var/lib/kubelet
+    return 0
 }

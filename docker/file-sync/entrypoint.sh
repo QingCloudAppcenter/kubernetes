@@ -22,8 +22,8 @@ done
 # the stat of link will not change since it created.
 if [ -L ${FROM_FILE} ]
 then
-    FROM_FILE = $(readlink -f ${FROM_FILE})
-    "from file is symlink, convert to real path: ${FROM_FILE}"
+    FROM_FILE=$(readlink -f ${FROM_FILE})
+    echo "from file is symlink, convert to real path: ${FROM_FILE}"
 fi
 
 LTIME=`stat -c %Z ${FROM_FILE}`

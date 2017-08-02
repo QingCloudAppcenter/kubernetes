@@ -12,10 +12,18 @@ function sync_file(){
     fi
 }
 
-if [ ! -f ${FROM_FILE} ]
+echo "sync ${FROM_FILE} to ${TO_FILE} "
+while [ ! -f ${FROM_FILE} ]
+do
+    echo "file ${FROM_FILE} not exist, wait 5 second."
+    sleep 5
+done
+
+# the stat of link will not change since it created.
+if [ -L ${FROM_FILE} ]
 then
-    echo "file ${FROM_FILE} not exist."
-    exit 1
+    FROM_FILE = $(readlink -f ${FROM_FILE})
+    "from file is symlink, convert to real path: ${FROM_FILE}"
 fi
 
 LTIME=`stat -c %Z ${FROM_FILE}`

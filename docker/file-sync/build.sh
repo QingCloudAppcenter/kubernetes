@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker build -t dockerhub.qingcloud.com/qingcloud/file-sync:0.2 .
+docker build -t dockerhub.qingcloud.com/qingcloud/file-sync:0.3 .

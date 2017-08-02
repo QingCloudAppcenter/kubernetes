@@ -1,6 +1,18 @@
 #!/usr/bin/env bash
 
-
+function sync_file(){
+    local F=$1
+    local T=$2
+    local d=$(dirname ${T})
+    mkdir -p "${d}"
+    cat ${F} > ${T}
+    if [ "$?" -ne 0 ]
+    then
+        echo "copy file fail."
+    else
+	echo "${T} in sync with ${F}"
+    fi
+}
 
 echo "sync ${FROM_FILE} to ${TO_FILE} "
 while [ ! -f ${FROM_FILE} ]
@@ -41,17 +53,3 @@ do
      fi
    fi
 done
-
-function sync_file(){
-    local F=$1
-    local T=$2
-    local d=$(dirname ${T})
-    mkdir -p "${d}"
-    cat ${F} > ${T}
-    if [ "$?" -ne 0 ]
-    then
-        echo "copy file fail."
-    else
-	echo "${T} in sync with ${F}"
-    fi
-}

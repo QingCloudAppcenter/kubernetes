@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: file-sync
-        image: dockerhub.qingcloud.com/qingcloud/file-sync:0.6
+        image: dockerhub.qingcloud.com/qingcloud/file-sync:0.7
         imagePullPolicy: IfNotPresent
         env:
           - name:  FROM_FILE

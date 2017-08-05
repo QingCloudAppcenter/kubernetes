@@ -3,6 +3,10 @@
 SCRIPTPATH=$( cd $(dirname $0) ; pwd -P )
 K8S_HOME=$(dirname "${SCRIPTPATH}")
 
+set -o errexit
+set -o nounset
+set -o pipefail
+
 ${K8S_HOME}/image/install-pkg.sh
 ${K8S_HOME}/image/install-qingcloud-agent.sh
 ${K8S_HOME}/image/update-confd.sh

@@ -5,6 +5,10 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 source "/data/kubernetes/env.sh"
 source "${K8S_HOME}/version"
 
+set -o errexit
+set -o nounset
+set -o pipefail
+
 NODE_INIT_LOCK="/data/kubernetes/init.lock"
 
 function fail {

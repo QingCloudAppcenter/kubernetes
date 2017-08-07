@@ -93,8 +93,8 @@ function replace_vars(){
 
 function update_k8s_manifests(){
     echo "echo update k8s manifests"
-    mkdir /data/kubernetes/manifests/ || rm -rf /data/kubernetes/manifests/*
-    mkdir /data/kubernetes/addons/ || rm -rf /data/kubernetes/addons/*
+    #mkdir /data/kubernetes/manifests/ || rm -rf /data/kubernetes/manifests/*
+    #mkdir /data/kubernetes/addons/ || rm -rf /data/kubernetes/addons/*
     process_manifests
 }
 
@@ -106,14 +106,14 @@ function process_manifests(){
         replace_vars ${f} /data/kubernetes/manifests/${name}
     done
 
-    for addon in ${K8S_HOME}/k8s/addons/*; do
-        addon_name=$(basename $addon)
-        mkdir -p /data/kubernetes/addons/${addon_name}
-        for f in ${addon}/*; do
-            name=$(basename ${f})
-            replace_vars ${f} /data/kubernetes/addons/${addon_name}/${name}
-        done
-    done
+#    for addon in ${K8S_HOME}/k8s/addons/*; do
+#        addon_name=$(basename $addon)
+#        mkdir -p /data/kubernetes/addons/${addon_name}
+#        for f in ${addon}/*; do
+#            name=$(basename ${f})
+#            replace_vars ${f} /data/kubernetes/addons/${addon_name}/${name}
+#        done
+#    done
 }
 
 function scale_es(){

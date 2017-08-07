@@ -73,6 +73,7 @@ function replace_vars(){
     tmpfile="/tmp/${prefix}-${name}"
     sed 's/${HYPERKUBE_VERSION}/'"${HYPERKUBE_VERSION}"'/g' ${from} > ${tmpfile}
     sed -i 's/${KUBE_LOG_LEVEL}/'"${ENV_KUBE_LOG_LEVEL}"'/g' ${tmpfile}
+    sed -i 's/${HOST_IP}/'"${HOST_IP}"'/g' ${tmpfile}
 
     if [ "${to}" == "/data/kubernetes/addons/monitor/es-controller.yaml" ]
     then

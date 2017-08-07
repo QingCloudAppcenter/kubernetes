@@ -7,8 +7,6 @@ source "${K8S_HOME}/script/common.sh"
 
 ensure_dir
 
-process_manifests
-
 systemctl start docker
 systemctl start kubelet
 wait_kubelet

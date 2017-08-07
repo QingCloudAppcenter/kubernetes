@@ -10,13 +10,12 @@ echo "update images"
 docker login -u guest -p guest dockerhub.qingcloud.com
 
 docker pull dockerhub.qingcloud.com/google_containers/pause-amd64:3.0
-docker pull dockerhub.qingcloud.com/google_containers/etcd-amd64:2.2.5
+docker pull dockerhub.qingcloud.com/google_containers/etcd-amd64:3.0.17
 docker pull dockerhub.qingcloud.com/google_containers/hyperkube-amd64:${HYPERKUBE_VERSION}
 docker pull dockerhub.qingcloud.com/google_containers/kubedns-amd64:1.7
 docker pull dockerhub.qingcloud.com/google_containers/kube-dnsmasq-amd64:1.3
 docker pull dockerhub.qingcloud.com/google_containers/exechealthz-amd64:1.1
-docker pull dockerhub.qingcloud.com/google_containers/kube-discovery-amd64:1.0
-docker pull dockerhub.qingcloud.com/google_containers/kube-addon-manager-amd64:v1.5.4.qingcloud
+docker pull dockerhub.qingcloud.com/google_containers/kube-addon-manager:v6.4-beta.2
 #docker pull dockerhub.qingcloud.com/coreos/flannel:v0.7.0-amd64
 docker pull dockerhub.qingcloud.com/google_containers/kubernetes-dashboard-amd64:v1.5.0
 docker pull dockerhub.qingcloud.com/fluent/fluent-bit-kubernetes-daemonset:0.11.13

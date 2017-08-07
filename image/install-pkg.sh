@@ -8,7 +8,7 @@ apt-cache policy docker-engine
 apt-get install -y docker-engine
 
 apt-get install -y ebtables socat
-apt-get install -y jq apt-transport-https
+apt-get install -y jq apt-transport-https bash-completion
 apt-get remove network-manager
 
 apt-get upgrade -y

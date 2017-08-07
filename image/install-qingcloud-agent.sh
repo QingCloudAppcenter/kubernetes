@@ -11,3 +11,6 @@ chmod +x /etc/init.d/confd
 cd /tmp
 rm -rf app-agent-linux-amd64/
 rm app-agent-linux-amd64.tar.gz
+
+systemctl enable confd
+systemctl disable confd

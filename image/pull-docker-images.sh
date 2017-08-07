@@ -7,6 +7,8 @@ source ${K8S_HOME}/version
 
 echo "update images"
 
+docker login -u guest -p guest dockerhub.qingcloud.com
+
 docker pull dockerhub.qingcloud.com/google_containers/pause-amd64:3.0
 docker pull dockerhub.qingcloud.com/google_containers/etcd-amd64:2.2.5
 docker pull dockerhub.qingcloud.com/google_containers/hyperkube-amd64:${HYPERKUBE_VERSION}

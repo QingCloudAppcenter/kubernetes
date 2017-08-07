@@ -7,7 +7,7 @@ source ${K8S_HOME}/version
 
 echo "update bin"
 
-k8s_bins=("kubelet" "kubectl" "kubeadmin")
+k8s_bins=("kubelet" "kubectl" "kubeadm")
 k8s_base_url="https://pek3a.qingstor.com/k8s-qingcloud/k8s/${HYPERKUBE_VERSION}/bin/"
 k8s_bin_path="/usr/bin"
 

@@ -37,8 +37,10 @@ spec:
     - --authorization-mode=Node,RBAC
     - --advertise-address=${HOST_IP--feature-gates}
     - --etcd-servers=http://127.0.0.1:2379
-    - --runtime-config batch/v2alpha1=true
-    - --feature-gates AllAlpha=true
+    - --runtime-config
+    - batch/v2alpha1=true
+    - --feature-gates
+    - AllAlpha=true
     image: dockerhub.qingcloud.com/google_containers/hyperkube-amd64:${HYPERKUBE_VERSION}
     imagePullPolicy: IfNotPresent
     livenessProbe:

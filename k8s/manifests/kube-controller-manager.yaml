@@ -23,7 +23,8 @@ spec:
     - --controllers=*,bootstrapsigner,tokencleaner
     - --root-ca-file=/etc/kubernetes/pki/ca.crt
     - --cluster-signing-key-file=/etc/kubernetes/pki/ca.key
-    - --feature-gates AllAlpha=true
+    - --feature-gates
+    - AllAlpha=true
     - --allocate-node-cidrs=false
     - --service-cluster-ip-range=10.96.0.0/16
     image: dockerhub.qingcloud.com/google_containers/hyperkube-amd64:${HYPERKUBE_VERSION}

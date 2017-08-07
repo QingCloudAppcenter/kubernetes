@@ -16,7 +16,7 @@ spec:
       labels:
         k8s-app: kibana-logging
       annotations:
-        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated", "value":"log", "effect":"NoSchedule"}]'
+        scheduler.alpha.kubernetes.io/critical-pod: ""
     spec:
       containers:
       - name: kibana-logging
@@ -36,5 +36,11 @@ spec:
         - containerPort: 5601
           name: ui
           protocol: TCP
+      tolerations:
+      - key: "CriticalAddonsOnly"
+        operator: "Exists"
+      - key: "dedicated"
+        value: "log"
+        effect: NoSchedule
       nodeSelector:
         role: log

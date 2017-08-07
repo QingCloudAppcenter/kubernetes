@@ -26,7 +26,7 @@ spec:
     - --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt
     - --allow-privileged=true
     - --experimental-bootstrap-token-auth=true
-    - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+    - --kubelet-preferred-address-types=InternalIP,Hostname
     - --requestheader-username-headers=X-Remote-User
     - --tls-cert-file=/etc/kubernetes/pki/apiserver.crt
     - --admission-control=Initializers,NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,ResourceQuota

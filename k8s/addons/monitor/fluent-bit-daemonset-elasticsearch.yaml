@@ -5,16 +5,14 @@ metadata:
   namespace: kube-system
   labels:
     k8s-app: fluent-bit-logging
-    version: v1
     addonmanager.kubernetes.io/mode: EnsureExists
 spec:
   template:
     metadata:
       labels:
         k8s-app: fluent-bit-logging
-        version: v1
       annotations:
-        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated","operator": "Exists"}]'
+        scheduler.alpha.kubernetes.io/critical-pod: ''
     spec:
       containers:
       - name: fluent-bit
@@ -49,3 +47,11 @@ spec:
       - name: varlibdockercontainers
         hostPath:
           path: /data/var/lib/docker/containers
+      tolerations:
+      - key: "CriticalAddonsOnly"
+        operator: "Exists"
+      - key: "dedicated"
+        operator: "Exists"
+      - key: node.cloudprovider.kubernetes.io/uninitialized
+        effect: NoSchedule
+        value: "true"

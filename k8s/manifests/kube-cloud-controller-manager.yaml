@@ -47,10 +47,10 @@ spec:
   volumes:
   - hostPath:
       path: /etc/kubernetes
-      name: k8s
+    name: k8s
   - hostPath:
       path: /etc/ssl/certs
-      name: certs
+    name: certs
   - hostPath:
       path: /etc/qingcloud
-      name: qingcloud
+    name: qingcloud

@@ -86,14 +86,18 @@ function replace_vars(){
     if [ -f ${to} ]
     then
         diff ${tmpfile} ${to} >> /dev/null
-    fi
-    if [ "$?" -ne 0 ]
-    then
-        cp ${tmpfile} ${to}
-        echo "${to} update"
+        if [ "$?" -ne 0 ]
+        then
+            cp ${tmpfile} ${to}
+            echo "${to} update"
+        else
+            echo "${to} in sync"
+        fi
     else
-        echo "${to} in sync"
+        cp ${tmpfile} ${to}
+        echo "${to} create"
     fi
+    
     rm ${tmpfile}
 }
 

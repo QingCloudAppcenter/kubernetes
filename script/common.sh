@@ -252,11 +252,20 @@ function drain_node(){
 }
 
 function link_dynamic_dir(){
-    mkdir -p /data/var && mkdir /data/var/lib && mkdir /data/var/log
-    mv /var/lib/docker /data/var/lib/
-    ln -s /data/var/lib/docker /var/lib/docker
-    mkdir /data/var/lib/kubelet && ln -s /data/var/lib/kubelet /var/lib/kubelet
-    ln -s /root/.docker /data/var/lib/kubelet/.docker
+    if [ ! -d "/data/var" ]
+    then
+        mkdir -p /data/var && mkdir /data/var/lib && mkdir /data/var/log
+    fi
+    if [ -d /var/lib/docker ]
+    then
+        mv /var/lib/docker /data/var/lib/
+        ln -s /data/var/lib/docker /var/lib/docker
+    fi
+    if [ ! -d "/data/var/lib/kubelet" ]
+    then
+        mkdir /data/var/lib/kubelet && ln -s /data/var/lib/kubelet /var/lib/kubelet
+    fi
+    ln -fs /root/.docker /data/var/lib/kubelet/.docker
 }
 
 function docker_stop_rm_all () {

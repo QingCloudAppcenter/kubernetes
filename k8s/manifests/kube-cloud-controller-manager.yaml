@@ -13,10 +13,10 @@ spec:
   - command:
     - /qingcloud-cloud-controller-manager
     - --v=${KUBE_LOG_LEVEL}
-    - --cloud-provider qingcloud
-    - --cloud-config /etc/kubernetes/qingcloud.conf
+    - --cloud-provider=qingcloud
+    - --cloud-config=/etc/kubernetes/qingcloud.conf
     - --kubeconfig=/etc/kubernetes/cloud-controller-manager.conf
-    - -use-service-account-credentials=true
+    - --use-service-account-credentials=true
     - --feature-gates
     - AllAlpha=true
     image: dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager
@@ -40,11 +40,17 @@ spec:
       readOnly: true
     - mountPath: /etc/ssl/certs
       name: certs
+    - mountPath: /etc/qingcloud
+      name: qingcloud
+      readOnly: true
   hostNetwork: true
   volumes:
   - hostPath:
       path: /etc/kubernetes
-    name: k8s
+      name: k8s
   - hostPath:
       path: /etc/ssl/certs
-    name: certs
+      name: certs
+  - hostPath:
+      path: /etc/qingcloud
+      name: qingcloud

@@ -11,7 +11,7 @@ metadata:
 spec:
   containers:
   - command:
-    - qingcloud-cloud-controller-manager
+    - /qingcloud-cloud-controller-manager
     - --v=${KUBE_LOG_LEVEL}
     - --cloud-provider qingcloud
     - --cloud-config /etc/kubernetes/qingcloud.conf

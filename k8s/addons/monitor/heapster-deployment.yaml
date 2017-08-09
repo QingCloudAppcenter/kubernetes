@@ -6,18 +6,16 @@ metadata:
   labels:
     k8s-app: heapster
     addonmanager.kubernetes.io/mode: EnsureExists
-    version: v1.4.0
+    kubernetes.io/cluster-service: "true"
 spec:
   replicas: 1
   selector:
     matchLabels:
       k8s-app: heapster
-      version: v1.4.0
   template:
     metadata:
       labels:
         k8s-app: heapster
-        version: v1.4.0
       annotations:
         scheduler.alpha.kubernetes.io/critical-pod: ''
     spec:

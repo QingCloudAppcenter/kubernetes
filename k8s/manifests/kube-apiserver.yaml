@@ -17,7 +17,8 @@ spec:
     - --requestheader-allowed-names=front-proxy-client
     - --service-cluster-ip-range=10.96.0.0/12
     - --secure-port=6443
-    - --insecure-port=0
+    - --insecure-port=8080
+    - --insecure-bind-address=127.0.0.1
     - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
     - --proxy-client-key-file=/etc/kubernetes/pki/front-proxy-client.key
     - --tls-private-key-file=/etc/kubernetes/pki/apiserver.key

@@ -57,6 +57,7 @@ function ensure_dir(){
 }
 
 function get_or_gen_init_token(){
+    local init_token=""
     if [ -f "/data/kubernetes/init_token" ]; then
       init_token=$(cat /data/kubernetes/init_token)
     fi
@@ -68,12 +69,12 @@ function get_or_gen_init_token(){
 }
 
 function replace_vars(){
-    from=$1
-    to=$2
+    local from=$1
+    local to=$2
     echo "process ${from} to ${to}"
-    prefix=$(timestamp)
-    name=$(basename ${from})
-    tmpfile="/tmp/${prefix}-${name}"
+    local prefix=$(timestamp)
+    local name=$(basename ${from})
+    local tmpfile="/tmp/${prefix}-${name}"
     sed 's/${HYPERKUBE_VERSION}/'"${HYPERKUBE_VERSION}"'/g' ${from} > ${tmpfile}
     sed -i 's/${KUBE_LOG_LEVEL}/'"${ENV_KUBE_LOG_LEVEL}"'/g' ${tmpfile}
     sed -i 's/${HOST_IP}/'"${HOST_IP}"'/g' ${tmpfile}
@@ -82,8 +83,10 @@ function replace_vars(){
     then
         sed -i 's/replicas:\s./replicas: '"${LOG_COUNT}"'/g' ${tmpfile}
     fi
-
-    diff ${tmpfile} ${to} >> /dev/null
+    if [ -f ${to} ]
+    then
+        diff ${tmpfile} ${to} >> /dev/null
+    fi
     if [ "$?" -ne 0 ]
     then
         cp ${tmpfile} ${to}
@@ -96,8 +99,8 @@ function replace_vars(){
 
 function update_k8s_manifests(){
     echo "echo update k8s manifests"
-    #mkdir /data/kubernetes/manifests/ || rm -rf /data/kubernetes/manifests/*
-    #mkdir /data/kubernetes/addons/ || rm -rf /data/kubernetes/addons/*
+    mkdir /data/kubernetes/manifests/ || rm -rf /data/kubernetes/manifests/*
+    mkdir /data/kubernetes/addons/ || rm -rf /data/kubernetes/addons/*
     process_manifests
 }
 
@@ -109,14 +112,14 @@ function process_manifests(){
         replace_vars ${f} /data/kubernetes/manifests/${name}
     done
 
-#    for addon in ${K8S_HOME}/k8s/addons/*; do
-#        addon_name=$(basename $addon)
-#        mkdir -p /data/kubernetes/addons/${addon_name}
-#        for f in ${addon}/*; do
-#            name=$(basename ${f})
-#            replace_vars ${f} /data/kubernetes/addons/${addon_name}/${name}
-#        done
-#    done
+    for addon in ${K8S_HOME}/k8s/addons/*; do
+        addon_name=$(basename $addon)
+        mkdir -p /data/kubernetes/addons/${addon_name}
+        for f in ${addon}/*; do
+            name=$(basename ${f})
+            replace_vars ${f} /data/kubernetes/addons/${addon_name}/${name}
+        done
+    done
 }
 
 function scale_es(){

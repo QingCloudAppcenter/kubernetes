@@ -97,7 +97,7 @@ function replace_vars(){
         cp ${tmpfile} ${to}
         echo "${to} create"
     fi
-    
+
     rm ${tmpfile}
 }
 

@@ -27,6 +27,6 @@ KUBELET_KUBECONFIG_ARGS="--kubeconfig=/etc/kubernetes/kubelet.conf --require-kub
 
 KUBELET_DNS_ARGS="--cluster-dns=10.96.0.10 --cluster-domain=cluster.local"
 
-KUBE_CLOUD_PROVIDER="--cloud-provider=qingcloud --cloud-config=/etc/kubernetes/qingcloud.conf"
+KUBE_CLOUD_PROVIDER="--cloud-provider=external"
 
 KUBELET_EXTRA_ARGS="--node-labels role={{getv "/host/role"}},node_id={{getv "/host/node_id"}} --max-pods 60 --feature-gates AllAlpha=true --root-dir /data/var/lib/kubelet"

@@ -25,6 +25,7 @@ spec:
     - --cluster-signing-key-file=/etc/kubernetes/pki/ca.key
     - --allocate-node-cidrs=false
     - --service-cluster-ip-range=10.96.0.0/16
+    - --cloud-provider=external
     - --feature-gates
     - AllAlpha=true
     image: dockerhub.qingcloud.com/google_containers/hyperkube-amd64:${HYPERKUBE_VERSION}

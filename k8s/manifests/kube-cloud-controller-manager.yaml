@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    scheduler.alpha.kubernetes.io/critical-pod: ""
+  labels:
+    component: kube-cloud-controller-manager
+    tier: control-plane
+  name: kube-cloud-controller-manager
+  namespace: kube-system
+spec:
+  containers:
+  - args:
+    - --v=${KUBE_LOG_LEVEL}
+    - --cloud-provider qingcloud
+    - --cloud-config /etc/kubernetes/qingcloud.conf
+    - --kubeconfig=/etc/kubernetes/cloud-controller-manager.conf
+    - -use-service-account-credentials=true
+    - --feature-gates
+    - AllAlpha=true
+    image: dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 8
+      httpGet:
+        host: 127.0.0.1
+        path: /healthz
+        port: 10253
+        scheme: HTTP
+      initialDelaySeconds: 15
+      timeoutSeconds: 15
+    name: qingcloud-cloud-controller-manager
+    resources:
+      requests:
+        cpu: 250m
+    volumeMounts:
+    - mountPath: /etc/kubernetes
+      name: k8s
+      readOnly: true
+    - mountPath: /etc/ssl/certs
+      name: certs
+  hostNetwork: true
+  volumes:
+  - hostPath:
+      path: /etc/kubernetes
+    name: k8s
+  - hostPath:
+      path: /etc/ssl/certs
+    name: certs

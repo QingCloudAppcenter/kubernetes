@@ -12,6 +12,7 @@ init_token=$(get_or_gen_init_token)
 kubeadm alpha phase certs selfsign --apiserver-advertise-address ${HOST_IP} --api-external-dns-names ${ENV_API_EXTERNAL_DOMAIN}
 kubeadm alpha phase kubeconfig client-certs --client-name --client-name system:node:${HOST_INSTANCE_ID} --server https://${MASTER_IP}:6443 > /etc/kubernetes/kubelet.conf
 kubeadm alpha phase kubeconfig client-certs --client-name --client-name system:kube-controller-manager --server https://${MASTER_IP}:6443 > /etc/kubernetes/controller-manager.conf
+kubeadm alpha phase kubeconfig client-certs --client-name --client-name system:cloud-controller-manager --server https://${MASTER_IP}:6443 > /etc/kubernetes/cloud-controller-manager.conf
 kubeadm alpha phase kubeconfig client-certs --client-name --client-name system:kube-scheduler --server https://${MASTER_IP}:6443 > /etc/kubernetes/scheduler.conf
 kubeadm alpha phase kubeconfig client-certs --client-name kubernetes-admin --server https://${MASTER_IP}:6443 > /etc/kubernetes/admin.conf
 docker_login

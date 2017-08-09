@@ -7,6 +7,14 @@ source ${K8S_HOME}/version
 
 echo "update images"
 
+cat << EOF > /etc/docker/daemon.json
+{
+    "storage-driver": "overlay2"
+}
+EOF
+
+systemcl restart docker
+
 docker login -u guest -p guest dockerhub.qingcloud.com
 
 docker pull dockerhub.qingcloud.com/google_containers/pause-amd64:3.0
@@ -21,7 +29,7 @@ docker pull dockerhub.qingcloud.com/google_containers/kubernetes-dashboard-amd64
 docker pull dockerhub.qingcloud.com/fluent/fluent-bit-kubernetes-daemonset:0.11.13
 docker pull dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.0
 docker pull dockerhub.qingcloud.com/google_containers/addon-resizer:1.7
-docker pull dockerhub.qingcloud.com/google_containers/kibana:v5.4.0
-docker pull dockerhub.qingcloud.com/google_containers/elasticsearch:v5.4.0-1
+docker pull dockerhub.qingcloud.com/elastic/kibana:5.5.1
+docker pull dockerhub.qingcloud.com/google_containers/elasticsearch:v5.5.1
 docker pull dockerhub.qingcloud.com/qingcloud/elasticsearch-curator:5.1.1
 docker pull dockerhub.qingcloud.com/qingcloud/file-sync:0.7

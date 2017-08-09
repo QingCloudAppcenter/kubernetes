@@ -30,4 +30,5 @@ rm -rf ${K8S_HOME}/bin/*
 download_k8s_bin
 
 kubectl completion bash >/etc/profile.d/kubectl.sh
+kubeadm completion bash >/etc/profile.d/kubeadm.sh
 source /etc/profile

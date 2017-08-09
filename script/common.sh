@@ -42,6 +42,9 @@ function mykubectl(){
 }
 
 function ensure_dir(){
+    if [ ! -d /root/.kube ]; then
+        mkdir /root/.kube
+    fi
     if [ ! -d /data/kubernetes ]; then
         mkdir -p /data/kubernetes
     fi
@@ -137,7 +140,7 @@ function join_node(){
 
     echo "master ip: ${MASTER_IP} init_token: ${init_token}"
 
-    retry kubeadm join ${MASTER_IP} --token ${init_token} --skip-preflight-checks
+    retry kubeadm join ${MASTER_IP}:6443 --token ${init_token} --skip-preflight-checks
 
     touch ${NODE_INIT_LOCK}
 }

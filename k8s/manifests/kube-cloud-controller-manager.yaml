@@ -10,7 +10,8 @@ metadata:
   namespace: kube-system
 spec:
   containers:
-  - args:
+  - command:
+    - qingcloud-cloud-controller-manager
     - --v=${KUBE_LOG_LEVEL}
     - --cloud-provider qingcloud
     - --cloud-config /etc/kubernetes/qingcloud.conf

@@ -13,7 +13,7 @@ cat << EOF > /etc/docker/daemon.json
 }
 EOF
 
-systemcl restart docker
+systemctl restart docker
 
 docker login -u guest -p guest dockerhub.qingcloud.com
 

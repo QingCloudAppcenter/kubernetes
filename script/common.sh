@@ -292,9 +292,9 @@ function wait_qingcloudvolume_detach(){
 }
 
 function docker_login(){
-    if [ ! -z "${DOCKERHUB_USERNAME}" ] && [ ! -z "${DOCKERHUB_PASSWORD}" ]
+    if [ ! -z "${ENV_DOCKERHUB_USERNAME}" ] && [ ! -z "${ENV_DOCKERHUB_PASSWORD}" ]
     then
-        retry docker login dockerhub.qingcloud.com -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}
+        retry docker login dockerhub.qingcloud.com -u ${ENV_DOCKERHUB_USERNAME} -p ${ENV_DOCKERHUB_PASSWORD}
     fi
 }
 

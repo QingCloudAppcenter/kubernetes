@@ -256,7 +256,7 @@ function link_dynamic_dir(){
     then
         mkdir -p /data/var && mkdir /data/var/lib && mkdir /data/var/log
     fi
-    if [ -d /var/lib/docker ]
+    if [ -d /var/lib/docker ] && [ ! -L /var/lib/docker ]
     then
         mv /var/lib/docker /data/var/lib/
         ln -s /data/var/lib/docker /var/lib/docker

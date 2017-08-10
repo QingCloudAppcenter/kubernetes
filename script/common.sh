@@ -107,15 +107,19 @@ function update_k8s_manifests(){
     mkdir /data/kubernetes/manifests/ || rm -rf /data/kubernetes/manifests/*
     mkdir /data/kubernetes/addons/ || rm -rf /data/kubernetes/addons/*
     process_manifests
+    process_addons
 }
 
 function process_manifests(){
     mkdir -p /data/kubernetes/manifests/
-    mkdir -p /data/kubernetes/addons/
     for f in ${K8S_HOME}/k8s/manifests/*; do
         name=$(basename ${f})
         replace_vars ${f} /data/kubernetes/manifests/${name}
     done
+}
+
+function process_addons(){
+    mkdir -p /data/kubernetes/addons/
 
     for addon in ${K8S_HOME}/k8s/addons/*; do
         addon_name=$(basename $addon)

@@ -22,7 +22,7 @@ wait_kubelet
 wait_apiserver
 
 kubeadm alpha phase mark-master ${MASTER_INSTANCE_ID}
-retry kubeadm token create ${init_token} --token-ttl 0 --kubeconfig /etc/kubernetes/admin.conf
+retry kubeadm token create ${init_token} --ttl 0 --description "the default kubeadm init token" --kubeconfig /etc/kubernetes/admin.conf
 retry kubeadm alpha phase bootstrap-token node allow-post-csrs --kubeconfig /etc/kubernetes/admin.conf
 retry kubeadm alpha phase bootstrap-token node allow-auto-approve --kubeconfig /etc/kubernetes/admin.conf
 retry kubeadm alpha phase bootstrap-token cluster-info /etc/kubernetes/admin.conf --kubeconfig /etc/kubernetes/admin.conf

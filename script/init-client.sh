@@ -10,5 +10,3 @@ systemctl restart ssh
 
 ensure_dir
 join_node
-
-ln -fs /etc/kubernetes/kubelet.conf /root/.kube/config

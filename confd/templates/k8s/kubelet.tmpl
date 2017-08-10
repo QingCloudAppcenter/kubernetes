@@ -23,10 +23,14 @@ KUBELET_NETWORK_ARGS="--network-plugin=cni --cni-conf-dir=/etc/cni/net.d --cni-b
 
 KUBELET_SYSTEM_PODS_ARGS="--pod-manifest-path=/etc/kubernetes/manifests --pod-infra-container-image=dockerhub.qingcloud.com/google_containers/pause-amd64:3.0"
 
-KUBELET_KUBECONFIG_ARGS="--kubeconfig=/etc/kubernetes/kubelet.conf --require-kubeconfig=true"
+KUBELET_KUBECONFIG_ARGS="--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --require-kubeconfig=true"
 
 KUBELET_DNS_ARGS="--cluster-dns=10.96.0.10 --cluster-domain=cluster.local"
 
 KUBE_CLOUD_PROVIDER="--cloud-provider=external"
+
+KUBELET_AUTHZ_ARGS="--authorization-mode=Webhook --client-ca-file=/etc/kubernetes/pki/ca.crt"
+
+KUBELET_CGROUP_ARGS="--cgroup-driver=cgroupfs"
 
 KUBELET_EXTRA_ARGS="--node-labels role={{getv "/host/role"}},node_id={{getv "/host/node_id"}} --max-pods 60 --feature-gates=AllAlpha=true,DynamicKubeletConfig=false --root-dir /data/var/lib/kubelet"

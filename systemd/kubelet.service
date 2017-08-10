@@ -19,6 +19,8 @@ ExecStart=/usr/bin/kubelet \
             $KUBELET_KUBECONFIG_ARGS \
             $KUBELET_DNS_ARGS \
             $KUBE_CLOUD_PROVIDER \
+            $KUBELET_AUTHZ_ARGS \
+            $KUBELET_CGROUP_ARGS \
             $KUBELET_EXTRA_ARGS \
 Restart=on-failure
 KillMode=process

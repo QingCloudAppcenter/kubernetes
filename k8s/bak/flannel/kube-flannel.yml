@@ -4,7 +4,7 @@ kind: ServiceAccount
 metadata:
   name: flannel
   labels:
-    addonmanager.kubernetes.io/mode: EnsureExists
+    addonmanager.kubernetes.io/mode: Reconcile
 ---
 kind: ConfigMap
 apiVersion: v1
@@ -13,7 +13,7 @@ metadata:
   labels:
     tier: node
     app: flannel
-    addonmanager.kubernetes.io/mode: EnsureExists
+    addonmanager.kubernetes.io/mode: Reconcile
 data:
   cni-conf.json: |
     {

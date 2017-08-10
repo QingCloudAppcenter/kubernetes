@@ -32,8 +32,8 @@ spec:
         securityContext:
           privileged: true
         volumeMounts:
-        - mountPath: /var/lib/kube-proxy/kubeconfig.conf
-          name: kube-proxy-config
+        - mountPath: /var/lib/kube-proxy
+          name: kube-proxy
         # TODO: Make this a file hostpath mount
         - mountPath: /run/xtables.lock
           name: xtables-lock
@@ -41,9 +41,9 @@ spec:
       hostNetwork: true
       serviceAccountName: kube-proxy
       volumes:
-      - name: kube-proxy-config
-        hostPath:
-          path: /etc/kubernetes/kubelet.conf
+      - name: kube-proxy
+        configMap:
+          name: kube-proxy
       - name: xtables-lock
         hostPath:
           path: /run/xtables.lock

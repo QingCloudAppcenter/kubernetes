@@ -3,7 +3,6 @@ kind: Pod
 metadata:
   annotations:
     scheduler.alpha.kubernetes.io/critical-pod: ""
-  creationTimestamp: null
   labels:
     component: kube-controller-manager
     tier: control-plane

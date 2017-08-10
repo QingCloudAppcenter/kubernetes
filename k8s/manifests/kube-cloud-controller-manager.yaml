@@ -4,9 +4,9 @@ metadata:
   annotations:
     scheduler.alpha.kubernetes.io/critical-pod: ""
   labels:
-    component: kube-cloud-controller-manager
+    component: cloud-controller-manager
     tier: control-plane
-  name: kube-cloud-controller-manager
+  name: cloud-controller-manager
   namespace: kube-system
 spec:
   containers:
@@ -15,7 +15,7 @@ spec:
     - --v=${KUBE_LOG_LEVEL}
     - --cloud-provider=qingcloud
     - --cloud-config=/etc/kubernetes/qingcloud.conf
-    - --kubeconfig=/etc/kubernetes/cloud-controller-manager.conf
+    - --kubeconfig=/etc/kubernetes/controller-manager.conf
     - --use-service-account-credentials=true
     - --feature-gates
     - AllAlpha=true

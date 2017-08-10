@@ -15,7 +15,7 @@ spec:
     - --v=${KUBE_LOG_LEVEL}
     - --cloud-provider=qingcloud
     - --cloud-config=/etc/kubernetes/qingcloud.conf
-    - --kubeconfig=/etc/kubernetes/controller-manager.conf
+    - --kubeconfig=/etc/kubernetes/admin.conf
     - --configure-cloud-routes=false
     - --allocate-node-cidrs=false
     - --use-service-account-credentials=true

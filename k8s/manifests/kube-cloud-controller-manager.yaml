@@ -20,7 +20,7 @@ spec:
     - --allocate-node-cidrs=false
     - --use-service-account-credentials=true
     - --service-account-private-key-file=/etc/kubernetes/pki/sa.key
-#    - --feature-gates=AllAlpha=true
+    - --feature-gates=AllAlpha=true,DynamicKubeletConfig=false,RotateKubeletServerCertificate=false,RotateKubeletClientCertificate=false
     image: dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager
     imagePullPolicy: IfNotPresent
     livenessProbe:

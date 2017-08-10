@@ -33,4 +33,4 @@ KUBELET_AUTHZ_ARGS="--authorization-mode=Webhook --client-ca-file=/etc/kubernete
 
 KUBELET_CGROUP_ARGS="--cgroup-driver=cgroupfs"
 
-KUBELET_EXTRA_ARGS="--node-labels role={{getv "/host/role"}},node_id={{getv "/host/node_id"}} --max-pods 60 --feature-gates=AllAlpha=true,DynamicKubeletConfig=false --root-dir /data/var/lib/kubelet"
+KUBELET_EXTRA_ARGS="--node-labels role={{getv "/host/role"}},node_id={{getv "/host/node_id"}} --max-pods 60 --feature-gates=AllAlpha=true,DynamicKubeletConfig=false,RotateKubeletServerCertificate=false,RotateKubeletClientCertificate=false --root-dir /data/var/lib/kubelet"

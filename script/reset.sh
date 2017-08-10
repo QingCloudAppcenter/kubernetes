@@ -13,7 +13,10 @@ cat /proc/mounts | awk '{print $2}' | grep '/data/var/lib/kubelet' | xargs umoun
 echo "clean config"
 unlink /etc/kubernetes
 rm ${NODE_INIT_LOCK}
-rm -rf /data/kubernetes/*
+rm -f /data/kubernetes/*.conf
+rm -rf /data/kubernetes/addons
+rm -rf /data/kubernetes/manifests
+rm -rf /data/kubernetes/pki
 
 echo "stop all container"
 docker ps -a | grep 'k8s_' | awk '{print $1}' | xargs docker rm --force --volumes

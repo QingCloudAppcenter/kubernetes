@@ -43,7 +43,7 @@ spec:
       path: /etc/ssl/certs
     name: certs
   - hostPath:
-      path: /var/lib/etcd
+      path: /data/etcd
     name: etcd
   - hostPath:
       path: /etc/kubernetes

@@ -16,9 +16,11 @@ spec:
     - --cloud-provider=qingcloud
     - --cloud-config=/etc/kubernetes/qingcloud.conf
     - --kubeconfig=/etc/kubernetes/controller-manager.conf
+    - --configure-cloud-routes=false
+    - --allocate-node-cidrs=false
     - --use-service-account-credentials=true
     - --service-account-private-key-file=/etc/kubernetes/pki/sa.key
-    - --feature-gates=AllAlpha=true
+#    - --feature-gates=AllAlpha=true
     image: dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager
     imagePullPolicy: IfNotPresent
     livenessProbe:

@@ -153,8 +153,7 @@ spec:
       tolerations:
       - key: "CriticalAddonsOnly"
         operator: Exists
-      - key: "dedicated"
-        value: "master"
+      - key: "node-role.kubernetes.io/master"
         effect: NoSchedule
       nodeSelector:
         role: master

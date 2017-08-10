@@ -3,6 +3,7 @@ kind: DaemonSet
 metadata:
   labels:
     k8s-app: kube-proxy
+    addonmanager.kubernetes.io/mode: Reconcile
   name: kube-proxy
   namespace: kube-system
 spec:
@@ -20,20 +21,19 @@ spec:
     spec:
       containers:
       - name: kube-proxy
-        image: dockerhub.qingcloud.com/google_containers/hyperkube-amd64:v1.7.3
+        image: dockerhub.qingcloud.com/google_containers/hyperkube-amd64:${HYPERKUBE_VERSION}
         imagePullPolicy: IfNotPresent
         command:
-        - /usr/local/bin/kube-proxy
+        - kube-proxy
         - --v=${KUBE_LOG_LEVEL}
         - --masquerade-all
-        - --feature-gates
-        - AllAlpha=true
+        - --feature-gates=AllAlpha=true,DynamicKubeletConfig=false,RotateKubeletServerCertificate=false,RotateKubeletClientCertificate=false
         - --kubeconfig=/var/lib/kube-proxy/kubeconfig.conf
         securityContext:
           privileged: true
         volumeMounts:
-        - mountPath: /var/lib/kube-proxy
-          name: kube-proxy
+        - mountPath: /var/lib/kube-proxy/kubeconfig.conf
+          name: kube-proxy-config
         # TODO: Make this a file hostpath mount
         - mountPath: /run/xtables.lock
           name: xtables-lock
@@ -41,9 +41,9 @@ spec:
       hostNetwork: true
       serviceAccountName: kube-proxy
       volumes:
-      - name: kube-proxy
-        configMap:
-          name: kube-proxy
+      - name: kube-proxy-config
+        hostPath:
+          path: /etc/kubernetes/kubelet.conf
       - name: xtables-lock
         hostPath:
           path: /run/xtables.lock

@@ -8,4 +8,4 @@ ensure_dir
 
 init_token=$(get_or_gen_init_token)
 adminconf=$(cat "/etc/kubernetes/admin.conf")
-echo '{"init_token":"'${init_token}'", "adminconf":'${adminconf}'}'
+echo '{"init_token":"'${init_token}'", "adminconf":"'${adminconf}'"}'

@@ -274,6 +274,10 @@ function link_dynamic_dir(){
     then
         mkdir /data/var/lib/kubelet && ln -s /data/var/lib/kubelet /var/lib/kubelet
     fi
+    if [ ! -d "/data/var/run/kubernetes" ]
+    then
+        mkdir /data/var/run/kubernetes && ln -s /data/var/run/kubernetes /var/run/kubernetes
+    fi
     ln -fs /root/.docker /data/var/lib/kubelet/.docker
 }
 

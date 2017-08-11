@@ -8,11 +8,11 @@ source "${K8S_HOME}/script/common.sh"
 systemctl stop kubelet
 
 echo "Unmounting directories in /data/var/lib/kubelet..."
-cat /proc/mounts | awk '{print $2}' | grep '/data/var/lib/kubelet' | xargs umount
+cat /proc/mounts | awk '{print $2}' | grep '/data/var/lib/kubelet' | xargs -d '\n' -r umount
 
 echo "clean config"
 unlink /etc/kubernetes
-rm ${NODE_INIT_LOCK}
+rm -f ${NODE_INIT_LOCK}
 rm -f /data/kubernetes/*.conf
 rm -rf /data/kubernetes/addons
 rm -rf /data/kubernetes/manifests

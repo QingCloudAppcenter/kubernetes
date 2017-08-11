@@ -1,4 +1,4 @@
-{{$role := getv "host/role"}}{{if eq $role "client"}}
+{{$role := getv "/host/role"}}{{if eq $role "client"}}
 auto lo
 iface lo inet loopback
 {{$masters := getvs "/hosts/master/*/ip"}}

@@ -28,7 +28,7 @@ spec:
         securityContext:
           privileged: true
       containers:
-      - image: dockerhub.qingcloud.com/google_containers/elasticsearch:v5.5.1
+      - image: dockerhub.qingcloud.com/google_containers/elasticsearch:v5.5.1-1
         imagePullPolicy: IfNotPresent
         name: elasticsearch-logging
         resources:

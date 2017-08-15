@@ -15,6 +15,7 @@ function download_k8s_bin()
 {
     mkdir -p ${K8S_HOME}/bin
     pushd ${K8S_HOME}/bin
+    rm *
     for bin in "${k8s_bins[@]}"; do
         local bin_url="$k8s_base_url/${bin}"
         echo "downloading ${bin_url}"

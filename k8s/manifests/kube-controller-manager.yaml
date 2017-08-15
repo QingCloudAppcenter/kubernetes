@@ -47,6 +47,8 @@ spec:
       readOnly: true
     - mountPath: /etc/ssl/certs
       name: certs
+    - mountPath: /usr/libexec/kubernetes/kubelet-plugins
+      name: plugins
   hostNetwork: true
   volumes:
   - name: k8s
@@ -55,3 +57,5 @@ spec:
   - name: certs
     hostPath:
       path: /etc/ssl/certs
+  - name: plugins
+      path: /usr/libexec/kubernetes/kubelet-plugins

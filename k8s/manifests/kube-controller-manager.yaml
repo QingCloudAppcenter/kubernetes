@@ -49,6 +49,9 @@ spec:
       name: certs
     - mountPath: /usr/libexec/kubernetes/kubelet-plugins
       name: plugins
+    - mountPath: /etc/qingcloud
+      name: qingcloud
+      readOnly: true
   hostNetwork: true
   volumes:
   - name: k8s
@@ -60,3 +63,6 @@ spec:
   - name: plugins
     hostPath:
       path: /usr/libexec/kubernetes/kubelet-plugins
+  - name: qingcloud
+    hostPath:
+      path: /etc/qingcloud

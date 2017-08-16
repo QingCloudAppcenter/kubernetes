@@ -33,3 +33,5 @@ docker pull dockerhub.qingcloud.com/elastic/kibana:5.5.1
 docker pull dockerhub.qingcloud.com/google_containers/elasticsearch:v5.5.1
 docker pull dockerhub.qingcloud.com/qingcloud/elasticsearch-curator:5.1.1
 docker pull dockerhub.qingcloud.com/qingcloud/file-sync:0.7
+docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-volume-provisioner
+docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager

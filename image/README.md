@@ -1,8 +1,11 @@
-#!/usr/bin/env bash
+#Build kubernetes vm image
 
-apt-get install -y git wget
+* base ubuntu 16.04
+
+```bash
+apt-get install -y git
 git clone https://github.com/QingCloudAppcenter/kubernetes.git /opt/kubernetes
 cd /opt/kubernetes/image
 
-./build-image.sh
-
+build.sh
+```

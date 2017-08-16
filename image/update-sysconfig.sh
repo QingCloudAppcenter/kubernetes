@@ -19,3 +19,5 @@ iface lo inet loopback
 allow-hotplug eth0
 iface eth0 inet dhcp
 EOF
+
+timedatectl set-timezone UTC

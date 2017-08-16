@@ -16,4 +16,4 @@ ${K8S_HOME}/image/update-k8s-bin.sh
 ${K8S_HOME}/image/update-cni.sh
 ${K8S_HOME}/image/update-logrotate.sh
 ${K8S_HOME}/image/update-systemd-conf.sh
-${K8S_HOME}/image/pull-docker-images.sh
+${K8S_HOME}/image/update-docker-images.sh

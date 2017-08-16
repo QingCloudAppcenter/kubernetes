@@ -50,6 +50,8 @@ spec:
       name: certs
     - mountPath: /usr/libexec/kubernetes/kubelet-plugins
       name: plugins
+    - mountPath: /var/log/qingcloud-flex-volume/
+      name: flexlog
     - mountPath: /etc/qingcloud
       name: qingcloud
       readOnly: true
@@ -67,3 +69,6 @@ spec:
   - name: qingcloud
     hostPath:
       path: /etc/qingcloud
+  - name: flexlog
+    hostPath:
+      path: /var/log/qingcloud-flex-volume-controller-manager/

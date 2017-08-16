@@ -15,7 +15,6 @@ function download_k8s_bin()
 {
     mkdir -p ${K8S_HOME}/bin
     pushd ${K8S_HOME}/bin
-    rm *
     for bin in "${k8s_bins[@]}"; do
         local bin_url="$k8s_base_url/${bin}"
         echo "downloading ${bin_url}"
@@ -29,13 +28,10 @@ function download_k8s_bin()
     popd
 }
 
-function download_flex_volume_driver()
-{
-    /usr/libexec/kubernetes/kubelet-plugins/volume/exec/
-}
-
 rm -rf ${K8S_HOME}/bin/*
 download_k8s_bin
+
+systemctl is-active kubelet >/dev/null 2>&1 && systemctl restart kubelet
 
 kubectl completion bash >/etc/profile.d/kubectl.sh
 kubeadm completion bash >/etc/profile.d/kubeadm.sh

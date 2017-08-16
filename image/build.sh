@@ -7,13 +7,13 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-source ${K8S_HOME}/image/update-pkg.sh
-source ${K8S_HOME}/image/update-qingcloud-agent.sh
-source ${K8S_HOME}/image/update-confd.sh
-source ${K8S_HOME}/image/update-sysconfig.sh
-source ${K8S_HOME}/image/update-sshd-config.sh
-source ${K8S_HOME}/image/update-k8s-bin.sh
-source ${K8S_HOME}/image/update-cni.sh
-source ${K8S_HOME}/image/update-logrotate.sh
-source ${K8S_HOME}/image/update-systemd-conf.sh
-source ${K8S_HOME}/image/pull-docker-images.sh
+${K8S_HOME}/image/update-pkg.sh
+${K8S_HOME}/image/update-qingcloud-agent.sh
+${K8S_HOME}/image/update-confd.sh
+${K8S_HOME}/image/update-sysconfig.sh
+${K8S_HOME}/image/update-sshd-config.sh
+${K8S_HOME}/image/update-k8s-bin.sh
+${K8S_HOME}/image/update-cni.sh
+${K8S_HOME}/image/update-logrotate.sh
+${K8S_HOME}/image/update-systemd-conf.sh
+${K8S_HOME}/image/pull-docker-images.sh

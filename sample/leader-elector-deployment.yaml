@@ -15,6 +15,7 @@ spec:
             image: dockerhub.qingcloud.com/google_containers/leader-elector:0.5
             args:
             - --election=example
+            - --http=0.0.0.0:4040
             ports:
               - name: web
                 containerPort: 80

@@ -272,16 +272,6 @@
               "required": "yes"
             },
             {
-              "key": "count",
-              "label": "count",
-              "description": "Number of client nodes for the cluster to create",
-              "type": "integer",
-              "default": 1,
-              "min":1,
-              "max":1,
-              "required": "yes"
-            },
-            {
               "key": "instance_class",
               "label": "resource type",
               "description": "The instance type for the cluster to run, such as high performance, high performance plus",

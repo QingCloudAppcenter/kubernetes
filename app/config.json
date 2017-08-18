@@ -318,6 +318,14 @@
           "required": "no"
         },
         {
+          "key": "registry-mirrors",
+          "label": "Registry mirrors",
+          "description": "The docker hub registry mirror, use a blank to split multi registry",
+          "type": "string",
+          "default": "https://registry.docker-cn.com",
+          "required": "no"
+        },
+        {
           "key": "insecure-registries",
           "label": "Insecure registries",
           "description": "The insecure docker registries, use a blank to split multi registry",

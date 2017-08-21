@@ -11,4 +11,3 @@ systemctl start docker
 systemctl start kubelet
 wait_kubelet
 wait_apiserver
-train_master

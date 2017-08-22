@@ -21,3 +21,8 @@ iface eth0 inet dhcp
 EOF
 
 timedatectl set-timezone UTC
+
+cat << EOF > /etc/security/limits.conf
+root    soft    nofile  200000
+root    hard    nofile  200000
+EOF

@@ -29,7 +29,7 @@ KUBELET_DNS_ARGS="--cluster-dns=10.96.0.10 --cluster-domain=cluster.local"
 
 KUBE_CLOUD_PROVIDER="--cloud-provider=external"
 
-KUBELET_AUTHZ_ARGS="--authorization-mode=Webhook --client-ca-file=/etc/kubernetes/pki/ca.crt"
+KUBELET_AUTHZ_ARGS="--authorization-mode=AlwaysAllow --client-ca-file=/etc/kubernetes/pki/ca.crt"
 
 KUBELET_CGROUP_ARGS="--cgroup-driver=cgroupfs"
 

@@ -327,7 +327,7 @@ function upgrade_docker(){
 function update_fluent_config(){
     if [ "${HOST_ROLE}" == "master" ]
     then
-        kubectl create configmap --dry-run -o yaml fluent-bit-extend -n kube-system --from-file /etc/kubernetes/fluentbit/extend.conf | kubectl replace -f -
+        kubectl create configmap --dry-run -o yaml fluent-bit-extend -n kube-system --from-file /etc/kubernetes/fluentbit/extend.conf | kubectl replace -n kube-system -f -
         date=$(date +%s)
         sed -i 's/qingcloud\.com\/update-time:.*/qingcloud\.com\/update-time: "'${date}'"/g' /etc/kubernetes/addons/monitor/fluentbit-ds.yaml
         kubectl apply -f /etc/kubernetes/addons/monitor/fluentbit-ds.yaml

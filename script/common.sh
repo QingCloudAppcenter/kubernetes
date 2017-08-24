@@ -323,3 +323,13 @@ function upgrade_docker(){
     ln -s /data/var/lib/kubelet /var/lib/kubelet
     return 0
 }
+
+function update_fluent_config(){
+    if [ "${HOST_ROLE}" == "master" ]
+    then
+        kubectl create configmap --dry-run -o yaml fluent-bit-extend -n kube-system --from-file /etc/kubernetes/fluentbit/extend.conf | kubectl replace -f -
+        date=$(date +%s)
+        sed -i 's/qingcloud\.com\/update-time:.*/qingcloud\.com\/update-time: "'${date}'"/g' /etc/kubernetes/addons/fluentbit-ds.yaml
+        kubectl apply -f /etc/kubernetes/addons/fluentbit-ds.yaml
+    fi
+}

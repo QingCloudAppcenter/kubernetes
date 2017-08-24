@@ -10,7 +10,8 @@ metadata:
   namespace: kube-system
 spec:
   containers:
-  - command:
+  - name: kube-controller-manager
+    command:
     - kube-controller-manager
     - --v=${KUBE_LOG_LEVEL}
     - --kubeconfig=/etc/kubernetes/controller-manager.conf
@@ -38,7 +39,6 @@ spec:
         scheme: HTTP
       initialDelaySeconds: 15
       timeoutSeconds: 15
-    name: kube-controller-manager
     resources:
       requests:
         cpu: 200m
@@ -55,6 +55,12 @@ spec:
     - mountPath: /etc/qingcloud
       name: qingcloud
       readOnly: true
+  - name: flexlog
+    image: dockerhub.qingcloud.com/busybox:1.27.1
+    args: [/bin/sh, -c, 'tail -n+1 -F --retry /var/log/qingcloud-flex-volume/flex-volume.INFO']
+    volumeMounts:
+    - name: flexlog
+      mountPath: /var/log/qingcloud-flex-volume
   hostNetwork: true
   volumes:
   - name: k8s

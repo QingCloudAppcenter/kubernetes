@@ -32,12 +32,12 @@ spec:
       readOnly: true
   hostNetwork: true
   volumes:
-  - hostPath:
+  - name: k8s
+    hostPath:
       path: /etc/kubernetes
-    name: k8s
-  - hostPath:
+  - name: certs
+    hostPath:
       path: /etc/ssl/certs
-    name: certs
-  - hostPath:
+  - name: qingcloud
+    hostPath:
       path: /etc/qingcloud
-    name: qingcloud

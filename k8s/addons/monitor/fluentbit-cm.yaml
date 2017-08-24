@@ -47,7 +47,7 @@ data:
         Type  log
         Logstash_Format On
 
-    
+
   parsers.conf: |
     [PARSER]
         Name   json-test

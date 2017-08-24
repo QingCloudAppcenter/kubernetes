@@ -53,7 +53,7 @@ spec:
           mountPath: /fluent-bit/etc/
           readOnly: true
         - name: fluent-bit-extend-config
-          mountPath: /fluent-bit/etc/
+          mountPath: /fluent-bit/etc.d/
           readOnly: true
         ports:
         - containerPort: 24224

@@ -57,7 +57,7 @@ spec:
       readOnly: true
   - name: flexlog
     image: dockerhub.qingcloud.com/busybox:1.27.1
-    args: [/bin/sh, -c, 'tail -n+1 -F --retry /var/log/qingcloud-flex-volume/flex-volume.INFO']
+    args: [/bin/sh, -c, 'tail -n+1 -F /var/log/qingcloud-flex-volume/flex-volume.INFO']
     volumeMounts:
     - name: flexlog
       mountPath: /var/log/qingcloud-flex-volume

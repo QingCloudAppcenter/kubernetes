@@ -76,6 +76,9 @@ spec:
       - name: fluent-bit-extend-config
         configMap:
           name: fluent-bit-extend
+          items:
+          - key: extend.conf
+            path: extend.conf
       tolerations:
       - key: "CriticalAddonsOnly"
         operator: "Exists"

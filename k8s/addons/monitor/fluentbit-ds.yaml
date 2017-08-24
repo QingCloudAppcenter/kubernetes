@@ -27,7 +27,8 @@ spec:
         image: dockerhub.qingcloud.com/fluent/fluent-bit:0.12
         command:
         - /fluent-bit/bin/fluent-bit
-        - -c /fluent-bit/etc/fluent-bit.conf
+        - -c
+        - /fluent-bit/etc/fluent-bit.conf
         imagePullPolicy: IfNotPresent
         env:
           - name:  FLUENT_ELASTICSEARCH_HOST

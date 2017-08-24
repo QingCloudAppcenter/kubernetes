@@ -47,7 +47,9 @@ data:
         Type  log
         Logstash_Format On
 
+
     @INCLUDE /fluent-bit/etc.d/extend.conf
+
   parsers.conf: |
     [PARSER]
         Name   json-test

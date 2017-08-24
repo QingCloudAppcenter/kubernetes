@@ -1,5 +1,5 @@
-  /var/lib/docker/containers/*/*-json.log {
-    rotate 5
+/data/var/lib/docker/containers/*/*-json.log {
+    rotate 1
     copytruncate
     missingok
     notifempty

@@ -72,10 +72,10 @@ spec:
           path: /run/log/journal/
       - name: fluent-bit-config
         configMap:
-        name: fluent-bit
+          name: fluent-bit
       - name: fluent-bit-extend-config
         configMap:
-        name: fluent-bit-extend
+          name: fluent-bit-extend
       tolerations:
       - key: "CriticalAddonsOnly"
         operator: "Exists"

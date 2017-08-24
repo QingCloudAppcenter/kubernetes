@@ -5,9 +5,9 @@
     {{if ne $registries ""}}
     "insecure-registries": {{split $registries " "|toJson}},
     {{end}}
-    {{$registry-mirrors := getv "/env/registry-mirrors"}}
-    {{if ne $registry-mirrors ""}}
-    "registry-mirrors": {{split $registry-mirrors " "|toJson}},
+    {{$mirrors := getv "/env/registry-mirrors"}}
+    {{if ne $mirrors ""}}
+    "registry-mirrors": {{split $mirrors " "|toJson}},
     {{end}}
     "storage-driver": "overlay2"
 }

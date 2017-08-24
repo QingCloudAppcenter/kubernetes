@@ -1,6 +1,6 @@
 {{- $server := getv "/env/fluent-forward-server" -}}
 {{- if ne $server "" -}}
-{{- parts := split $server ":" -}}
+{{- $parts := split $server ":" -}}
 [OUTPUT]
     Name          forward
     Match         *

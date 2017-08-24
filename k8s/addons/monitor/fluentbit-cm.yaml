@@ -8,10 +8,10 @@ metadata:
 data:
   fluent-bit.conf: |
     [SERVICE]
-    Flush          1
-    Daemon         Off
-    Log_Level      info
-    Parsers_File   parsers.conf
+        Flush          1
+        Daemon         Off
+        Log_Level      info
+        Parsers_File   parsers.conf
 
     [INPUT]
         Name           tail
@@ -47,7 +47,7 @@ data:
         Type  log
         Logstash_Format On
 
-    @INCLUDE /fluent-bit/etc.d/extend.conf
+    
   parsers.conf: |
     [PARSER]
         Name   json-test

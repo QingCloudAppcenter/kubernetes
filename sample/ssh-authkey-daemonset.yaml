@@ -9,8 +9,6 @@ spec:
     metadata:
       labels:
         k8s-app: ssh-authkey
-      annotations:
-        scheduler.alpha.kubernetes.io/tolerations: '[{"key":"dedicated","operator": "Exists"}]'
     spec:
       containers:
       - name: file-sync
@@ -33,3 +31,8 @@ spec:
       - name: host-ssh
         hostPath:
           path: "/root/.ssh"
+      tolerations:
+      - key: "dedicated"
+        operator: "Exists"
+      - key: "node-role.kubernetes.io/master"
+        effect: NoSchedule

@@ -5,4 +5,12 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 
 source "${K8S_HOME}/script/common.sh"
 
-systemctl is-active kubelet && $(get_node_status) == "True"
+if systemctl is-active kubelet
+then
+    status=$(get_node_status)
+    if [ "${status}" == "True" ]
+    then
+        exit 0
+    fi
+fi
+exit 1

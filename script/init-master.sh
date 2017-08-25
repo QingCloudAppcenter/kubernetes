@@ -21,7 +21,7 @@ systemctl start kubelet
 wait_kubelet
 wait_apiserver
 
-kubeadm alpha phase mark-master ${MASTER_INSTANCE_ID}
+train_master
 retry kubeadm token create ${init_token} --ttl 0 --description "the default kubeadm init token" --kubeconfig /etc/kubernetes/admin.conf
 retry kubeadm alpha phase bootstrap-token node allow-post-csrs --kubeconfig /etc/kubernetes/admin.conf
 retry kubeadm alpha phase bootstrap-token node allow-auto-approve --kubeconfig /etc/kubernetes/admin.conf

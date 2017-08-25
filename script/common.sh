@@ -170,17 +170,8 @@ function wait_apiserver(){
     done;
 }
 
-function wait_system_pod(){
-    while [ "$(kubeclt get pods -o custom-columns=STATUS:.status.phase --no-headers=true -n kube-system|uniq)" != "Running" ]
-    do
-        echo "wait all kube-system pods running, no ready pods: "
-        kubeclt get pods --no-headers=true -n kube-system |grep -v Running
-        sleep 2
-    done
-}
-
 function train_master(){
-    retry kubeclt taint nodes ${MASTER_INSTANCE_ID} --overwrite dedicated=master:NoSchedule
+    retry kubeadm alpha phase mark-master ${MASTER_INSTANCE_ID}
 }
 
 function train_node(){
@@ -217,38 +208,6 @@ function clean_addons(){
 
 function clean_static_pod(){
     echo "clean static pod" && rm -rf /data/kubernetes/manifests
-    sleep 10
-    if [ "$(docker ps -aq)" != "" ]
-    then
-        echo "wait all containers to be rm:"
-        docker ps -a
-        sleep 10
-    fi
-}
-
-function clean_pod(){
-    clean_addons
-    for namespace in $(kubeclt get namespaces --no-headers=true -o custom-columns=name:.metadata.name)
-    do
-        if [ "${namespace}" != "kube-system" ]
-        then
-            kubeclt delete --force --now --all --timeout=60s pods -n ${namespace}
-        fi
-    done
-    local n=1
-    local max=6
-    while kubeclt get pods --no-headers=true --all-namespaces |grep Terminating
-    do
-        if [[ $n -lt $max ]]; then
-            echo "break wait terminating."
-            break
-        fi
-        echo "wait all pods terminating:"
-        kubeclt get pods --no-headers=true --all-namespaces |grep Terminating
-        sleep 5
-        ((n++))
-    done
-    clean_static_pod
 }
 
 function drain_node(){
@@ -291,13 +250,6 @@ function docker_stop_rm_all () {
 function flush_iptables(){
     iptables --flush -t nat
     iptables --flush
-}
-
-function wait_qingcloudvolume_detach(){
-    while df |grep "qingcloud-volume" > /dev/null;
-    do
-        echo "waiting qingcloud-volume detach" && df |grep "qingcloud-volume" && sleep 2
-    done
 }
 
 function docker_login(){

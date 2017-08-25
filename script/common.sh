@@ -280,13 +280,13 @@ function update_fluent_config(){
     if [ "${HOST_ROLE}" == "master" ]
     then
         mykubectl create configmap --dry-run -o yaml fluent-bit-extend -n kube-system --from-file /etc/kubernetes/fluentbit/extend.conf | mykubectl replace -n kube-system -f -
-        date=$(date +%s)
+        local date=$(date +%s)
         sed -i 's/qingcloud\.com\/update-time:.*/qingcloud\.com\/update-time: "'${date}'"/g' /etc/kubernetes/addons/monitor/fluentbit-ds.yaml
         mykubectl apply -f /etc/kubernetes/addons/monitor/fluentbit-ds.yaml
     fi
 }
 
 function get_node_status(){
-    status=$(mykubectl get nodes/${HOST_INSTANCE_ID} -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}')
+    local status=$(mykubectl get nodes/${HOST_INSTANCE_ID} -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}')
     echo ${status}
 }

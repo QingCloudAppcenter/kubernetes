@@ -37,6 +37,10 @@ timestamp() {
   date +"%s"
 }
 
+function mykubectl(){
+    kubectl --kubeconfig='/root/.kube/config' $*
+}
+
 function ensure_dir(){
     if [ ! -d /root/.kube ]; then
         mkdir /root/.kube
@@ -128,7 +132,7 @@ function process_addons(){
 }
 
 function scale_es(){
-    retry kubeclt scale --replicas=$1 statefulsets/elasticsearch-logging-v1 -n kube-system
+    retry mykubectl scale --replicas=$1 statefulsets/elasticsearch-logging-v1 -n kube-system
 }
 
 function join_node(){
@@ -177,32 +181,32 @@ function train_master(){
 function train_node(){
     if [ "${HOST_ROLE}" == "log" ]
     then
-        retry kubeclt taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=log:NoSchedule
+        retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=log:NoSchedule
     fi
 }
 
 function cordon_all(){
-    for node in $(kubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
+    for node in $(mykubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
     do
-        kubeclt cordon $node
+        mykubectl cordon $node
     done
 }
 
 function cordon_node(){
-    kubeclt cordon ${HOST_INSTANCE_ID}
+    mykubectl cordon ${HOST_INSTANCE_ID}
     return $?
 }
 
 function uncordon_all(){
-    for node in $(kubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
+    for node in $(mykubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
     do
-        kubeclt uncordon $node
+        mykubectl uncordon $node
     done
 }
 
 function clean_addons(){
-    echo "stop addons-manager" && rm /data/kubernetes/manifests/kube-addon-manager.yaml && kubeclt delete --ignore-not-found=true "pods/kube-addon-manager-${MASTER_INSTANCE_ID}" -n kube-system
-    kubeclt delete --timeout=60s --force --now -R -f /data/kubernetes/addons/
+    echo "stop addons-manager" && rm /data/kubernetes/manifests/kube-addon-manager.yaml && mykubectl delete --ignore-not-found=true "pods/kube-addon-manager-${MASTER_INSTANCE_ID}" -n kube-system
+    mykubectl delete --timeout=60s --force --now -R -f /data/kubernetes/addons/
     echo "clean addons" && rm -rf /data/kubernetes/addons
 }
 
@@ -211,7 +215,7 @@ function clean_static_pod(){
 }
 
 function drain_node(){
-    kubeclt drain --delete-local-data=true --ignore-daemonsets=true --force $1
+    mykubectl drain --delete-local-data=true --ignore-daemonsets=true --force $1
     return $?
 }
 
@@ -275,14 +279,14 @@ function upgrade_docker(){
 function update_fluent_config(){
     if [ "${HOST_ROLE}" == "master" ]
     then
-        kubectl create configmap --dry-run -o yaml fluent-bit-extend -n kube-system --from-file /etc/kubernetes/fluentbit/extend.conf | kubectl replace -n kube-system -f -
+        mykubectl create configmap --dry-run -o yaml fluent-bit-extend -n kube-system --from-file /etc/kubernetes/fluentbit/extend.conf | mykubectl replace -n kube-system -f -
         date=$(date +%s)
         sed -i 's/qingcloud\.com\/update-time:.*/qingcloud\.com\/update-time: "'${date}'"/g' /etc/kubernetes/addons/monitor/fluentbit-ds.yaml
-        kubectl apply -f /etc/kubernetes/addons/monitor/fluentbit-ds.yaml
+        mykubectl apply -f /etc/kubernetes/addons/monitor/fluentbit-ds.yaml
     fi
 }
 
 function get_node_status(){
-    status=$(kubectl get nodes/${HOST_INSTANCE_ID} -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}')
+    status=$(mykubectl get nodes/${HOST_INSTANCE_ID} -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}')
     echo ${status}
 }

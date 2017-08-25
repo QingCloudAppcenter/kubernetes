@@ -1,2 +1,8 @@
 #!/usr/bin/env bash
-systemctl is-active kubelet
+
+SCRIPTPATH=$( cd $(dirname $0) ; pwd -P )
+K8S_HOME=$(dirname "${SCRIPTPATH}")
+
+source "${K8S_HOME}/script/common.sh"
+
+systemctl is-active kubelet && $(get_node_status) == "True"

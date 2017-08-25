@@ -37,10 +37,6 @@ timestamp() {
   date +"%s"
 }
 
-function mykubectl(){
-    kubectl --kubeconfig='/etc/kubernetes/kubelet.conf' $*
-}
-
 function ensure_dir(){
     if [ ! -d /root/.kube ]; then
         mkdir /root/.kube
@@ -132,7 +128,7 @@ function process_addons(){
 }
 
 function scale_es(){
-    retry mykubectl scale --replicas=$1 statefulsets/elasticsearch-logging-v1 -n kube-system
+    retry kubeclt scale --replicas=$1 statefulsets/elasticsearch-logging-v1 -n kube-system
 }
 
 function join_node(){
@@ -175,47 +171,47 @@ function wait_apiserver(){
 }
 
 function wait_system_pod(){
-    while [ "$(mykubectl get pods -o custom-columns=STATUS:.status.phase --no-headers=true -n kube-system|uniq)" != "Running" ]
+    while [ "$(kubeclt get pods -o custom-columns=STATUS:.status.phase --no-headers=true -n kube-system|uniq)" != "Running" ]
     do
         echo "wait all kube-system pods running, no ready pods: "
-        mykubectl get pods --no-headers=true -n kube-system |grep -v Running
+        kubeclt get pods --no-headers=true -n kube-system |grep -v Running
         sleep 2
     done
 }
 
 function train_master(){
-    retry mykubectl taint nodes ${MASTER_INSTANCE_ID} --overwrite dedicated=master:NoSchedule
+    retry kubeclt taint nodes ${MASTER_INSTANCE_ID} --overwrite dedicated=master:NoSchedule
 }
 
 function train_node(){
     if [ "${HOST_ROLE}" == "log" ]
     then
-        retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=log:NoSchedule
+        retry kubeclt taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=log:NoSchedule
     fi
 }
 
 function cordon_all(){
     for node in $(kubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
     do
-        mykubectl cordon $node
+        kubeclt cordon $node
     done
 }
 
 function cordon_node(){
-    mykubectl cordon ${HOST_INSTANCE_ID}
+    kubeclt cordon ${HOST_INSTANCE_ID}
     return $?
 }
 
 function uncordon_all(){
     for node in $(kubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
     do
-        mykubectl uncordon $node
+        kubeclt uncordon $node
     done
 }
 
 function clean_addons(){
-    echo "stop addons-manager" && rm /data/kubernetes/manifests/kube-addon-manager.yaml && mykubectl delete --ignore-not-found=true "pods/kube-addon-manager-${MASTER_INSTANCE_ID}" -n kube-system
-    mykubectl delete --timeout=60s --force --now -R -f /data/kubernetes/addons/
+    echo "stop addons-manager" && rm /data/kubernetes/manifests/kube-addon-manager.yaml && kubeclt delete --ignore-not-found=true "pods/kube-addon-manager-${MASTER_INSTANCE_ID}" -n kube-system
+    kubeclt delete --timeout=60s --force --now -R -f /data/kubernetes/addons/
     echo "clean addons" && rm -rf /data/kubernetes/addons
 }
 
@@ -232,23 +228,23 @@ function clean_static_pod(){
 
 function clean_pod(){
     clean_addons
-    for namespace in $(mykubectl get namespaces --no-headers=true -o custom-columns=name:.metadata.name)
+    for namespace in $(kubeclt get namespaces --no-headers=true -o custom-columns=name:.metadata.name)
     do
         if [ "${namespace}" != "kube-system" ]
         then
-            mykubectl delete --force --now --all --timeout=60s pods -n ${namespace}
+            kubeclt delete --force --now --all --timeout=60s pods -n ${namespace}
         fi
     done
     local n=1
     local max=6
-    while mykubectl get pods --no-headers=true --all-namespaces |grep Terminating
+    while kubeclt get pods --no-headers=true --all-namespaces |grep Terminating
     do
         if [[ $n -lt $max ]]; then
             echo "break wait terminating."
             break
         fi
         echo "wait all pods terminating:"
-        mykubectl get pods --no-headers=true --all-namespaces |grep Terminating
+        kubeclt get pods --no-headers=true --all-namespaces |grep Terminating
         sleep 5
         ((n++))
     done
@@ -256,7 +252,7 @@ function clean_pod(){
 }
 
 function drain_node(){
-    mykubectl drain --delete-local-data=true --ignore-daemonsets=true --force $1
+    kubeclt drain --delete-local-data=true --ignore-daemonsets=true --force $1
     return $?
 }
 

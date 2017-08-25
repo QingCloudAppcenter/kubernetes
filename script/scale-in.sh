@@ -11,7 +11,7 @@ do
     if [ "$n" != "" ]
     then
         drain_node ${n}
-        mykubectl delete node/${n}
+        kubeclt delete node/${n}
     fi
 done
 exit 0

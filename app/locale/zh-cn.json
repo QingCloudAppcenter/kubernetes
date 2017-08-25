@@ -44,5 +44,7 @@
   "Kubernetes log level":"Kubernetes 日志级别",
   "The log level for kubernetes system":"Kubernetes 的日志级别，数字越大记录越详细，也会占用更多日志空间。遇到问题可以调整日志级别进行 debug",
   "kubelet_running_container_count":"正在运行的容器数量",
-  "kubelet_running_pod_count":"正在运行的Pod数量"
+  "kubelet_running_pod_count":"正在运行的Pod数量",
+  "Fluent forward server":"Fluent 日志转发服务",
+  "The fluent log server address to forward server, format host:port":"Fluent 日志服务器，用于将 Kubernetes 收集到的日志转发到用户自定义的日志服务，格式 host:port"
 }

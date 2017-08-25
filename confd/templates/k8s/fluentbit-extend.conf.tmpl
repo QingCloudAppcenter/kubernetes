@@ -1,4 +1,4 @@
-{{- $server := getv "/env/fluent-forward-server" -}}
+{{- $server := getv "/env/fluent_forward_server" -}}
 {{- if ne $server "" -}}
 {{- $parts := split $server ":" -}}
 [OUTPUT]

@@ -381,6 +381,15 @@
           "max":10,
           "changeable": true,
           "required": "no"
+        },
+        {
+          "key": "fluent_forward_server",
+          "label": "Fluent forward server",
+          "description": "The fluent log server address to forward server, format host:port",
+          "type": "string",
+          "changeable": true,
+          "pattern":"^$|^[^\\:]+:[0-9]{5}$",
+          "required": "no"
         }
       ]
     }

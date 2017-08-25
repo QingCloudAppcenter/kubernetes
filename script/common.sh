@@ -336,5 +336,5 @@ function update_fluent_config(){
 
 function get_node_status(){
     status=$(kubectl get nodes/${HOST_INSTANCE_ID} -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}')
-    echo status
+    echo ${status}
 }

@@ -1,7 +1,7 @@
 qy_access_key_id: "{{getv "/env/access_key_id"}}"
 qy_secret_access_key: "{{getv "/env/secret_access_key"}}"
 zone: "{{getv "/cluster/zone"}}"
-{{$kube_log_level := getv "/env/kube_log_level"}}
-log_level: {{if gt $kube_log_level "1"}}debug{{else}}info{{end}}
+{{- $kube_log_level := getv "/env/kube_log_level" -}}
+log_level: {{- if gt $kube_log_level "1" -}}debug{{- else -}}{{- if eq $kube_log_level "0" -}}warn{{else}}info{{end}}{{end}}
 connection_retries: 1
 connection_timeout: 5

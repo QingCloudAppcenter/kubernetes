@@ -10,6 +10,7 @@ then
     if [ "$(curl --silent --fail http://localhost:8080/healthz)" = "ok" ]
     then
         status=$(get_node_status)
+        echo "ready:${status}"
         if [ "${status}" == "True" ]
         then
             exit 0

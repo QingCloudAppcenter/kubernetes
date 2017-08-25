@@ -388,6 +388,7 @@
           "description": "The fluent log server address to forward server, format host:port",
           "type": "string",
           "changeable": true,
+          "default":"",
           "pattern":"^$|^[^\\:]+:[0-9]{5}$",
           "required": "no"
         }

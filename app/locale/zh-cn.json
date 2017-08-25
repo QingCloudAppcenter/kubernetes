@@ -46,5 +46,6 @@
   "kubelet_running_container_count":"正在运行的容器数量",
   "kubelet_running_pod_count":"正在运行的Pod数量",
   "Fluent forward server":"Fluent 日志转发服务",
-  "The fluent log server address to forward server, format host:port":"Fluent 日志服务器，用于将 Kubernetes 收集到的日志转发到用户自定义的日志服务，格式 host:port"
+  "The fluent log server address to forward server, format host:port":"Fluent 日志服务器，用于将 Kubernetes 收集到的日志转发到用户自定义的日志服务，格式 host:port",
+  "The docker hub registry mirror, use a blank to split multi registry":"Docker hub 的镜像服务地址，多个用空格隔开"
 }

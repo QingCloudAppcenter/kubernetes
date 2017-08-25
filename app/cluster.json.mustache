@@ -7,7 +7,7 @@
             "role": "master",
             "container": {
                 "type": "kvm",
-                "image": "img-neffdxwj",
+                "image": "img-36s6kptk",
                 "zone": "pek3a"
             },
             "instance_class": {{cluster.master.instance_class}},
@@ -84,7 +84,7 @@
                     "role": "node",
                     "container": {
                         "type": "kvm",
-                        "image": "img-neffdxwj",
+                        "image": "img-36s6kptk",
                         "zone": "pek3a"
                     },
                     "instance_class": {{cluster.node.instance_class}},
@@ -166,7 +166,7 @@
                     "role": "log",
                     "container": {
                         "type": "kvm",
-                        "image": "img-neffdxwj",
+                        "image": "img-36s6kptk",
                         "zone": "pek3a"
                     },
                     "instance_class": {{cluster.log.instance_class}},
@@ -247,7 +247,7 @@
                         "role": "client",
                         "container": {
                             "type": "kvm",
-                            "image": "img-neffdxwj",
+                            "image": "img-36s6kptk",
                             "zone": "pek3a"
                         },
                         "instance_class": {{cluster.client.instance_class}},
@@ -274,6 +274,6 @@
             "dockerhub_password":{{env.dockerhub_password}},
             "keep_log_days":{{env.keep_log_days}},
             "kube_log_level":{{env.kube_log_level}},
-            "fluent_forward_server":{{fluent_forward_server}}
+            "fluent_forward_server":{{env.fluent_forward_server}}
         }
 }

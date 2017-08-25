@@ -16,6 +16,10 @@ spec:
               - name: web
                 containerPort: 80
                 protocol: TCP
+            resources:
+              requests:
+                cpu: 100m
+                memory: 100Mi
 ---
 apiVersion: v1
 kind: Service

@@ -47,6 +47,8 @@ data:
         Index fluentbit
         Type  log
         Logstash_Format On
+        Include_Tag_Key On
+        Tag_Key         flb-log-tag
   parsers.conf: |
     [PARSER]
         Name   json-test

@@ -280,9 +280,11 @@ function update_fluent_config(){
     if [ "${HOST_ROLE}" == "master" ]
     then
         mykubectl create configmap --dry-run -o yaml fluent-bit-extend -n kube-system --from-file /etc/kubernetes/fluentbit/extend.conf | mykubectl replace -n kube-system -f -
+        #force rolling update
         local date=$(date +%s)
         sed -i 's/qingcloud\.com\/update-time:.*/qingcloud\.com\/update-time: "'${date}'"/g' ${K8S_HOME}/k8s/addons/monitor/fluentbit-ds.yaml
-        mykubectl apply -f ${K8S_HOME}/k8s/addons/monitor/fluentbit-ds.yaml
+        cp ${K8S_HOME}/k8s/addons/monitor/fluentbit-ds.yaml /data/kubernetes/addons/monitor/fluentbit-ds.yaml
+        mykubectl apply -f /data/kubernetes/addons/monitor/fluentbit-ds.yaml
     fi
 }
 

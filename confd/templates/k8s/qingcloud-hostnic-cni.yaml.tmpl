@@ -1,0 +1,83 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: hostnic
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - list
+      - watch
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: hostnic
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: hostnic
+subjects:
+- kind: ServiceAccount
+  name: hostnic
+  namespace: kube-system
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: hostnic
+  namespace: kube-system
+---
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: kube-qingcloud-hostnic
+  namespace: kube-system
+  labels:
+    tier: node
+    app: kube-qingcloud-hostnic
+spec:
+  template:
+    metadata:
+      labels:
+        tier: node
+        app: kube-qingcloud-hostnic
+    spec:
+      hostNetwork: true
+      nodeSelector:
+        beta.kubernetes.io/arch: amd64
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule
+      serviceAccountName: hostnic
+      containers:
+      - name: kube-qingcloud-hostnic
+        image: dockerhub.qingcloud.com/qingcloud/hostnic-cni:v0.8.1
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: true
+        env:
+        - name: LOGLEVEL
+          value: "info"
+
+        - name: VXNETS
+          value: "{{$pod_vxnets := getv "/env/pod_vxnets"}}{{if eq $pod_vxnets ""}}{{getv "/cluster/vxnet"}}{{else}}{{split $pod_vxnets " "|toJson}}{{end}}"
+
+        - name: POOLSIZE
+          value: "3"
+
+        - name: qingcloud-cfg
+          mountPath: /etc/qingcloud/
+
+      - name: qingcloud-cfg
+        hostPath:
+          path: /etc/qingcloud/

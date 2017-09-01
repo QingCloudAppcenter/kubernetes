@@ -1,0 +1,7 @@
+[template]
+src = "k8s/qingcloud-hostnic-cni.yaml.tmpl"
+dest = "/data/kubernetes/hostnic/qingcloud-hostnic-cni.yaml"
+keys = [
+    "/env",
+]
+reload_cmd = "/opt/kubernetes/script/reload-hostnic.sh"

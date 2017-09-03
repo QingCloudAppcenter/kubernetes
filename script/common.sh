@@ -294,6 +294,7 @@ function update_fluent_config(){
 function update_hostnic_config(){
     if [ "${HOST_ROLE}" == "master" ]
     then
+        cp ${K8S_HOME}/k8s/addons/hostnic/qingcloud-hostnic-cni.yaml /data/kubernetes/addons/hostnic/qingcloud-hostnic-cni.yaml
         mykubectl apply -f /data/kubernetes/addons/hostnic/qingcloud-hostnic-cni.yaml
     fi
 }

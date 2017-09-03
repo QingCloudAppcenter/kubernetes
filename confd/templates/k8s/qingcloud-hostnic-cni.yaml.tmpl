@@ -72,7 +72,7 @@ spec:
           value: "info"
 
         - name: VXNETS
-          value: "{{$pod_vxnets := getv "/env/pod_vxnets"}}{{if eq $pod_vxnets ""}}{{getv "/cluster/vxnet"}}{{else}}{{split $pod_vxnets " "|toJson}}{{end}}"
+          value: "{{$pod_vxnets := getv "/env/pod_vxnets"}}{{if eq $pod_vxnets ""}}{{getv "/cluster/vxnet"}}{{else}}{{$pod_vxnets}}{{end}}"
 
         - name: POOLSIZE
           value: "3"

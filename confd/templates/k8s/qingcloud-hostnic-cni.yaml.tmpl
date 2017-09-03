@@ -45,6 +45,8 @@ metadata:
     tier: node
     app: kube-qingcloud-hostnic
 spec:
+  updateStrategy:
+    type: RollingUpdate
   template:
     metadata:
       labels:

@@ -294,9 +294,6 @@ function update_fluent_config(){
 function update_hostnic_config(){
     if [ "${HOST_ROLE}" == "master" ]
     then
-        #force rolling update
-        local date=$(date +%s)
-        cp ${K8S_HOME}/data/kubernetes/hostnic/qingcloud-hostnic-cni.yaml /data/kubernetes/addons/hostnic/qingcloud-hostnic-cni.yaml
         mykubectl apply -f /data/kubernetes/addons/hostnic/qingcloud-hostnic-cni.yaml
     fi
 }

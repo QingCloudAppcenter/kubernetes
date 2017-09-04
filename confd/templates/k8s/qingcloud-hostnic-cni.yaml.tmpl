@@ -46,6 +46,9 @@ metadata:
     kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: Reconcile
 spec:
+  selector:
+    matchLabels:
+      k8s-app: kube-qingcloud-hostnic
   updateStrategy:
     type: RollingUpdate
   template:
@@ -87,3 +90,8 @@ spec:
         operator: "Exists"
       - key: "dedicated"
         operator: "Exists"
+      - key: "node-role.kubernetes.io/master"
+        effect: NoSchedule
+      - key: node.cloudprovider.kubernetes.io/uninitialized
+        effect: NoSchedule
+        value: "true"

@@ -11,7 +11,7 @@ metadata:
 spec:
   containers:
   - command:
-    - /qingcloud-cloud-controller-manager
+    - /bin/qingcloud-cloud-controller-manager
     - --v=${KUBE_LOG_LEVEL}
     - --cloud-provider=qingcloud
     - --cloud-config=/etc/kubernetes/qingcloud.conf
@@ -21,7 +21,7 @@ spec:
     - --use-service-account-credentials=true
     - --service-account-private-key-file=/etc/kubernetes/pki/sa.key
     - --feature-gates=AllAlpha=true,DynamicKubeletConfig=false,RotateKubeletServerCertificate=false,RotateKubeletClientCertificate=false
-    image: dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager
+    image: dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager:v1.0
     imagePullPolicy: IfNotPresent
     livenessProbe:
       failureThreshold: 8

@@ -39,30 +39,22 @@ metadata:
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
-  name: kube-qingcloud-hostnic
+  name: qingcloud-hostnic-daemon
   namespace: kube-system
   labels:
-    tier: node
-    app: kube-qingcloud-hostnic
+    k8s-app: kube-qingcloud-hostnic
 spec:
   updateStrategy:
     type: RollingUpdate
   template:
     metadata:
       labels:
-        tier: node
-        app: kube-qingcloud-hostnic
+        name: qingcloud-hostnic-daemon
     spec:
       hostNetwork: true
-      nodeSelector:
-        beta.kubernetes.io/arch: amd64
-      tolerations:
-      - key: node-role.kubernetes.io/master
-        operator: Exists
-        effect: NoSchedule
       serviceAccountName: hostnic
       containers:
-      - name: kube-qingcloud-hostnic
+      - name: qingcloud-hostnic-daemon
         image: dockerhub.qingcloud.com/qingcloud/hostnic-cni:v0.8.1
         imagePullPolicy: IfNotPresent
         securityContext:
@@ -77,9 +69,10 @@ spec:
         - name: POOLSIZE
           value: "3"
 
+        volumeMounts:
         - name: qingcloud-cfg
           mountPath: /etc/qingcloud/
-
+      volumes:
       - name: qingcloud-cfg
         hostPath:
           path: /etc/qingcloud/

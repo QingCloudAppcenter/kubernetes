@@ -292,9 +292,15 @@ function update_fluent_config(){
 }
 
 function update_hostnic_config(){
-    if [ -f "${NODE_INIT_LOCK}" ]; then
+    if [ "${HOST_ROLE}" == "master" ]
+    then
+      curl --output /dev/null --silent --fail http://localhost:8080/healthz;
+      retcode=$?
+      if [ $retcode -eq 0 ]
+      then
         cp ${K8S_HOME}/k8s/addons/hostnic/qingcloud-hostnic-cni.yaml /data/kubernetes/addons/hostnic/qingcloud-hostnic-cni.yaml
         mykubectl apply -f /data/kubernetes/addons/hostnic/qingcloud-hostnic-cni.yaml
+      fi
     fi
 }
 

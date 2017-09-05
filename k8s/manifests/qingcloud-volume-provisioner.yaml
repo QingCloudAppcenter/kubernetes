@@ -11,11 +11,11 @@ metadata:
 spec:
   containers:
   - command:
-    - /qingcloud-volume-provisioner
+    - qingcloud-volume-provisioner
     - --v=${KUBE_LOG_LEVEL}
     - --kubeconfig=/etc/kubernetes/admin.conf
     - --qingcloud_config=/etc/qingcloud/client.yaml
-    image: dockerhub.qingcloud.com/qingcloud/qingcloud-volume-provisioner
+    image: dockerhub.qingcloud.com/qingcloud/qingcloud-volume-provisioner:v1.0
     imagePullPolicy: IfNotPresent
     name: qingcloud-cloud-controller-manager
     resources:

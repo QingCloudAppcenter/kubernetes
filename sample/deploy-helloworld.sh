@@ -3,11 +3,11 @@
 source ./common.sh
 
 function usage(){
-    echo "usage ./deploy-helloworld.sh -e eip-xxx -v vxnet-xxx"
+    echo "usage ./deploy-helloworld.sh -e eip-xxx"
     exit 1
 }
 
-if [ -z "${EIP}" ] || [ -z "${VXNET}" ]
+if [ -z "${EIP}" ]
 then
     usage
 fi

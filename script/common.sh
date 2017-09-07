@@ -48,6 +48,9 @@ function ensure_dir(){
     if [ ! -d /data/kubernetes ]; then
         mkdir -p /data/kubernetes
     fi
+    if [ ! -d /data/kubernetes/hostnic ]; then
+        mkdir -p /data/kubernetes/hostnic
+    fi
     if [ ! -d /data/es ]; then
         mkdir -p /data/es
     fi
@@ -285,6 +288,19 @@ function update_fluent_config(){
         sed -i 's/qingcloud\.com\/update-time:.*/qingcloud\.com\/update-time: "'${date}'"/g' ${K8S_HOME}/k8s/addons/monitor/fluentbit-ds.yaml
         cp ${K8S_HOME}/k8s/addons/monitor/fluentbit-ds.yaml /data/kubernetes/addons/monitor/fluentbit-ds.yaml
         mykubectl apply -f /data/kubernetes/addons/monitor/fluentbit-ds.yaml
+    fi
+}
+
+function update_hostnic_config(){
+    if [ "${HOST_ROLE}" == "master" ]
+    then
+      curl --output /dev/null --silent --fail http://localhost:8080/healthz;
+      retcode=$?
+      if [ $retcode -eq 0 ]
+      then
+        cp ${K8S_HOME}/k8s/addons/hostnic/qingcloud-hostnic-cni.yaml /data/kubernetes/addons/hostnic/qingcloud-hostnic-cni.yaml
+        mykubectl apply -f /data/kubernetes/addons/hostnic/qingcloud-hostnic-cni.yaml
+      fi
     fi
 }
 

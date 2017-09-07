@@ -4,7 +4,7 @@ metadata:
   name: hostnic
   namespace: kube-system
   labels:
-    k8s-app: kubernetes-dashboard
+    k8s-app: kube-qingcloud-hostnic
     kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: Reconcile
 ---
@@ -13,7 +13,7 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: hostnic
   labels:
-    k8s-app: kubernetes-dashboard
+    k8s-app: kube-qingcloud-hostnic
     kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: Reconcile
 rules:
@@ -36,7 +36,7 @@ apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: hostnic
   labels:
-    k8s-app: kubernetes-dashboard
+    k8s-app: kube-qingcloud-hostnic
     kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: Reconcile
 roleRef:

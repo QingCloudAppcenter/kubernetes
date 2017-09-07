@@ -36,4 +36,4 @@ docker pull dockerhub.qingcloud.com/qingcloud/file-sync:0.7
 docker pull dockerhub.qingcloud.com/busybox:1.27.1
 docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-volume-provisioner:v1.0
 docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager:v1.0
-docker pull dockerhub.qingcloud.com/qingcloud/hostnic-cni:v0.8.1
+docker pull dockerhub.qingcloud.com/qingcloud/hostnic-cni:v0.8.2

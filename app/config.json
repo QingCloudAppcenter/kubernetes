@@ -376,7 +376,7 @@
           "label": "Kubernetes log level",
           "description": "The log level for kubernetes system",
           "type": "integer",
-          "default": 1,
+          "default": 0,
           "min":0,
           "max":10,
           "changeable": true,

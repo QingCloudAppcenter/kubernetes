@@ -21,12 +21,17 @@ data:
         Parser         docker
         DB             /var/log/flb_kube.db
         Mem_Buf_Limit  5MB
+        Refresh_Interval 5
+        Buffer_Max_Size 5MB
+        Buffer_Chunk_Size 400k
 
     [INPUT]
         Name            systemd
         Tag             host.*
         Systemd_Filter  _SYSTEMD_UNIT=docker.service
         Systemd_Filter  _SYSTEMD_UNIT=kubelet.service
+        Buffer_Max_Size 5MB
+        Buffer_Chunk_Size 400k
 
     [INPUT]
         Name   forward
@@ -49,6 +54,7 @@ data:
         Logstash_Format On
         Include_Tag_Key On
         Tag_Key         flb-log-tag
+        Retry_Limit False
   parsers.conf: |
     [PARSER]
         Name   json-test

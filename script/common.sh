@@ -250,13 +250,8 @@ function docker_stop_rm_all () {
     done
     for i in `docker ps -aq`
     do
-        docker rm $i;
+        docker rm -f $i;
     done
-}
-
-function flush_iptables(){
-    iptables --flush -t nat
-    iptables --flush
 }
 
 function docker_login(){

@@ -20,23 +20,26 @@ data:
         Path           /var/log/containers/*.log
         Parser         docker
         DB             /var/log/flb_kube.db
-        Mem_Buf_Limit  5MB
+        Mem_Buf_Limit  32MB
         Refresh_Interval 5
-        Buffer_Max_Size 5MB
-        Buffer_Chunk_Size 400k
+        Buffer_Max_Size 8MB
+        Buffer_Chunk_Size 512k
 
     [INPUT]
         Name            systemd
         Tag             host.*
         Systemd_Filter  _SYSTEMD_UNIT=docker.service
         Systemd_Filter  _SYSTEMD_UNIT=kubelet.service
-        Buffer_Max_Size 5MB
-        Buffer_Chunk_Size 400k
+        Buffer_Max_Size 8MB
+        Buffer_Chunk_Size 512k
 
     [INPUT]
         Name   forward
         Listen 0.0.0.0
         Port   24224
+        Buffer 8MB
+        Mem_Buf_Limit 32MB
+        Buffer_Max_Size 8MB
 
     [FILTER]
         Name           kubernetes

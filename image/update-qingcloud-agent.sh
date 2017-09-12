@@ -13,7 +13,7 @@ rm -rf app-agent-linux-amd64/
 rm app-agent-linux-amd64.tar.gz
 
 echo "upgrade confd"
-wget https://github.com/yunify/confd/releases/download/v0.13.10/confd-linux-amd64.tar.gz
+wget https://pek3a.qingstor.com/k8s-qingcloud/k8s/confd/v0.13.10/confd-linux-amd64.tar.gz
 tar -O -zxf confd-linux-amd64.tar.gz >/opt/qingcloud/app-agent/bin/confd
 chmod +x /opt/qingcloud/app-agent/bin/confd
 rm confd-linux-amd64.tar.gz

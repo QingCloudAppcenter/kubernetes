@@ -5,6 +5,10 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 source "/data/kubernetes/env.sh"
 source "${K8S_HOME}/version"
 
+#set -o errexit
+set -o nounset
+set -o pipefail
+
 NODE_INIT_LOCK="/data/kubernetes/init.lock"
 
 function fail {
@@ -34,12 +38,18 @@ timestamp() {
 }
 
 function mykubectl(){
-    kubectl --kubeconfig='/etc/kubernetes/kubelet.conf' $*
+    kubectl --kubeconfig='/root/.kube/config' $*
 }
 
 function ensure_dir(){
+    if [ ! -d /root/.kube ]; then
+        mkdir /root/.kube
+    fi
     if [ ! -d /data/kubernetes ]; then
         mkdir -p /data/kubernetes
+    fi
+    if [ ! -d /data/kubernetes/hostnic ]; then
+        mkdir -p /data/kubernetes/hostnic
     fi
     if [ ! -d /data/es ]; then
         mkdir -p /data/es
@@ -50,6 +60,7 @@ function ensure_dir(){
 }
 
 function get_or_gen_init_token(){
+    local init_token=""
     if [ -f "/data/kubernetes/init_token" ]; then
       init_token=$(cat /data/kubernetes/init_token)
     fi
@@ -61,28 +72,36 @@ function get_or_gen_init_token(){
 }
 
 function replace_vars(){
-    from=$1
-    to=$2
+    local from=$1
+    local to=$2
     echo "process ${from} to ${to}"
-    prefix=$(timestamp)
-    name=$(basename ${from})
-    tmpfile="/tmp/${prefix}-${name}"
+    local prefix=$(timestamp)
+    local name=$(basename ${from})
+    local tmpfile="/tmp/${prefix}-${name}"
     sed 's/${HYPERKUBE_VERSION}/'"${HYPERKUBE_VERSION}"'/g' ${from} > ${tmpfile}
     sed -i 's/${KUBE_LOG_LEVEL}/'"${ENV_KUBE_LOG_LEVEL}"'/g' ${tmpfile}
+    sed -i 's/${HOST_IP}/'"${HOST_IP}"'/g' ${tmpfile}
+    sed -i 's/${MASTER_IP}/'"${MASTER_IP}"'/g' ${tmpfile}
 
     if [ "${to}" == "/data/kubernetes/addons/monitor/es-controller.yaml" ]
     then
         sed -i 's/replicas:\s./replicas: '"${LOG_COUNT}"'/g' ${tmpfile}
     fi
-
-    diff ${tmpfile} ${to} >> /dev/null
-    if [ "$?" -ne 0 ]
+    if [ -f ${to} ]
     then
-        cp ${tmpfile} ${to}
-        echo "${to} update"
+        diff ${tmpfile} ${to} >> /dev/null
+        if [ "$?" -ne 0 ]
+        then
+            cp ${tmpfile} ${to}
+            echo "${to} update"
+        else
+            echo "${to} in sync"
+        fi
     else
-        echo "${to} in sync"
+        cp ${tmpfile} ${to}
+        echo "${to} create"
     fi
+
     rm ${tmpfile}
 }
 
@@ -91,15 +110,19 @@ function update_k8s_manifests(){
     mkdir /data/kubernetes/manifests/ || rm -rf /data/kubernetes/manifests/*
     mkdir /data/kubernetes/addons/ || rm -rf /data/kubernetes/addons/*
     process_manifests
+    process_addons
 }
 
 function process_manifests(){
     mkdir -p /data/kubernetes/manifests/
-    mkdir -p /data/kubernetes/addons/
     for f in ${K8S_HOME}/k8s/manifests/*; do
         name=$(basename ${f})
         replace_vars ${f} /data/kubernetes/manifests/${name}
     done
+}
+
+function process_addons(){
+    mkdir -p /data/kubernetes/addons/
 
     for addon in ${K8S_HOME}/k8s/addons/*; do
         addon_name=$(basename $addon)
@@ -132,7 +155,7 @@ function join_node(){
 
     echo "master ip: ${MASTER_IP} init_token: ${init_token}"
 
-    retry kubeadm join ${MASTER_IP} --token ${init_token} --skip-preflight-checks
+    retry kubeadm join ${MASTER_IP}:6443 --token ${init_token} --skip-preflight-checks
 
     touch ${NODE_INIT_LOCK}
 }
@@ -154,17 +177,8 @@ function wait_apiserver(){
     done;
 }
 
-function wait_system_pod(){
-    while [ "$(mykubectl get pods -o custom-columns=STATUS:.status.phase --no-headers=true -n kube-system|uniq)" != "Running" ]
-    do
-        echo "wait all kube-system pods running, no ready pods: "
-        mykubectl get pods --no-headers=true -n kube-system |grep -v Running
-        sleep 2
-    done
-}
-
 function train_master(){
-    retry mykubectl taint nodes ${MASTER_INSTANCE_ID} --overwrite dedicated=master:NoSchedule
+    retry kubeadm alpha phase mark-master ${MASTER_INSTANCE_ID}
 }
 
 function train_node(){
@@ -175,7 +189,7 @@ function train_node(){
 }
 
 function cordon_all(){
-    for node in $(kubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
+    for node in $(mykubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
     do
         mykubectl cordon $node
     done
@@ -187,7 +201,7 @@ function cordon_node(){
 }
 
 function uncordon_all(){
-    for node in $(kubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
+    for node in $(mykubectl get nodes --no-headers=true -o custom-columns=name:.metadata.name)
     do
         mykubectl uncordon $node
     done
@@ -201,38 +215,6 @@ function clean_addons(){
 
 function clean_static_pod(){
     echo "clean static pod" && rm -rf /data/kubernetes/manifests
-    sleep 10
-    if [ "$(docker ps -aq)" != "" ]
-    then
-        echo "wait all containers to be rm:"
-        docker ps -a
-        sleep 10
-    fi
-}
-
-function clean_pod(){
-    clean_addons
-    for namespace in $(mykubectl get namespaces --no-headers=true -o custom-columns=name:.metadata.name)
-    do
-        if [ "${namespace}" != "kube-system" ]
-        then
-            mykubectl delete --force --now --all --timeout=60s pods -n ${namespace}
-        fi
-    done
-    local n=1
-    local max=6
-    while mykubectl get pods --no-headers=true --all-namespaces |grep Terminating
-    do
-        if [[ $n -lt $max ]]; then
-            echo "break wait terminating."
-            break
-        fi
-        echo "wait all pods terminating:"
-        mykubectl get pods --no-headers=true --all-namespaces |grep Terminating
-        sleep 5
-        ((n++))
-    done
-    clean_static_pod
 }
 
 function drain_node(){
@@ -241,11 +223,24 @@ function drain_node(){
 }
 
 function link_dynamic_dir(){
-    mkdir -p /data/var && mkdir /data/var/lib && mkdir /data/var/log
-    mv /var/lib/docker /data/var/lib/
-    ln -s /data/var/lib/docker /var/lib/docker
-    mkdir /data/var/lib/kubelet && ln -s /data/var/lib/kubelet /var/lib/kubelet
-    ln -s /root/.docker /data/var/lib/kubelet/.docker
+    if [ ! -d "/data/var" ]
+    then
+        mkdir -p /data/var && mkdir /data/var/lib && mkdir /data/var/log
+    fi
+    if [ -d /var/lib/docker ] && [ ! -L /var/lib/docker ]
+    then
+        mv /var/lib/docker /data/var/lib/
+        ln -s /data/var/lib/docker /var/lib/docker
+    fi
+    if [ ! -d "/data/var/lib/kubelet" ]
+    then
+        mkdir /data/var/lib/kubelet && ln -s /data/var/lib/kubelet /var/lib/kubelet
+    fi
+    if [ ! -d "/data/var/run/kubernetes" ]
+    then
+        mkdir -p /data/var/run/kubernetes && ln -s /data/var/run/kubernetes /var/run/kubernetes
+    fi
+    ln -fs /root/.docker /data/var/lib/kubelet/.docker
 }
 
 function docker_stop_rm_all () {
@@ -255,26 +250,14 @@ function docker_stop_rm_all () {
     done
     for i in `docker ps -aq`
     do
-        docker rm $i;
-    done
-}
-
-function flush_iptables(){
-    iptables --flush -t nat
-    iptables --flush
-}
-
-function wait_qingcloudvolume_detach(){
-    while df |grep "qingcloud-volume" > /dev/null;
-    do
-        echo "waiting qingcloud-volume detach" && df |grep "qingcloud-volume" && sleep 2
+        docker rm -f $i;
     done
 }
 
 function docker_login(){
-    if [ ! -z "${DOCKERHUB_USERNAME}" ] && [ ! -z "${DOCKERHUB_PASSWORD}" ]
+    if [ ! -z "${ENV_DOCKERHUB_USERNAME}" ] && [ ! -z "${ENV_DOCKERHUB_PASSWORD}" ]
     then
-        retry docker login dockerhub.qingcloud.com -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}
+        retry docker login dockerhub.qingcloud.com -u ${ENV_DOCKERHUB_USERNAME} -p ${ENV_DOCKERHUB_PASSWORD}
     fi
 }
 
@@ -289,4 +272,34 @@ function upgrade_docker(){
     ln -s /data/var/lib/docker /var/lib/docker
     ln -s /data/var/lib/kubelet /var/lib/kubelet
     return 0
+}
+
+function update_fluent_config(){
+    if [ "${HOST_ROLE}" == "master" ]
+    then
+        mykubectl create configmap --dry-run -o yaml fluent-bit-extend -n kube-system --from-file /etc/kubernetes/fluentbit/extend.conf | mykubectl replace -n kube-system -f -
+        #force rolling update
+        local date=$(date +%s)
+        sed -i 's/qingcloud\.com\/update-time:.*/qingcloud\.com\/update-time: "'${date}'"/g' ${K8S_HOME}/k8s/addons/monitor/fluentbit-ds.yaml
+        cp ${K8S_HOME}/k8s/addons/monitor/fluentbit-ds.yaml /data/kubernetes/addons/monitor/fluentbit-ds.yaml
+        mykubectl apply -f /data/kubernetes/addons/monitor/fluentbit-ds.yaml
+    fi
+}
+
+function update_hostnic_config(){
+    if [ "${HOST_ROLE}" == "master" ]
+    then
+      curl --output /dev/null --silent --fail http://localhost:8080/healthz;
+      retcode=$?
+      if [ $retcode -eq 0 ]
+      then
+        cp ${K8S_HOME}/k8s/addons/hostnic/qingcloud-hostnic-cni.yaml /data/kubernetes/addons/hostnic/qingcloud-hostnic-cni.yaml
+        mykubectl apply -f /data/kubernetes/addons/hostnic/qingcloud-hostnic-cni.yaml
+      fi
+    fi
+}
+
+function get_node_status(){
+    local status=$(mykubectl get nodes/${HOST_INSTANCE_ID} -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}')
+    echo ${status}
 }

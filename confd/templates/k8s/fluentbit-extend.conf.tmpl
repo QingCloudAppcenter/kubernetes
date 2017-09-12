@@ -1,0 +1,9 @@
+{{- $server := getv "/env/fluent_forward_server" -}}
+{{- if ne $server "" -}}
+{{- $parts := split $server ":" -}}
+[OUTPUT]
+    Name          forward
+    Match         *
+    Host          {{index $parts 0}}
+    Port          {{index $parts 1}}
+{{- end -}}

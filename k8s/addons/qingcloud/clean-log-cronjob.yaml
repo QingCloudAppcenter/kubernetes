@@ -4,12 +4,11 @@ metadata:
   name: clean-log
   namespace: kube-system
   labels:
-    addonmanager.kubernetes.io/mode: EnsureExists
+    addonmanager.kubernetes.io/mode: Reconcile
 spec:
   schedule: "0 1 * * *"
-# The following two option are supported from version 1.6
-#  successfulJobsHistoryLimit: 1
-#  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   jobTemplate:
     metadata:
       labels:

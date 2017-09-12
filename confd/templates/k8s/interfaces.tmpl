@@ -1,0 +1,17 @@
+{{$role := getv "/host/role" -}}
+{{if eq $role "client" -}}
+auto lo
+iface lo inet loopback
+{{$masters := getvs "/hosts/master/*/ip" -}}
+allow-hotplug eth0
+iface eth0 inet dhcp
+    dns-search default.svc.cluster.local svc.cluster.local cluster.local
+    dns-nameservers 10.96.0.10
+    up route add -net 10.96.0.0 netmask 255.255.0.0 gw {{index $masters 0 -}}
+{{- else -}}
+auto lo
+iface lo inet loopback
+
+allow-hotplug eth0
+iface eth0 inet dhcp
+{{end -}}

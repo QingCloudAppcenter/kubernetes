@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 cd /tmp
-wget https://pek3a.qingstor.com/appcenter/developer/packages/app-agent-linux-amd64.tar.gz
+wget http://appcenter-docs.qingcloud.com/developer-guide/scripts/app-agent-linux-amd64.tar.gz
 tar -zxvf app-agent-linux-amd64.tar.gz
 cd app-agent-linux-amd64/
 ./install.sh

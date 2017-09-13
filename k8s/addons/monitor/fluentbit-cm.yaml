@@ -26,6 +26,15 @@ data:
         Buffer_Chunk_Size 512k
 
     [INPUT]
+        Name            systemd
+        Tag             host.*
+        Systemd_Filter  _SYSTEMD_UNIT=docker.service
+        Systemd_Filter  _SYSTEMD_UNIT=kubelet.service
+        DB             /var/log/flb_systemd.db
+        Buffer_Max_Size 8MB
+        Buffer_Chunk_Size 512k
+
+    [INPUT]
         Name   forward
         Listen 0.0.0.0
         Port   24224

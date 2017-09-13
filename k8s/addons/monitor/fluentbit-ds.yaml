@@ -22,6 +22,11 @@ spec:
         qingcloud.com/update-time: ""
     spec:
       serviceAccountName: fluentd-es
+      initContainers:
+      - name: wait-init-es-service
+        image: dockerhub.qingcloud.com/alpine:3.6
+        imagePullPolicy: IfNotPresent
+        command: ['sh', '-c', 'until nc -z -v -w5 elasticsearch-logging 9200; do echo "wait elasticsearch-logging service"; sleep 2; done;']
       containers:
       - name: fluent-bit
         image: dockerhub.qingcloud.com/fluent/fluent-bit:0.12

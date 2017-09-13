@@ -23,6 +23,7 @@ spec:
       serviceAccountName: elasticsearch-logging
       initContainers:
       - image: dockerhub.qingcloud.com/alpine:3.6
+        imagePullPolicy: IfNotPresent
         command: ["/sbin/sysctl", "-w", "vm.max_map_count=262144"]
         name: elasticsearch-logging-init
         securityContext:

@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    scheduler.alpha.kubernetes.io/critical-pod: ""
+  labels:
+    component: kube-apiserver
+    tier: control-plane
+  name: kube-apiserver
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    - --v=${KUBE_LOG_LEVEL}
+    - --requestheader-extra-headers-prefix=X-Remote-Extra-
+    - --requestheader-allowed-names=front-proxy-client
+    - --service-cluster-ip-range=10.96.0.0/16
+    - --secure-port=6443
+    - --insecure-port=8080
+    - --insecure-bind-address=127.0.0.1
+    - --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt
+    - --proxy-client-key-file=/etc/kubernetes/pki/front-proxy-client.key
+    - --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
+    - --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.crt
+    - --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt
+    - --allow-privileged=true
+    - --experimental-bootstrap-token-auth=true
+    - --kubelet-preferred-address-types=InternalIP,Hostname
+    - --requestheader-username-headers=X-Remote-User
+    - --tls-cert-file=/etc/kubernetes/pki/apiserver.crt
+    - --admission-control=Initializers,NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,ResourceQuota
+    - --requestheader-group-headers=X-Remote-Group
+    - --service-account-key-file=/etc/kubernetes/pki/sa.pub
+    - --client-ca-file=/etc/kubernetes/pki/ca.crt
+    - --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key
+    - --authorization-mode=Node,RBAC
+    - --advertise-address=${HOST_IP}
+    - --etcd-servers=http://127.0.0.1:2379
+    - --runtime-config
+    - batch/v2alpha1=true
+    - --feature-gates=AllAlpha=true,DynamicKubeletConfig=false,RotateKubeletServerCertificate=false,RotateKubeletClientCertificate=false
+    image: dockerhub.qingcloud.com/google_containers/hyperkube-amd64:${HYPERKUBE_VERSION}
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 8
+      httpGet:
+        host: 127.0.0.1
+        path: /healthz
+        port: 6443
+        scheme: HTTPS
+      initialDelaySeconds: 15
+      timeoutSeconds: 15
+    name: kube-apiserver
+    resources:
+      requests:
+        cpu: 250m
+    volumeMounts:
+    - mountPath: /etc/kubernetes
+      name: k8s
+      readOnly: true
+    - mountPath: /etc/ssl/certs
+      name: certs
+  hostNetwork: true
+  volumes:
+  - hostPath:
+      path: /etc/kubernetes
+    name: k8s
+  - hostPath:
+      path: /etc/ssl/certs
+    name: certs

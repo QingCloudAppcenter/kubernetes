@@ -2,16 +2,7 @@
     "cniVersion": "0.3.0",
     "name": "hostnic",
     "type": "hostnic",
-    "provider": "qingcloud",
-    "args": {
-      "providerConfigFile":"/etc/qingcloud/client.yaml",
-      {{$pod_vxnets := getv "/env/pod_vxnets"}}
-      {{if eq $pod_vxnets ""}}
-      "vxNets":["{{getv "/cluster/vxnet"}}"]
-      {{else}}
-      "vxNets":{{split $pod_vxnets " "|toJson}}
-      {{end}}
-    },
+    "bindaddr":"localhost:31080",
     "ipam":{
       "routes":[{"dst":"10.96.0.0/16","gw":"0.0.0.0"}]
     },

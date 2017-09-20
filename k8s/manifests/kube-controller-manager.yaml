@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    scheduler.alpha.kubernetes.io/critical-pod: ""
+  labels:
+    component: kube-controller-manager
+    tier: control-plane
+  name: kube-controller-manager
+  namespace: kube-system
+spec:
+  containers:
+  - name: kube-controller-manager
+    command:
+    - kube-controller-manager
+    - --v=${KUBE_LOG_LEVEL}
+    - --kubeconfig=/etc/kubernetes/controller-manager.conf
+    - --service-account-private-key-file=/etc/kubernetes/pki/sa.key
+    - --cluster-signing-cert-file=/etc/kubernetes/pki/ca.crt
+    - --address=127.0.0.1
+    - --leader-elect=true
+    - --use-service-account-credentials=true
+    - --controllers=*,bootstrapsigner,tokencleaner
+    - --root-ca-file=/etc/kubernetes/pki/ca.crt
+    - --cluster-signing-key-file=/etc/kubernetes/pki/ca.key
+    - --allocate-node-cidrs=false
+    - --service-cluster-ip-range=10.96.0.0/16
+    - --cloud-provider=external
+    - --flex-volume-plugin-dir=/usr/libexec/kubernetes/kubelet-plugins/volume/exec/
+    - --feature-gates=AllAlpha=true,DynamicKubeletConfig=false,RotateKubeletServerCertificate=false,RotateKubeletClientCertificate=false
+    image: dockerhub.qingcloud.com/google_containers/hyperkube-amd64:${HYPERKUBE_VERSION}
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+      failureThreshold: 8
+      httpGet:
+        host: 127.0.0.1
+        path: /healthz
+        port: 10252
+        scheme: HTTP
+      initialDelaySeconds: 15
+      timeoutSeconds: 15
+    resources:
+      requests:
+        cpu: 200m
+    volumeMounts:
+    - mountPath: /etc/kubernetes
+      name: k8s
+      readOnly: true
+    - mountPath: /etc/ssl/certs
+      name: certs
+    - mountPath: /usr/libexec/kubernetes/kubelet-plugins
+      name: plugins
+    - mountPath: /var/log/qingcloud-flex-volume/
+      name: flexlog
+    - mountPath: /etc/qingcloud
+      name: qingcloud
+      readOnly: true
+  - name: flexlog
+    image: dockerhub.qingcloud.com/busybox:1.27.1
+    args: [/bin/sh, -c, 'tail -n+1 -F /var/log/qingcloud-flex-volume/flex-volume.INFO']
+    volumeMounts:
+    - name: flexlog
+      mountPath: /var/log/qingcloud-flex-volume
+  hostNetwork: true
+  volumes:
+  - name: k8s
+    hostPath:
+      path: /etc/kubernetes
+  - name: certs
+    hostPath:
+      path: /etc/ssl/certs
+  - name: plugins
+    hostPath:
+      path: /usr/libexec/kubernetes/kubelet-plugins
+  - name: qingcloud
+    hostPath:
+      path: /etc/qingcloud
+  - name: flexlog
+    hostPath:
+      path: /var/log/qingcloud-flex-volume-controller-manager/

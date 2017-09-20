@@ -1,5 +1,6 @@
 #!/bin/bash
 
-docker pull gcr.io/google_containers/kibana:v5.4.0
-docker tag gcr.io/google_containers/kibana:v5.4.0 dockerhub.qingcloud.com/google_containers/kibana:v5.4.0
-docker push dockerhub.qingcloud.com/google_containers/kibana:v5.4.0
+docker pull docker.elastic.co/kibana/kibana:5.5.1
+docker tag docker.elastic.co/kibana/kibana:5.5.1 dockerhub.qingcloud.com/elastic/kibana:5.5.1
+docker push dockerhub.qingcloud.com/elastic/kibana:5.5.1
+

@@ -1,0 +1,21 @@
+/var/log/qingcloud-flex-volume/* {
+    rotate 1
+    copytruncate
+    missingok
+    notifempty
+    compress
+    maxsize 10M
+    daily
+    create 0644 root root
+}
+
+/var/log/qingcloud-flex-volume-controller-manager/* {
+    rotate 1
+    copytruncate
+    missingok
+    notifempty
+    compress
+    maxsize 10M
+    daily
+    create 0644 root root
+}

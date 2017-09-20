@@ -9,6 +9,8 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
-  qingCloudStore:
-        volumeID: vol-xxxxxx
-        fsType: ext4
+  flexVolume:
+      driver: "qingcloud/flex-volume"
+      fsType: "ext4"
+      options:
+        volumeID: "vol-xxxx"

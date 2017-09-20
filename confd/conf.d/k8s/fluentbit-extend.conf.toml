@@ -1,0 +1,7 @@
+[template]
+src = "k8s/fluentbit-extend.conf.tmpl"
+dest = "/data/kubernetes/fluentbit/extend.conf"
+keys = [
+    "/env",
+]
+reload_cmd = "/opt/kubernetes/script/reload-fluentbit.sh"

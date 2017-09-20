@@ -11,11 +11,15 @@ spec:
       spec:
         containers:
           - name: web
-            image: dockerhub.qingcloud.com/qingcloud/go-probe
+            image: jolestar/go-probe
             ports:
               - name: web
                 containerPort: 80
                 protocol: TCP
+            resources:
+              requests:
+                cpu: 100m
+                memory: 100Mi
 ---
 apiVersion: v1
 kind: Service
@@ -36,9 +40,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: helloworld-internal
-  annotations:
-    service.beta.kubernetes.io/qingcloud-load-balancer-vxnet-id: "${VXNET}"
-    service.beta.kubernetes.io/qingcloud-load-balancer-type: "0"
 spec:
   ports:
     - port: 80

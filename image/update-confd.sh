@@ -9,4 +9,7 @@ rm -rf /etc/confd/templates/k8s
 mkdir -p /etc/confd
 cp -r ${K8S_HOME}/confd/* /etc/confd/
 
-systemctl restart confd
+if systemctl is-active confd > /dev/null
+then
+    systemctl restart confd
+fi

@@ -1,0 +1,133 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: heapster-v1.4.0
+  namespace: kube-system
+  labels:
+    k8s-app: heapster
+    addonmanager.kubernetes.io/mode: Reconcile
+    kubernetes.io/cluster-service: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: heapster
+  template:
+    metadata:
+      labels:
+        k8s-app: heapster
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ''
+    spec:
+      serviceAccount: "heapster"
+      containers:
+        - name: heapster
+          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.1
+          imagePullPolicy: IfNotPresent
+          command:
+            - /heapster
+            - "--source=kubernetes:https://kubernetes.default.svc?insecure=true&kubeletHttps=true&useServiceAccount=true&kubeletPort=10250"
+            - --sink=elasticsearch:http://elasticsearch-logging:9200
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8082
+              scheme: HTTP
+            initialDelaySeconds: 180
+            timeoutSeconds: 5
+          volumeMounts:
+            - name: ssl-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: usr-ca-certs
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+        - name: eventer
+          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.1
+          imagePullPolicy: IfNotPresent
+          command:
+            - /eventer
+            - "--source=kubernetes:https://kubernetes.default.svc?insecure=true&kubeletHttps=true&useServiceAccount=true&kubeletPort=10250"
+            - --sink=elasticsearch:http://elasticsearch-logging:9200
+          volumeMounts:
+            - name: ssl-certs
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: usr-ca-certs
+              mountPath: /usr/share/ca-certificates
+              readOnly: true
+        - image: dockerhub.qingcloud.com/google_containers/addon-resizer:1.7
+          imagePullPolicy: IfNotPresent
+          name: heapster-nanny
+          resources:
+            limits:
+              cpu: 50m
+              memory: 90Mi
+            requests:
+              cpu: 50m
+              memory: 90Mi
+          env:
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: MY_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          command:
+            - /pod_nanny
+            - --cpu=80m
+            - --extra-cpu=0.5m
+            - --memory=140Mi
+            - --extra-memory=4Mi
+            - --threshold=5
+            - --deployment=heapster-v1.4.0
+            - --container=heapster
+            - --poll-period=300000
+            - --estimator=exponential
+        - image: dockerhub.qingcloud.com/google_containers/addon-resizer:1.7
+          imagePullPolicy: IfNotPresent
+          name: eventer-nanny
+          resources:
+            limits:
+              cpu: 50m
+              memory: 90Mi
+            requests:
+              cpu: 50m
+              memory: 90Mi
+          env:
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: MY_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          command:
+            - /pod_nanny
+            - --cpu=100m
+            - --extra-cpu=0m
+            - --memory=190Mi
+            - --extra-memory=0.5Ki
+            - --threshold=5
+            - --deployment=heapster-v1.4.0
+            - --container=eventer
+            - --poll-period=300000
+            - --estimator=exponential
+      volumes:
+        - name: ssl-certs
+          hostPath:
+            path: "/etc/ssl/certs"
+        - name: usr-ca-certs
+          hostPath:
+            path: "/usr/share/ca-certificates"
+      tolerations:
+      - key: "CriticalAddonsOnly"
+        operator: "Exists"
+      - key: "dedicated"
+        value: "log"
+        effect: NoSchedule
+      nodeSelector:
+        role: log

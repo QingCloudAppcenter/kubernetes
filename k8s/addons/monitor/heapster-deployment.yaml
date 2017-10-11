@@ -22,7 +22,7 @@ spec:
       serviceAccount: "heapster"
       containers:
         - name: heapster
-          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.1
+          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.2
           imagePullPolicy: IfNotPresent
           command:
             - /heapster
@@ -43,7 +43,7 @@ spec:
               mountPath: /usr/share/ca-certificates
               readOnly: true
         - name: eventer
-          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.1
+          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.2
           imagePullPolicy: IfNotPresent
           command:
             - /eventer

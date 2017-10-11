@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bashz
 SCRIPTPATH=$( cd $(dirname $0) ; pwd -P )
 K8S_HOME=$(dirname "${SCRIPTPATH}")
 

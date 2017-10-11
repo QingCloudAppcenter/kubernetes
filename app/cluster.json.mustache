@@ -3,14 +3,14 @@
         "description": {{cluster.description}},
         "vxnet": {{cluster.vxnet}},
         "upgrade_policy": [
-            "appv-b5e7z6xa"   
+            "appv-kogtz86m"
         ],
         "nodes": [
         {
             "role": "master",
             "container": {
                 "type": "kvm",
-                "image": "img-1amnvzdt",
+                "image": "img-03a3qo1q",
                 "zone": "pek3a"
             },
             "instance_class": {{cluster.master.instance_class}},
@@ -87,7 +87,7 @@
                     "role": "node",
                     "container": {
                         "type": "kvm",
-                        "image": "img-1amnvzdt",
+                        "image": "img-03a3qo1q",
                         "zone": "pek3a"
                     },
                     "instance_class": {{cluster.node.instance_class}},
@@ -128,7 +128,11 @@
                             "post_stop_service": false,
                             "cmd": "/opt/kubernetes/script/destroy-node.sh",
                             "timeout": 86400
-                         }
+                         },
+                         "upgrade": {
+                            "cmd": "/opt/kubernetes/script/upgrade-node.sh 176",
+                            "timeout": 300
+                        }
                     },
                     "health_check": {
                         "enable": true,
@@ -169,7 +173,7 @@
                     "role": "log",
                     "container": {
                         "type": "kvm",
-                        "image": "img-1amnvzdt",
+                        "image": "img-03a3qo1q",
                         "zone": "pek3a"
                     },
                     "instance_class": {{cluster.log.instance_class}},
@@ -210,7 +214,11 @@
                             "post_stop_service": false,
                             "cmd": "/opt/kubernetes/script/destroy-node.sh",
                             "timeout": 86400
-                         }
+                         },
+                         "upgrade": {
+                            "cmd": "/opt/kubernetes/script/upgrade-node.sh 176",
+                            "timeout": 300
+                        }
                     },
                     "health_check": {
                         "enable": true,
@@ -250,7 +258,7 @@
                         "role": "client",
                         "container": {
                             "type": "kvm",
-                            "image": "img-1amnvzdt",
+                            "image": "img-03a3qo1q",
                             "zone": "pek3a"
                         },
                         "instance_class": {{cluster.client.instance_class}},
@@ -262,6 +270,9 @@
                              "init": {
                                  "order": 2,
                                  "cmd": "/opt/kubernetes/script/init-client.sh"
+                             },
+                             "upgrade": {
+                                 "cmd": "/opt/kubernetes/script/upgrade-client.sh"
                              }
                         }
             }

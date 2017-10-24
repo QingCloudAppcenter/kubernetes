@@ -7,6 +7,7 @@ net.ipv4.conf.all.rp_filter = 2
 vm.max_map_count=262144
 fs.file-max=200000
 fs.inotify.max_user_watches=1048576
+fs.inotify.max_user_instances=2048
 EOF
 
 sysctl -p

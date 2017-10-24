@@ -254,6 +254,14 @@ function docker_stop_rm_all () {
     done
 }
 
+function docker_stop () {
+  retry systemctl stop docker
+}
+
+function docker_restart () {
+  retry systemctl restart docker
+}
+
 function docker_login(){
     if [ ! -z "${ENV_DOCKERHUB_USERNAME}" ] && [ ! -z "${ENV_DOCKERHUB_PASSWORD}" ]
     then

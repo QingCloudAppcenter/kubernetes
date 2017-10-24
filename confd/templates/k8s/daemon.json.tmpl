@@ -1,5 +1,5 @@
 {
-    "live-restore": true,
+    "live-restore": false,
     "graph": "/data/var/lib/docker",
     {{$registries := getv "/env/insecure-registries"}}
     {{if ne $registries ""}}
@@ -9,5 +9,6 @@
     {{if ne $mirrors ""}}
     "registry-mirrors": {{split $mirrors " "|toJson}},
     {{end}}
-    "storage-driver": "overlay2"
+    "storage-driver": "overlay2",
+    "bip": "172.30.0.1/16"
 }

@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
-systemctl restart docker
+SCRIPTPATH=$( cd $(dirname $0) ; pwd -P )
+K8S_HOME=$(dirname "${SCRIPTPATH}")
+
+source "${K8S_HOME}/script/common.sh"
+
+docker_restart
 systemctl restart kubelet

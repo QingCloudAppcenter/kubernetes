@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: heapster-v1.4.0
+  name: heapster-v1.4.3
   namespace: kube-system
   labels:
     k8s-app: heapster
@@ -22,7 +22,7 @@ spec:
       serviceAccount: "heapster"
       containers:
         - name: heapster
-          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.2
+          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.3
           imagePullPolicy: IfNotPresent
           command:
             - /heapster
@@ -43,7 +43,7 @@ spec:
               mountPath: /usr/share/ca-certificates
               readOnly: true
         - name: eventer
-          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.2
+          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.3
           imagePullPolicy: IfNotPresent
           command:
             - /eventer
@@ -82,7 +82,7 @@ spec:
             - --memory=140Mi
             - --extra-memory=4Mi
             - --threshold=5
-            - --deployment=heapster-v1.4.0
+            - --deployment=heapster-v1.4.3
             - --container=heapster
             - --poll-period=300000
             - --estimator=exponential
@@ -112,7 +112,7 @@ spec:
             - --memory=190Mi
             - --extra-memory=0.5Ki
             - --threshold=5
-            - --deployment=heapster-v1.4.0
+            - --deployment=heapster-v1.4.3
             - --container=eventer
             - --poll-period=300000
             - --estimator=exponential

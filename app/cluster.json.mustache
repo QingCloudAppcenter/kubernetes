@@ -3,14 +3,16 @@
         "description": {{cluster.description}},
         "vxnet": {{cluster.vxnet}},
         "upgrade_policy": [
-            "appv-kogtz86m"
+            "appv-kogtz86m",
+            "appv-b5e7z6xa",
+            "appv-j59dcq0j"
         ],
         "nodes": [
         {
             "role": "master",
             "container": {
                 "type": "kvm",
-                "image": "img-twjnk7gg",
+                "image": "img-hrsc3dbs",
                 "zone": "pek3a"
             },
             "instance_class": {{cluster.master.instance_class}},
@@ -87,7 +89,7 @@
                     "role": "node",
                     "container": {
                         "type": "kvm",
-                        "image": "img-twjnk7gg",
+                        "image": "img-hrsc3dbs",
                         "zone": "pek3a"
                     },
                     "instance_class": {{cluster.node.instance_class}},
@@ -173,7 +175,7 @@
                     "role": "log",
                     "container": {
                         "type": "kvm",
-                        "image": "img-twjnk7gg",
+                        "image": "img-hrsc3dbs",
                         "zone": "pek3a"
                     },
                     "instance_class": {{cluster.log.instance_class}},
@@ -258,7 +260,7 @@
                         "role": "client",
                         "container": {
                             "type": "kvm",
-                            "image": "img-twjnk7gg",
+                            "image": "img-hrsc3dbs",
                             "zone": "pek3a"
                         },
                         "instance_class": {{cluster.client.instance_class}},

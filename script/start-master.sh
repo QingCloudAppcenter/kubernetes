@@ -11,3 +11,4 @@ systemctl start docker
 systemctl start kubelet
 wait_kubelet
 wait_apiserver
+clean_heapster140

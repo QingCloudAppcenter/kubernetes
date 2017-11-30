@@ -29,7 +29,7 @@ spec:
     - --kubelet-preferred-address-types=InternalIP,Hostname
     - --requestheader-username-headers=X-Remote-User
     - --tls-cert-file=/etc/kubernetes/pki/apiserver.crt
-    - --admission-control=Initializers,NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,ResourceQuota
+    - --admission-control=Initializers,NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,ResourceQuota,PodPreset,PersistentVolumeClaimResize,PersistentVolumeLabel,PodTolerationRestriction
     - --requestheader-group-headers=X-Remote-Group
     - --service-account-key-file=/etc/kubernetes/pki/sa.pub
     - --client-ca-file=/etc/kubernetes/pki/ca.crt

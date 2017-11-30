@@ -18,10 +18,9 @@ spec:
     - --kubeconfig=/etc/kubernetes/admin.conf
     - --configure-cloud-routes=false
     - --allocate-node-cidrs=false
-    - --use-service-account-credentials=true
-    - --service-account-private-key-file=/etc/kubernetes/pki/sa.key
+    - --use-service-account-credentials=false
     - --feature-gates=AllAlpha=true,DynamicKubeletConfig=false,RotateKubeletServerCertificate=false,RotateKubeletClientCertificate=false
-    image: dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager:v1.0
+    image: dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager:v1.1
     imagePullPolicy: IfNotPresent
     livenessProbe:
       failureThreshold: 8

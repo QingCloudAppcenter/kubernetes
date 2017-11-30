@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: extensions/v1beta2
 kind: Deployment
 metadata:
   name: leader-elector
@@ -27,7 +27,7 @@ metadata:
   name: leader-elector-example
 ---
 kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: leader-elector
 rules:
@@ -39,7 +39,7 @@ rules:
   - "*"
 ---
 kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: leader-elector
 subjects:

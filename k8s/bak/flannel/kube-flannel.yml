@@ -31,7 +31,7 @@ data:
       }
     }
 ---
-apiVersion: extensions/v1beta1
+apiVersion: extensions/v1beta2
 kind: DaemonSet
 metadata:
   name: kube-flannel-ds

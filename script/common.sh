@@ -316,6 +316,6 @@ function clean_heapster140(){
     if kubectl get deploy heapster-v1.4.0 -n kube-system > /dev/null 2>&1; then
       kubectl delete deploy heapster-v1.4.0 -n kube-system
     else
-      echo "no old heapster deployment existed"
+      echo "try to clean heapster 1.4.0, but no old heapster deployment existed"
     fi
 }

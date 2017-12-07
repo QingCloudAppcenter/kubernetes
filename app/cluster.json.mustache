@@ -9,6 +9,9 @@
             "appv-veb357ra",
             "appv-dtlet675"
         ],
+        "links": {
+            "elk_service": {{cluster.elk_service}}
+        },
         "nodes": [
         {
             "role": "master",
@@ -292,6 +295,7 @@
             "dockerhub_password":{{env.dockerhub_password}},
             "keep_log_days":{{env.keep_log_days}},
             "kube_log_level":{{env.kube_log_level}},
-            "fluent_forward_server":{{env.fluent_forward_server}}
+            "fluent_forward_server":{{env.fluent_forward_server}},
+            "es_server":{{env.es_server}}
         }
 }

@@ -4,6 +4,7 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 
 source "${K8S_HOME}/script/common.sh"
 
+ensure_es
 ensure_dir
 link_dynamic_dir
 

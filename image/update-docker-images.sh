@@ -38,3 +38,9 @@ docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-volume-provisioner:v1.0
 docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager:v1.0
 docker pull dockerhub.qingcloud.com/qingcloud/hostnic-cni:v0.8.4
 docker pull dockerhub.qingcloud.com/alpine:3.6
+# istio
+docker pull dockerhub.qingcloud.com/istio/istio-ca:0.3.0
+docker pull dockerhub.qingcloud.com/istio/pilot:0.3.0
+docker pull dockerhub.qingcloud.com/istio/proxy_debug:0.3.0
+docker pull dockerhub.qingcloud.com/istio/mixer:0.3.0
+docker pull dockerhub.qingcloud.com/istio/statsd-exporter

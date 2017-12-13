@@ -307,6 +307,14 @@ function update_hostnic_config(){
     fi
 }
 
+function init_istio(){
+    if [ "${HOST_ROLE}" == "master" ]
+    then
+        mykubectl apply -f /opt/kubernetes/k8s/services/istio/istio.yaml
+    fi
+}
+
+
 function get_node_status(){
     local status=$(mykubectl get nodes/${HOST_INSTANCE_ID} -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}')
     echo ${status}

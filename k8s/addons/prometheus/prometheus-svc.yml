@@ -12,7 +12,7 @@ metadata:
 spec:
   selector:
     k8s-app: prometheus
-  type: LoadBalancer
+  type: NodePort
   ports:
   - name: prometheus
     protocol: TCP

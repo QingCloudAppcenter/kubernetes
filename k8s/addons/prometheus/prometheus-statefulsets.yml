@@ -1,0 +1,47 @@
+apiVersion: apps/v1beta2
+kind: StatefulSet
+metadata:
+  name: prometheus
+  namespace: kube-system
+  labels:
+    k8s-app: prometheus
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+spec:
+  serviceName: "prometheus"
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: prometheus
+  template:
+    metadata:
+      name: prometheus
+      labels:
+        k8s-app: prometheus
+    spec:
+      containers:
+      - name: prometheus
+        image: dockerhub.qingcloud.com/qingcloud/prometheus:v2.0.0
+        args:
+          - '--config.file=/etc/prometheus/prometheus.yml'
+          - '--storage.tsdb.path=/var/lib/prometheus'
+        ports:
+        - name: web
+          containerPort: 9090
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/prometheus
+        - name: data-volume
+          mountPath: /var/lib/prometheus 
+      volumes:
+      - name: config-volume
+        configMap:
+          name: prometheus
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: prometheus-pvc
+      serviceAccountName: prometheus
+      securityContext:
+        fsGroup: 2000
+        runAsUser: 1000
+        runAsNonRoot: true

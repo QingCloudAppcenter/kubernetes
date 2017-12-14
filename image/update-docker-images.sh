@@ -38,3 +38,4 @@ docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-volume-provisioner:v1.3
 docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager:v1.1
 docker pull dockerhub.qingcloud.com/qingcloud/hostnic-cni:v0.8.4
 docker pull dockerhub.qingcloud.com/alpine:3.6
+docker pull dockerhub.qingcloud.com/qingcloud/prometheus:v2.0.0

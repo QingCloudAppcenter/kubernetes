@@ -1,0 +1,52 @@
+- name: setup Ubuntu image
+  include_tasks: debian.yaml
+  when: ansible_os_family == 'Debian'
+
+
+- name: setup Centos images
+  include_tasks: redhat.yaml
+  when: ansible_os_family == 'RedHat'
+
+- name: setup logrotate
+  copy:
+    src: files/{{item}}
+    dest: /etc/cron.hourly/{{item}}
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  with_items:
+    - logrotate
+
+- name: setup sysctl
+  sysctl:
+    name: "{{item.name}}"
+    state: present
+    value: "{{item.value }}"
+    sysctl_set: yes
+    reload: yes
+  with_items:
+    - { "name": "net.ipv4.ip_forward", "value": 1 }
+    - { "name": "vm.swappiness", "value": 1}
+    - { "name": "net.ipv4.conf.all.rp_filter", "value":  2}
+    - { "name": "vm.max_map_count", "value":  262144 }
+    - { "name": "fs.file-max", "value":  200000 }
+    - { "name": "fs.inotify.max_user_watches", "value":  1048576}
+    - { "name": "fs.inotify.max_user_instances", "value":  2048}
+
+- name: setup default nic
+  copy:
+    src: files/{{item}}
+    dest: /etc/network/{{item}}
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  with_items:
+    - interfaces
+
+- name: set timezone to UTC
+  timezone:
+    name: UTC
+  notify:
+    - restart ntpd

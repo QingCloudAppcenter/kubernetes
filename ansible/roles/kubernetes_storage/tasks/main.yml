@@ -1,0 +1,5 @@
+- name: pull docker images
+  docker_image:
+    name: dockerhub.qingcloud.com/google_containers/{{item}}:{{kubernetes_version}}
+  with_items:
+    - hyperkube-amd64

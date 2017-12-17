@@ -1,3 +1,4 @@
+---
 kind: ConfigMap
 apiVersion: v1
 metadata:
@@ -10,21 +11,10 @@ data:
   cni-conf.json: |
     {
       "name": "cbr0",
-      "plugins": [
-        {
-          "type": "flannel",
-          "delegate": {
-            "hairpinMode": true,
-            "isDefaultGateway": true
-          }
-        },
-        {
-          "type": "portmap",
-          "capabilities": {
-            "portMappings": true
-          }
-        }
-      ]
+      "type": "flannel",
+      "delegate": {
+        "isDefaultGateway": true
+      }
     }
   net-conf.json: |
     {

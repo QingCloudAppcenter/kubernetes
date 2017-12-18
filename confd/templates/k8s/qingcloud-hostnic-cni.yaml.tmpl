@@ -1,3 +1,5 @@
+{{$flag:=getv "/env/enable_hostnic"}}
+{{if eq "true" $flag}}
 apiVersion: apps/v1beta2
 kind: DaemonSet
 metadata:
@@ -58,3 +60,4 @@ spec:
       - key: node.cloudprovider.kubernetes.io/uninitialized
         effect: NoSchedule
         value: "true"
+{{ end }}

@@ -49,8 +49,8 @@
   "The fluent log server address to forward server, format host:port":"Fluent 日志服务器，用于将 Kubernetes 收集到的日志转发到用户自定义的日志服务，格式 host:port",
   "The docker hub registry mirror, use a blank to split multi registry":"Docker hub 的镜像服务地址，多个用空格隔开",
   "Enable istio":"开启istio",
-  "Enable service mesh platform istio":"开启istio来进行微服务治理"，
-  "Elastic Search server": "Elastic Search 服务器",
+  "Enable service mesh platform istio":"开启istio来进行微服务治理",
+  "Elastic Search server":"Elastic Search 服务器",
   "The Elastic Search server address, format host:port": "Elastic Search 服务器地址，格式为 host:port",
   "err_code101": "请增加日志节点数或者配置 Elastic Search 依赖或者在在环境变量中指定 Elastic Search 服务器地址",
   "err_code102": "指定的 Elastic Search 服务无法访问，请确保其运行正常再尝试重新部署集群",

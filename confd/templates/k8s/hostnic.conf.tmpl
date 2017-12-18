@@ -1,11 +1,12 @@
-{{if getv "/env/enable_hostnic"}}
+{{$flag:=getv "/env/enable_hostnic"}}
+{{if eq "true" $flag}}
 {
     "cniVersion": "0.3.0",
     "name": "hostnic",
     "type": "hostnic",
     "bindaddr":"localhost:31080",
     "ipam":{
-      "routes":[{"dst":"10.244.0.0/16","gw":"0.0.0.0"}]
+      "routes":[{"dst":"10.96.0.0/16","gw":"0.0.0.0"}]
     },
     "isGateway": true
 }

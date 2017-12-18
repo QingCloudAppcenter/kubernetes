@@ -14,7 +14,6 @@ init_token=$(get_or_gen_init_token)
 #retry kubeadm check --cloud-provider-name qingcloud --cloud-provider-config /etc/kubernetes/qingcloud.conf
 retry kubeadm alpha phase certs all --apiserver-advertise-address ${MASTER_IP} --apiserver-cert-extra-sans ${ENV_API_EXTERNAL_DOMAIN} --service-cidr 10.96.0.0/16 --service-dns-domain cluster.local
 retry kubeadm alpha phase kubeconfig all --apiserver-advertise-address ${MASTER_IP}
-retry kubeadm alpha phase controlplane all --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address ${MASTER_IP}
 
 process_manifests
 

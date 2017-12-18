@@ -6,12 +6,16 @@ metadata:
   labels:
     tier: node
     app: flannel
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
 spec:
   template:
     metadata:
       labels:
         tier: node
         app: flannel
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ''
     spec:
       hostNetwork: true
       nodeSelector:
@@ -65,3 +69,9 @@ spec:
         - name: flannel-cfg
           configMap:
             name: kube-flannel-cfg
+      tolerations:
+      - key: "CriticalAddonsOnly"
+        operator: Exists
+      - key: node.cloudprovider.kubernetes.io/uninitialized
+        effect: NoSchedule
+        value: "true"

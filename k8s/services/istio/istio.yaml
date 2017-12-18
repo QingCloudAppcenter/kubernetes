@@ -249,7 +249,7 @@ spec:
       serviceAccountName: istio-mixer-service-account
       containers:
       - name: statsd-to-prometheus
-        image: dockerhub.qingcloud.com/istio/statsd-exporter
+        image: dockerhub.qingcloud.com/istio/statsd-exporter:0.3.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9102

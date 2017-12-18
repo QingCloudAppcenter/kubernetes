@@ -43,4 +43,4 @@ docker pull dockerhub.qingcloud.com/istio/istio-ca:0.3.0
 docker pull dockerhub.qingcloud.com/istio/pilot:0.3.0
 docker pull dockerhub.qingcloud.com/istio/proxy_debug:0.3.0
 docker pull dockerhub.qingcloud.com/istio/mixer:0.3.0
-docker pull dockerhub.qingcloud.com/istio/statsd-exporter
+docker pull dockerhub.qingcloud.com/istio/statsd-exporter:0.3.0

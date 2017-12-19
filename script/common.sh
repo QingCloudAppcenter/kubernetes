@@ -132,6 +132,8 @@ function process_addons(){
             replace_vars ${f} /data/kubernetes/addons/${addon_name}/${name}
         done
     done
+
+    init_istio
 }
 
 function scale_es(){
@@ -306,6 +308,27 @@ function update_hostnic_config(){
       fi
     fi
 }
+
+function init_istio(){
+    if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_ISTIO}" == "yes" ]
+    then
+      if kubectl get deploy istio-mixer -n istio-system > /dev/null 2>&1; then
+        echo "istio has been deployed"
+      else
+        mykubectl apply -f /opt/kubernetes/k8s/services/istio/istio.yaml
+      fi
+    fi
+
+    if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_ISTIO}" == "no" ]
+    then
+      if kubectl get deploy istio-mixer -n istio-system > /dev/null 2>&1; then
+        mykubectl delete -f /opt/kubernetes/k8s/services/istio/istio.yaml
+      else
+        echo "istio has not been deployed"
+      fi
+    fi
+}
+
 
 function get_node_status(){
     local status=$(mykubectl get nodes/${HOST_INSTANCE_ID} -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}')

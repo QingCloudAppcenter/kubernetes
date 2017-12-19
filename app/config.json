@@ -391,6 +391,16 @@
           "default":"",
           "pattern":"^$|^[^\\:]+:[0-9]{5}$",
           "required": "no"
+        },
+        {
+          "key": "enable_istio",
+          "label": "Enable istio",
+          "description": "Enable service mesh platform istio",
+          "type": "string",
+          "changeable": true,
+          "default":"no",
+          "range":["yes", "no"],
+          "required": "no"
         }
       ]
     }

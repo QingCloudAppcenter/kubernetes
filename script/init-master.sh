@@ -28,4 +28,3 @@ retry kubeadm alpha phase bootstrap-token cluster-info /etc/kubernetes/admin.con
 #retry kubeadm alpha phase upload-config --kubeconfig /etc/kubernetes/admin.conf
 retry kubeadm alpha phase apiconfig --kubeconfig /etc/kubernetes/admin.conf
 process_addons
-

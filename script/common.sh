@@ -41,6 +41,27 @@ function mykubectl(){
     kubectl --kubeconfig='/root/.kube/config' $*
 }
 
+function ensure_es(){
+    if [ "${LOG_COUNT}" == "0" ] && [ "${ES_HOST:-}" == "" ]; then
+        exit 801
+    fi
+    if [ "${LOG_COUNT}" == "0" ] && [ "${ES_HOST:-}" != "" ]; then
+        loop=60
+        while [ "$loop" -gt 0 ]
+        do
+          if timeout 2 bash -c "</dev/tcp/${ES_HOST:-}/${ES_PORT:-}"
+          then
+          break
+          else
+            sleep 5s
+            loop=$[loop-10]
+          fi
+        done
+        if [ "$loop" -eq 0 ]; then
+          exit 802
+        fi
+    fi
+}
 function ensure_dir(){
     if [ ! -d /root/.kube ]; then
         mkdir /root/.kube
@@ -83,9 +104,22 @@ function replace_vars(){
     sed -i 's/${HOST_IP}/'"${HOST_IP}"'/g' ${tmpfile}
     sed -i 's/${MASTER_IP}/'"${MASTER_IP}"'/g' ${tmpfile}
 
-    if [ "${to}" == "/data/kubernetes/addons/monitor/es-controller.yaml" ]
+    if [ "${LOG_COUNT}" != "0" ] && [ "${to}" == "/data/kubernetes/addons/monitor/es-controller.yaml" ]
     then
         sed -i 's/replicas:\s./replicas: '"${LOG_COUNT}"'/g' ${tmpfile}
+    fi
+    if [ "${LOG_COUNT}" == "0" ] && [ "${ES_HOST:-}" != "" ] 
+    then
+        if [ "${to}" == "/data/kubernetes/addons/monitor/fluentbit-ds.yaml" ] || [ "${to}" == "/data/kubernetes/addons/monitor/heapster-deployment.yaml" ] || [ "${to}" == "/data/kubernetes/addons/monitor/kibana-deployment.yaml" ]
+        then
+          sed -i 's/elasticsearch-logging/'"${ES_HOST:-}"'/g' ${tmpfile}
+          sed -i 's/9200/'"${ES_PORT:-}"'/g' ${tmpfile}
+          sed -i 's/role: log/'"role: node"'/g' ${tmpfile}
+        fi
+        if [ "${to}" == "/data/kubernetes/addons/monitor/es-statefulset.yaml" ]
+        then
+          sed -i 's/role: log/'"role: node"'/g' ${tmpfile}
+        fi
     fi
     if [ -f ${to} ]
     then
@@ -339,6 +373,14 @@ function clean_heapster140(){
     if kubectl get deploy heapster-v1.4.0 -n kube-system > /dev/null 2>&1; then
       kubectl delete deploy heapster-v1.4.0 -n kube-system
     else
-      echo "no old heapster deployment existed"
+      echo "try to clean heapster 1.4.0, but no old heapster deployment existed"
     fi
+}
+
+function kubelet_active(){
+  retry systemctl is-active kubelet >/dev/null 2>&1
+}
+
+function docker_active(){
+  retry systemctl is-active docker >/dev/null 2>&1
 }

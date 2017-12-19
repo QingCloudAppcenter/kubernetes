@@ -1,7 +1,22 @@
 client:
   hosts:
+{{if gt (lsdir "/hosts/log"|len) 0}}
     - elasticsearch-logging
   port: 9200
+{{else}}
+{{range $index,$value := gets "/links/elk_service/hosts/es_node/*/ip"}}{{if eq $index 0}}{{$es_ip :=.Value}}{{$es_port :=getv "/links/elk_service/cluster/endpoints/ElasticSearch/port"}}
+    - {{$es_ip}}
+  port: {{$es_port}}
+{{end}}
+{{else}}
+{{- $server := getv "/env/es_server" -}}
+{{- if ne $server "" -}}
+{{- $parts := split $server ":" -}}
+    - {{index $parts 0}}
+  port: {{index $parts 1}}
+{{- end -}}
+{{end}}
+{{end}}
   use_ssl: False
   timeout: 30
 

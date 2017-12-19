@@ -44,7 +44,12 @@
                     "nodes_to_execute_on": 1,
                     "post_stop_service": true,
                     "cmd": "/opt/kubernetes/script/destroy-master.sh"
-                }
+                },
+                "upgrade": {
+                    "cmd": "/opt/kubernetes/script/upgrade.sh",
+                    "post_start_service": true,
+                    "timeout": 300
+                 }
             },
             "custom_metadata": {
                 "cmd":"/opt/kubernetes/script/get-metadata.sh"

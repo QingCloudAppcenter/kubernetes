@@ -360,6 +360,15 @@
           "required": "no"
         },
         {
+          "key": "enable_hostnic",
+          "label": "enalbe hostnic",
+          "description": "switch to open hostnic",
+          "type": "boolean",
+          "changeable": false,
+          "default": false,
+          "required": "yes"
+        },
+        {
           "key": "dockerhub_password",
           "label": "Dockerhub Password",
           "description": "The password of dockerhub.qingcloud.com user",

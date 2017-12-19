@@ -1,3 +1,5 @@
+{{$flag:=getv "/env/enable_hostnic"}}
+{{if eq "true" $flag}}
 {
     "cniVersion": "0.3.0",
     "name": "hostnic",
@@ -8,3 +10,4 @@
     },
     "isGateway": true
 }
+{{end}}

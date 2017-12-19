@@ -24,7 +24,6 @@ docker pull dockerhub.qingcloud.com/google_containers/k8s-dns-kube-dns-amd64:1.1
 docker pull dockerhub.qingcloud.com/google_containers/k8s-dns-dnsmasq-nanny-amd64:1.14.5
 docker pull dockerhub.qingcloud.com/google_containers/k8s-dns-sidecar-amd64:1.14.5
 docker pull dockerhub.qingcloud.com/google_containers/kube-addon-manager:v6.4-beta.2
-#docker pull dockerhub.qingcloud.com/coreos/flannel:v0.7.0-amd64
 docker pull dockerhub.qingcloud.com/google_containers/kubernetes-dashboard-amd64:v1.8.0
 docker pull dockerhub.qingcloud.com/fluent/fluent-bit:0.12.9
 docker pull dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.3
@@ -45,3 +44,4 @@ docker pull dockerhub.qingcloud.com/istio/proxy_debug:0.3.0
 docker pull dockerhub.qingcloud.com/istio/mixer:0.3.0
 docker pull dockerhub.qingcloud.com/istio/statsd-exporter:0.3.0
 docker pull dockerhub.qingcloud.com/qingcloud/prometheus:v2.0.0
+docker pull dockerhub.qingcloud.com/coreos/flannel:v0.9.1-amd64

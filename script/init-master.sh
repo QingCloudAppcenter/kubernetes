@@ -28,4 +28,5 @@ retry kubeadm alpha phase bootstrap-token node allow-auto-approve --kubeconfig /
 retry kubeadm alpha phase bootstrap-token cluster-info /etc/kubernetes/admin.conf --kubeconfig /etc/kubernetes/admin.conf
 #retry kubeadm alpha phase upload-config --kubeconfig /etc/kubernetes/admin.conf
 #retry kubeadm alpha phase apiconfig --kubeconfig /etc/kubernetes/admin.conf
+retry kubectl create clusterrolebinding kubeadm:node-autoapprove-certificate-rotation --clusterrole=system:certificates.k8s.io:certificatesigningrequests:selfnodeclient --group=system:nodes
 process_addons

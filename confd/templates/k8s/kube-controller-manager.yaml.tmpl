@@ -23,8 +23,14 @@ spec:
     - --controllers=*,bootstrapsigner,tokencleaner
     - --root-ca-file=/etc/kubernetes/pki/ca.crt
     - --cluster-signing-key-file=/etc/kubernetes/pki/ca.key
-    - --allocate-node-cidrs=false
     - --service-cluster-ip-range=10.96.0.0/16
+{{if getv "/env/enable_hostnic"}}
+    - --allocate-node-cidrs=true
+    - --cluster-cidr=10.244.0.0/16
+    - --node-cidr-mask-size=24
+{{else}}
+    - --allocate-node-cidrs=false
+{{end}}
     - --cloud-provider=external
     - --horizontal-pod-autoscaler-use-rest-clients=true
     - --flex-volume-plugin-dir=/usr/libexec/kubernetes/kubelet-plugins/volume/exec/

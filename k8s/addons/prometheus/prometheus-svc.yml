@@ -18,3 +18,4 @@ spec:
     protocol: TCP
     port: 80
     targetPort: 9090
+    NodePort: 30000

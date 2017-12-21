@@ -1,6 +1,6 @@
 {
     "live-restore": false,
-    "graph": "/data/var/lib/docker",
+    "data-root": "/data/var/lib/docker",
     {{$registries := getv "/env/insecure-registries"}}
     {{if ne $registries ""}}
     "insecure-registries": {{split $registries " "|toJson}},

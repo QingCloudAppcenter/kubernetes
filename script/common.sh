@@ -42,8 +42,8 @@ function mykubectl(){
 }
 
 function ensure_es(){
-    if [ "${LOG_COUNT}" == "0" ] && [ "${ES_HOST:-}" == "" ]; then
-        exit 801
+    if [ "${LOG_COUNT}" == "0" ] && [ "${ES_HOST:-}" == "" ] && [ "${ES_SERVER:-}" == ""  ]; then
+        exit 101
     fi
     if [ "${LOG_COUNT}" == "0" ] && [ "${ES_HOST:-}" != "" ]; then
         loop=60
@@ -58,7 +58,7 @@ function ensure_es(){
           fi
         done
         if [ "$loop" -eq 0 ]; then
-          exit 802
+          exit 102
         fi
     fi
 }

@@ -5,7 +5,7 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 
 source "${K8S_HOME}/script/common.sh"
 
-systemctl is-active kubelet >/dev/null 2>&1 && {
+kubelet_active && {
     if [ "${HOST_ROLE}" == "master" ]
     then
         mykubectl delete job -l k8s-app=clean-log -n kube-system

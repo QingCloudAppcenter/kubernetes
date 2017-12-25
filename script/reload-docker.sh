@@ -4,4 +4,4 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 
 source "${K8S_HOME}/script/common.sh"
 
-systemctl is-active docker >/dev/null 2>&1 && docker_restart
+docker_active && docker_restart

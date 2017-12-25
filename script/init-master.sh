@@ -4,6 +4,7 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 
 source "${K8S_HOME}/script/common.sh"
 
+ensure_es
 ensure_dir
 link_dynamic_dir
 
@@ -26,6 +27,6 @@ retry kubeadm alpha phase bootstrap-token node allow-post-csrs --kubeconfig /etc
 retry kubeadm alpha phase bootstrap-token node allow-auto-approve --kubeconfig /etc/kubernetes/admin.conf
 retry kubeadm alpha phase bootstrap-token cluster-info /etc/kubernetes/admin.conf --kubeconfig /etc/kubernetes/admin.conf
 #retry kubeadm alpha phase upload-config --kubeconfig /etc/kubernetes/admin.conf
-retry kubeadm alpha phase apiconfig --kubeconfig /etc/kubernetes/admin.conf
+#retry kubeadm alpha phase apiconfig --kubeconfig /etc/kubernetes/admin.conf
+retry kubectl create clusterrolebinding kubeadm:node-autoapprove-certificate-rotation --clusterrole=system:certificates.k8s.io:certificatesigningrequests:selfnodeclient --group=system:nodes
 process_addons
-

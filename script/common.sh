@@ -41,6 +41,27 @@ function mykubectl(){
     kubectl --kubeconfig='/root/.kube/config' $*
 }
 
+function ensure_es(){
+    if [ "${LOG_COUNT}" == "0" ] && [ "${ES_HOST:-}" == "" ] && [ "${ES_SERVER:-}" == ""  ]; then
+        exit 101
+    fi
+    if [ "${LOG_COUNT}" == "0" ] && [ "${ES_HOST:-}" != "" ]; then
+        loop=60
+        while [ "$loop" -gt 0 ]
+        do
+          if timeout 2 bash -c "</dev/tcp/${ES_HOST:-}/${ES_PORT:-}"
+          then
+          break
+          else
+            sleep 5s
+            loop=$[loop-10]
+          fi
+        done
+        if [ "$loop" -eq 0 ]; then
+          exit 102
+        fi
+    fi
+}
 function ensure_dir(){
     if [ ! -d /root/.kube ]; then
         mkdir /root/.kube
@@ -83,9 +104,22 @@ function replace_vars(){
     sed -i 's/${HOST_IP}/'"${HOST_IP}"'/g' ${tmpfile}
     sed -i 's/${MASTER_IP}/'"${MASTER_IP}"'/g' ${tmpfile}
 
-    if [ "${to}" == "/data/kubernetes/addons/monitor/es-controller.yaml" ]
+    if [ "${LOG_COUNT}" != "0" ] && [ "${to}" == "/data/kubernetes/addons/monitor/es-controller.yaml" ]
     then
         sed -i 's/replicas:\s./replicas: '"${LOG_COUNT}"'/g' ${tmpfile}
+    fi
+    if [ "${LOG_COUNT}" == "0" ] && [ "${ES_HOST:-}" != "" ] 
+    then
+        if [ "${to}" == "/data/kubernetes/addons/monitor/fluentbit-ds.yaml" ] || [ "${to}" == "/data/kubernetes/addons/monitor/heapster-deployment.yaml" ] || [ "${to}" == "/data/kubernetes/addons/monitor/kibana-deployment.yaml" ]
+        then
+          sed -i 's/elasticsearch-logging/'"${ES_HOST:-}"'/g' ${tmpfile}
+          sed -i 's/9200/'"${ES_PORT:-}"'/g' ${tmpfile}
+          sed -i 's/role: log/'"role: node"'/g' ${tmpfile}
+        fi
+        if [ "${to}" == "/data/kubernetes/addons/monitor/es-statefulset.yaml" ]
+        then
+          sed -i 's/role: log/'"role: node"'/g' ${tmpfile}
+        fi
     fi
     if [ -f ${to} ]
     then
@@ -132,6 +166,8 @@ function process_addons(){
             replace_vars ${f} /data/kubernetes/addons/${addon_name}/${name}
         done
     done
+
+    init_istio
 }
 
 function scale_es(){
@@ -307,6 +343,27 @@ function update_hostnic_config(){
     fi
 }
 
+function init_istio(){
+    if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_ISTIO}" == "yes" ]
+    then
+      if kubectl get deploy istio-mixer -n istio-system > /dev/null 2>&1; then
+        echo "istio has been deployed"
+      else
+        mykubectl apply -f /opt/kubernetes/k8s/services/istio/istio.yaml
+      fi
+    fi
+
+    if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_ISTIO}" == "no" ]
+    then
+      if kubectl get deploy istio-mixer -n istio-system > /dev/null 2>&1; then
+        mykubectl delete -f /opt/kubernetes/k8s/services/istio/istio.yaml
+      else
+        echo "istio has not been deployed"
+      fi
+    fi
+}
+
+
 function get_node_status(){
     local status=$(mykubectl get nodes/${HOST_INSTANCE_ID} -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}')
     echo ${status}
@@ -316,6 +373,14 @@ function clean_heapster140(){
     if kubectl get deploy heapster-v1.4.0 -n kube-system > /dev/null 2>&1; then
       kubectl delete deploy heapster-v1.4.0 -n kube-system
     else
-      echo "no old heapster deployment existed"
+      echo "try to clean heapster 1.4.0, but no old heapster deployment existed"
     fi
+}
+
+function kubelet_active(){
+  retry systemctl is-active kubelet >/dev/null 2>&1
+}
+
+function docker_active(){
+  retry systemctl is-active docker >/dev/null 2>&1
 }

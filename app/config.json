@@ -31,6 +31,15 @@
           "required": "yes"
         },
         {
+          "key": "elk_service",
+	  "label": "ELK service",
+	  "description": "Choose an ELK cluster to use, leave empty if you choose not to use it",
+	  "type": "service",
+	  "tag": ["ELK", "elk"],
+	  "default": "",
+	  "required": "no"
+	},
+        {
           "key": "master",
           "label": "master",
           "description": "master properties",
@@ -212,8 +221,7 @@
               "description": "Number of log nodes for the cluster to create",
               "type": "integer",
               "default": 2,
-              "min":2,
-              "max":5,
+              "range":[0,2,3,4,5],
               "required": "yes"
             },
             {
@@ -352,6 +360,15 @@
           "required": "no"
         },
         {
+          "key": "enable_hostnic",
+          "label": "enalbe hostnic",
+          "description": "switch to open hostnic",
+          "type": "boolean",
+          "changeable": false,
+          "default": false,
+          "required": "yes"
+        },
+        {
           "key": "dockerhub_password",
           "label": "Dockerhub Password",
           "description": "The password of dockerhub.qingcloud.com user",
@@ -389,7 +406,27 @@
           "type": "string",
           "changeable": true,
           "default":"",
-          "pattern":"^$|^[^\\:]+:[0-9]{5}$",
+          "pattern":"^$|^[^\\:]+:[0-9]{1,5}$",
+          "required": "no"
+        },
+        {
+          "key": "es_server",
+          "label": "Elastic Search server",
+          "description": "The Elastic Search server address, format host:port",
+          "type": "string",
+          "changeable": true,
+          "default":"",
+          "pattern":"^$|^[^\\:]+:[0-9]{1,5}$",
+          "required": "no"
+        },
+        {
+          "key": "enable_istio",
+          "label": "Enable istio",
+          "description": "Enable service mesh platform istio",
+          "type": "string",
+          "changeable": true,
+          "default":"no",
+          "range":["yes", "no"],
           "required": "no"
         }
       ]

@@ -5,4 +5,4 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 
 source "${K8S_HOME}/script/common.sh"
 
-systemctl is-active kubelet >/dev/null 2>&1 && update_fluent_config
+kubelet_active && update_fluent_config

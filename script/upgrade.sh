@@ -11,3 +11,5 @@ if [ $ENV_ENABLE_HOSTNIC == "false" ]; then
     mykubectl delete -f /tmp/hostnic/qingcloud-hostnic-cni.yaml
     mykubectl delete -f /tmp/hostnic/qingcloud-hostnic-sa.yaml
 fi
+
+./reload-env.sh

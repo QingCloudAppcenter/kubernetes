@@ -9,7 +9,7 @@
         {
           "key": "name",
           "label": "name",
-          "description": "The name of the kubernetes cluster",
+          "description": "The name of the Kubernetes cluster",
           "type": "string",
           "default": "my k8s cluster",
           "required": "yes"
@@ -17,7 +17,7 @@
         {
           "key": "description",
           "label":"description",
-          "description": "Description kubernetes cluster",
+          "description": "Description of Kubernetes cluster",
           "type": "string",
           "default": "my k8s cluster",
           "required": "yes"
@@ -32,13 +32,13 @@
         },
         {
           "key": "elk_service",
-	  "label": "ELK service",
-	  "description": "Choose an ELK cluster to use, leave empty if you choose not to use it",
-	  "type": "service",
-	  "tag": ["ELK", "elk"],
-	  "default": "",
-	  "required": "no"
-	},
+          "label": "ELK service",
+          "description": "Choose an ELK cluster to use if setting log node count to zero, leave empty if you choose not to use it, then you must specify address of Elastic Search server in environment properties",
+          "type": "service",
+          "tag": ["ELK", "elk"],
+          "default": "",
+          "required": "no"
+        },
         {
           "key": "master",
           "label": "master",
@@ -218,7 +218,7 @@
             {
               "key": "count",
               "label": "count",
-              "description": "Number of log nodes for the cluster to create",
+              "description": "Number of log nodes for the cluster to create, set it to zero if you want to use external ELK service",
               "type": "integer",
               "default": 2,
               "range":[0,2,3,4,5],
@@ -319,7 +319,7 @@
         {
           "key": "api_external_domain",
           "label": "Api External Domain",
-          "description": "The domain of the kubernetes api server",
+          "description": "The domain of the Kubernetes api server",
           "type": "string",
           "default": "k8s.cluster.local",
           "changeable": false,
@@ -344,7 +344,7 @@
         {
           "key": "pod_vxnets",
           "label": "Pod vxnets",
-          "description": "The vxnets for kubernetes pod, use a blank to split multi vxnet",
+          "description": "The vxnets for Kubernetes pod, use a blank to split multi vxnet",
           "type": "string",
           "changeable": true,
           "pattern":"^vxnet\\-[a-z0-9]{5,10}(\\svxnet\\-[a-z0-9]{5,10})*$",
@@ -391,7 +391,7 @@
         {
           "key": "kube_log_level",
           "label": "Kubernetes log level",
-          "description": "The log level for kubernetes system",
+          "description": "The log level for Kubernetes system",
           "type": "integer",
           "default": 0,
           "min":0,

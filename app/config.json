@@ -342,6 +342,14 @@
           "required": "no"
         },
         {
+          "key": "private-registry",
+          "label": "Private registry",
+          "description": "The URL of private docker registry",
+          "type": "string",
+          "default": "",
+          "required": "no"
+        },
+        {
           "key": "pod_vxnets",
           "label": "Pod vxnets",
           "description": "The vxnets for Kubernetes pod, use a blank to split multi vxnet",
@@ -352,8 +360,8 @@
         },
         {
           "key": "dockerhub_username",
-          "label": "Dockerhub Username",
-          "description": "The username of dockerhub.qingcloud.com",
+          "label": "Username of docker registry",
+          "description": "The username of docker registry, could be dockerhub.qingcloud.com or your private registry",
           "type": "string",
           "default": "",
           "changeable": true,
@@ -370,8 +378,8 @@
         },
         {
           "key": "dockerhub_password",
-          "label": "Dockerhub Password",
-          "description": "The password of dockerhub.qingcloud.com user",
+          "label": "Password of docker registry",
+          "description": "The password of docker registry",
           "type": "password",
           "default": "",
           "changeable": true,

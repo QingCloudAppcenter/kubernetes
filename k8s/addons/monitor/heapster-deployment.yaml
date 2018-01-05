@@ -32,7 +32,7 @@ metadata:
   namespace: kube-system
   labels:
     k8s-app: heapster
-    addonmanager.kubernetes.io/mode: Reconcile
+    addonmanager.kubernetes.io/mode: EnsureExists
     kubernetes.io/cluster-service: "true"
 spec:
   replicas: 1
@@ -70,7 +70,7 @@ spec:
               mountPath: /usr/share/ca-certificates
               readOnly: true
         - name: eventer
-          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.3
+          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.5.0
           imagePullPolicy: IfNotPresent
           command:
             - /eventer
@@ -93,6 +93,9 @@ spec:
             requests:
               cpu: 50m
               memory: 90Mi
+          volumeMounts:
+          - name: heapster-config-volume
+            mountPath: /etc/config
           env:
             - name: MY_POD_NAME
               valueFrom:
@@ -124,6 +127,9 @@ spec:
             requests:
               cpu: 50m
               memory: 90Mi
+          volumeMounts:
+          - name: eventer-config-volume
+            mountPath: /etc/config
           env:
             - name: MY_POD_NAME
               valueFrom:

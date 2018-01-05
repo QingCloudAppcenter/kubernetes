@@ -40,6 +40,9 @@ metadata:
     app: flannel
     addonmanager.kubernetes.io/mode: Reconcile
 spec:
+  selector:
+    matchLabels:
+      app: flannel
   template:
     metadata:
       labels:

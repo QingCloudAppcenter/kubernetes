@@ -1,6 +1,6 @@
 {{$flag:=getv "/env/enable_hostnic"}}
 {{if eq "false" $flag}}
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta2
 kind: DaemonSet
 metadata:
   name: kube-flannel-ds
@@ -11,6 +11,9 @@ metadata:
     kubernetes.io/cluster-service: "true"
     addonmanager.kubernetes.io/mode: Reconcile
 spec:
+  selector:
+    matchLabels:
+      app: kube-flannel-ds
   template:
     metadata:
       labels:

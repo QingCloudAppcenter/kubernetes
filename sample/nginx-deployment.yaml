@@ -2,7 +2,12 @@ apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: qingcloud-web
+  labels:
+    app: qingcloud-web
 spec:
+  selector:
+    matchLabels:
+      app: qingcloud-web
   replicas: 1
   template:
       metadata:

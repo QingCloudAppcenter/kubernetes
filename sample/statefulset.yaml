@@ -16,7 +16,12 @@ apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
   name: statefulweb
+  labels:
+    app: statefulweb
 spec:
+  selector:
+    matchLabels:
+      app: statefulweb
   serviceName: "statefulnginx"
   replicas: 3
   template:

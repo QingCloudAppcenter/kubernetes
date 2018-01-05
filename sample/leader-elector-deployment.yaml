@@ -2,7 +2,12 @@ apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: leader-elector
+  labels:
+    app: leader-elector
 spec:
+  selector:
+    matchLabels:
+      app: leader-elector
   replicas: 3
   template:
       metadata:

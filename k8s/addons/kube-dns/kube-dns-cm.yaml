@@ -4,4 +4,5 @@ metadata:
   name: kube-dns
   namespace: kube-system
   labels:
-    addonmanager.kubernetes.io/mode: Reconcile
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: EnsureExists

@@ -1,3 +1,30 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: heapster-config
+  namespace: kube-system
+  labels:
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: EnsureExists
+data:
+  NannyConfiguration: |-
+    apiVersion: nannyconfig/v1alpha1
+    kind: NannyConfiguration
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eventer-config
+  namespace: kube-system
+  labels:
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: EnsureExists
+data:
+  NannyConfiguration: |-
+    apiVersion: nannyconfig/v1alpha1
+    kind: NannyConfiguration
+---
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
@@ -22,7 +49,7 @@ spec:
       serviceAccount: "heapster"
       containers:
         - name: heapster
-          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.4.3
+          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.5.0
           imagePullPolicy: IfNotPresent
           command:
             - /heapster
@@ -56,7 +83,7 @@ spec:
             - name: usr-ca-certs
               mountPath: /usr/share/ca-certificates
               readOnly: true
-        - image: dockerhub.qingcloud.com/google_containers/addon-resizer:1.7
+        - image: dockerhub.qingcloud.com/google_containers/addon-resizer:1.8.1
           imagePullPolicy: IfNotPresent
           name: heapster-nanny
           resources:
@@ -77,6 +104,7 @@ spec:
                   fieldPath: metadata.namespace
           command:
             - /pod_nanny
+            - --config-dir=/etc/config
             - --cpu=80m
             - --extra-cpu=0.5m
             - --memory=140Mi
@@ -86,7 +114,7 @@ spec:
             - --container=heapster
             - --poll-period=300000
             - --estimator=exponential
-        - image: dockerhub.qingcloud.com/google_containers/addon-resizer:1.7
+        - image: dockerhub.qingcloud.com/google_containers/addon-resizer:1.8.1
           imagePullPolicy: IfNotPresent
           name: eventer-nanny
           resources:
@@ -107,6 +135,7 @@ spec:
                   fieldPath: metadata.namespace
           command:
             - /pod_nanny
+            - --config-dir=/etc/config
             - --cpu=100m
             - --extra-cpu=0m
             - --memory=190Mi
@@ -123,6 +152,12 @@ spec:
         - name: usr-ca-certs
           hostPath:
             path: "/usr/share/ca-certificates"
+        - name: heapster-config-volume
+          configMap:
+            name: heapster-config
+        - name: eventer-config-volume
+          configMap:
+            name: eventer-config
       tolerations:
       - key: "CriticalAddonsOnly"
         operator: "Exists"

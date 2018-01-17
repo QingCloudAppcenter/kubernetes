@@ -1,9 +1,0 @@
-- name: download docker images
-  docker_image:
-    name: dockerhub.qingcloud.com/{{item.repo}}/{{ item.name }}:{{item.version}}
-    state: present
-  with_items:
-    - { repo: "google_containers", name: "heapster-amd64", version: "v1.4.3"}
-    - { repo: "google_containers", name: "kibana", version: "v5.4.0"}
-    - { repo: "google_containers", name: "elasticsearch", version: "v5.5.1-1"}
-    - { repo: "google_containers", name: "kubernetes-dashboard-amd64",version: "v1.8.0"}

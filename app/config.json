@@ -455,6 +455,16 @@
           "default":"no",
           "range":["yes", "no"],
           "required": "no"
+        },
+        {
+          "key": "enable_helm",
+          "label": "Enable helm",
+          "description": "Enable kubernetes pakcage manager helm",
+          "type": "string",
+          "changeable": true,
+          "default":"no",
+          "range":["yes", "no"],
+          "required": "no"
         }
       ]
     }

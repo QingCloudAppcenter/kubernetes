@@ -40,6 +40,15 @@
           "required": "no"
         },
         {
+          "key": "etcd_service",
+          "label": "etcd service",
+          "description": "Choose an etcd cluster to store Kubernetes cluster data, leave empty if you choose to use internal etcd service in Kubernetes cluster",
+          "type": "service",
+          "tag": ["ETCD", "etcd"],
+          "default": "",
+          "required": "no"
+        },
+        {
           "key": "master",
           "label": "master",
           "description": "master properties",
@@ -356,6 +365,16 @@
           "type": "string",
           "changeable": true,
           "pattern":"^vxnet\\-[a-z0-9]{5,10}(\\svxnet\\-[a-z0-9]{5,10})*$",
+          "required": "yes"
+        },
+        {
+          "key": "max_pods",
+          "label": "max-pods",
+          "description": "Number of Pods that can run on each working node/kubelet",
+          "type": "integer",
+          "changeable": true,
+          "default": "60",
+          "range":[60,120,180,240],
           "required": "yes"
         },
         {

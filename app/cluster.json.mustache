@@ -10,7 +10,8 @@
             "appv-dtlet675"
         ],
         "links": {
-            "elk_service": {{cluster.elk_service}}
+            "elk_service": {{cluster.elk_service}},
+            "etcd_service": {{cluster.etcd_service}}
         },
         "nodes": [
         {
@@ -278,6 +279,7 @@
                         "cpu": {{cluster.client.cpu}},
                         "memory": {{cluster.client.memory}},
                         "user_access":true,
+                        "passphraseless": "ssh-rsa"
                         "services": {
                              "init": {
                                  "order": 2,
@@ -297,6 +299,7 @@
             "private-registry": {{env.private-registry}},
             "registry-mirrors": {{env.registry-mirrors}},
             "pod_vxnets":{{env.pod_vxnets}},
+            "max_pods": {{env.max_pods}}
             "dockerhub_username":{{env.dockerhub_username}},
             "dockerhub_password":{{env.dockerhub_password}},
             "keep_log_days":{{env.keep_log_days}},

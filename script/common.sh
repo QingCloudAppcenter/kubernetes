@@ -103,6 +103,12 @@ function replace_vars(){
     sed -i 's/${KUBE_LOG_LEVEL}/'"${ENV_KUBE_LOG_LEVEL}"'/g' ${tmpfile}
     sed -i 's/${HOST_IP}/'"${HOST_IP}"'/g' ${tmpfile}
     sed -i 's/${MASTER_IP}/'"${MASTER_IP}"'/g' ${tmpfile}
+    if [ "${ETCD_CLUSTER:-}" != "" ] && [ "${to}" == "/data/kubernetes/manifests/kube-apiserver.yaml" ]
+    then
+      sed -i 's/${ETCD_SERVERS}/'"${ETCD_CLUSTER}"'/g' ${tmpfile}
+    else
+      sed -i 's/${ETCD_SERVERS}/'"http://127.0.0.1:2379"'/g' ${tmpfile}
+    fi
 
     if [ "${LOG_COUNT}" != "0" ] && [ "${to}" == "/data/kubernetes/addons/monitor/es-controller.yaml" ]
     then

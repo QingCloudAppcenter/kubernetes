@@ -21,7 +21,7 @@ function download_k8s_bin()
         wget ${bin_url}
         ln -fs "${K8S_HOME}/bin/${bin}"  "${k8s_bin_path}/${bin}"
     done
-    wget "https://pek3a.qingstor.com/k8s-qingcloud/k8s/qingcloud/volume/v1.3/qingcloud-flex-volume.tar.gz"
+    wget "https://pek3a.qingstor.com/k8s-qingcloud/k8s/qingcloud/volume/v1.3.1/qingcloud-flex-volume.tar.gz"
     tar -xvf qingcloud-flex-volume.tar.gz
     rm -rf qingcloud-flex-volume.tar.gz
     chmod +x *

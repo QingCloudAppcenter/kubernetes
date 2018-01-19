@@ -373,7 +373,7 @@
           "description": "Number of Pods that can run on each working node/kubelet",
           "type": "integer",
           "changeable": true,
-          "default": "60",
+          "default": 60,
           "range":[60,120,180,240],
           "required": "yes"
         },

@@ -22,11 +22,21 @@ wait_kubelet
 wait_apiserver
 
 train_master
-retry kubeadm token create ${init_token} --ttl 0 --description "the default kubeadm init token" --kubeconfig /etc/kubernetes/admin.conf
+if kubeadm token list|grep ${init_token}
+then
+  echo "token is existed, skip kubeadmin token creation"
+else
+  retry kubeadm token create ${init_token} --ttl 0 --description "the default kubeadm init token" --kubeconfig /etc/kubernetes/admin.conf
+fi
 retry kubeadm alpha phase bootstrap-token node allow-post-csrs --kubeconfig /etc/kubernetes/admin.conf
 retry kubeadm alpha phase bootstrap-token node allow-auto-approve --kubeconfig /etc/kubernetes/admin.conf
 retry kubeadm alpha phase bootstrap-token cluster-info /etc/kubernetes/admin.conf --kubeconfig /etc/kubernetes/admin.conf
 #retry kubeadm alpha phase upload-config --kubeconfig /etc/kubernetes/admin.conf
 #retry kubeadm alpha phase apiconfig --kubeconfig /etc/kubernetes/admin.conf
-retry kubectl create clusterrolebinding kubeadm:node-autoapprove-certificate-rotation --clusterrole=system:certificates.k8s.io:certificatesigningrequests:selfnodeclient --group=system:nodes
+if kubectl get clusterrolebinding kubeadm:node-autoapprove-certificate-rotation
+then
+  echo "clusterrolebinding is existed, skip creatation"
+else
+  retry kubectl create clusterrolebinding kubeadm:node-autoapprove-certificate-rotation --clusterrole=system:certificates.k8s.io:certificatesigningrequests:selfnodeclient --group=system:nodes
+fi
 process_addons

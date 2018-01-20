@@ -37,6 +37,7 @@ spec:
     - --authorization-mode=Node,RBAC
     - --advertise-address=${HOST_IP}
     - --etcd-servers=${ETCD_SERVERS}
+    - --etcd-prefix=/${CLUSTER_ID}
     - --runtime-config=api/all=true
     - --feature-gates=AllAlpha=true,DynamicKubeletConfig=false,RotateKubeletServerCertificate=false,RotateKubeletClientCertificate=false
     image: dockerhub.qingcloud.com/google_containers/hyperkube-amd64:${HYPERKUBE_VERSION}

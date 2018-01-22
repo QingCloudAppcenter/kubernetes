@@ -107,8 +107,8 @@ function replace_vars(){
     then
         if [ "${ETCD_CLUSTER:-}" != "" ]
         then
-          sed -i 's/${ETCD_SERVERS}/'"${ETCD_CLUSTER}"'/g' ${tmpfile}
-          sed -i 's/${CLUSTER_ID}/'"${CLUSTER_ID}"'/g' ${tmpfile}
+          sed -i 's/${ETCD_SERVERS}/'"${ETCD_CLUSTER:-}"'/g' ${tmpfile}
+          sed -i 's/${CLUSTER_ID}/'"${CLUSTER_ID:-}"'/g' ${tmpfile}
         else
           sed -i 's/${ETCD_SERVERS}/'"http:\/\/127.0.0.1:2379"'/g' ${tmpfile}
           sed -i '/${CLUSTER_ID}/d' ${tmpfile}

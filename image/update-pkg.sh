@@ -2,13 +2,7 @@
 
 apt-get update
 
-apt-get install -y ebtables socat jq apt-transport-https bash-completion ntp wget ca-certificates curl oftware-properties-common
-
-sudo apt-get -y install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
+apt-get install -y ebtables socat jq apt-transport-https bash-completion ntp wget ca-certificates curl software-properties-common
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 

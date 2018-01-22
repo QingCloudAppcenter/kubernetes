@@ -63,6 +63,6 @@
   "err_code102": "指定的 Elastic Search 服务无法访问，请确保其运行正常再尝试重新部署集群",
   "enalbe hostnic": "打开 hostnic",
   "switch to open hostnic":"默认网络使用flannel，如果打开 hostnic (=true)，则使用青云 SDN 网络",
-  "Enable helm":"开启 helm",
-  "Enable kubernetes pakcage manager helm":"开启kubernetes包管理器helm"
+  "Enable Helm":"开启 Helm",
+  "Enable kubernetes pakcage manager Helm":"开启kubernetes包管理器Helm"
 }

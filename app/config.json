@@ -458,8 +458,8 @@
         },
         {
           "key": "enable_helm",
-          "label": "Enable helm",
-          "description": "Enable kubernetes pakcage manager helm",
+          "label": "Enable Helm",
+          "description": "Enable kubernetes pakcage manager Helm",
           "type": "string",
           "changeable": true,
           "default":"no",

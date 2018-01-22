@@ -62,5 +62,7 @@
   "err_code101": "请增加日志节点数或者配置 Elastic Search 依赖或者在在环境变量中指定 Elastic Search 服务器地址",
   "err_code102": "指定的 Elastic Search 服务无法访问，请确保其运行正常再尝试重新部署集群",
   "enalbe hostnic": "打开 hostnic",
-  "switch to open hostnic":"默认网络使用flannel，如果打开 hostnic (=true)，则使用青云 SDN 网络"
+  "switch to open hostnic":"默认网络使用flannel，如果打开 hostnic (=true)，则使用青云 SDN 网络",
+  "Enable Helm":"开启 Helm",
+  "Enable kubernetes pakcage manager Helm":"开启kubernetes包管理器Helm"
 }

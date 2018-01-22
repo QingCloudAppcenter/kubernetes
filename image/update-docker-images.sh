@@ -44,4 +44,5 @@ docker pull dockerhub.qingcloud.com/istio/proxy_debug:0.3.0
 docker pull dockerhub.qingcloud.com/istio/mixer:0.3.0
 docker pull dockerhub.qingcloud.com/istio/statsd-exporter:0.3.0
 docker pull dockerhub.qingcloud.com/qingcloud/prometheus:v2.0.0
+docker pull dockerhub.qingcloud.com/kubernetes_helm/tiller:v2.7.2
 docker pull dockerhub.qingcloud.com/coreos/flannel:v0.9.1-amd64

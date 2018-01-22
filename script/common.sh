@@ -179,6 +179,7 @@ function process_addons(){
     done
 
     init_istio
+    init_helm
 }
 
 function scale_es(){
@@ -381,7 +382,25 @@ function init_istio(){
       fi
     fi
 }
+function init_helm(){
+    if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_HELM}" == "yes" ]
+    then
+      if kubectl get deploy tiller-deploy -n kube-system > /dev/null 2>&1; then
+        echo "helm has been deployed"
+      else
+        mykubectl apply -f /opt/kubernetes/k8s/services/helm/helm.yaml
+      fi
+    fi
 
+    if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_HELM}" == "no" ]
+    then
+      if kubectl get deploy tiller-deploy -n kube-system > /dev/null 2>&1; then
+        mykubectl delete -f /opt/kubernetes/k8s/services/helm/helm.yaml
+      else
+        echo "helm has not been deployed"
+      fi
+    fi
+}
 
 function get_node_status(){
     local status=$(mykubectl get nodes/${HOST_INSTANCE_ID} -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}')

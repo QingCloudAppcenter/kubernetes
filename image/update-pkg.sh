@@ -4,7 +4,7 @@ apt-get update
 
 apt-get install -y ebtables socat jq apt-transport-https bash-completion ntp wget ca-certificates curl oftware-properties-common
 
-sudo apt-get install \
+sudo apt-get -y install \
     apt-transport-https \
     ca-certificates \
     curl \

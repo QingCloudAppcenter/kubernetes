@@ -1,8 +1,0 @@
-- name: setup Ubuntu image
-  include_tasks: debian.yaml
-  when: ansible_os_family == 'Debian'
-
-
-- name: setup Centos images
-  include_tasks: redhat.yaml
-  when: ansible_os_family == 'RedHat'

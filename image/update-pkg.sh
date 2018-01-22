@@ -2,17 +2,20 @@
 
 apt-get update
 
-apt-get install -y ebtables socat jq apt-transport-https bash-completion ntp wget
+apt-get install -y ebtables socat jq apt-transport-https bash-completion ntp wget ca-certificates curl software-properties-common
 
-apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-apt-get update
+sudo add-apt-repository -y \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
 
-apt-cache policy docker-engine
-apt-get install -y docker-engine
+sudo apt-get update
 
-apt-get remove network-manager
+apt-get -y install docker-ce
+
+apt-get remove -y network-manager
 
 DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade
 

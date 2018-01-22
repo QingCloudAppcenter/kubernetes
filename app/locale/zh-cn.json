@@ -32,7 +32,10 @@
   "log properties":"日志节点的属性",
   "ELK service": "ELK 服务",
   "Choose an ELK cluster to use if setting log node count to zero, leave empty if you choose not to use it, then you must specify address of Elastic Search server in environment properties": "如选择不部署日志节点，请添加依赖的 ELK 集群，也可在环境变量中指定外部的 Elastic Search 服务器的地址",
+  "etcd service": "etcd 服务",
+  "Choose an etcd cluster to store Kubernetes cluster data, leave empty if you choose to use internal etcd service in Kubernetes cluster": "请添加依赖的 etcd 集群用于存储 Kubernetes 集群数据，否则将使用集群内自带 etcd 服务",
   "The vxnets for Kubernetes pod, use a blank to split multi vxnet":"Kubernetes 的 pod 所在的私有网络，使用空格分割多个私有网络 ID。创建后只能增加，请勿删除，否则会导致网络问题",
+  "Number of Pods that can run on each working node/kubelet": "每个工作节点上可运行的最大 pod 数量",
   "update": "更新",
   "API access key id":"QingCloud IaaS API 密钥 ID",
   "API secret access key":"QingCloud IaaS API 密钥的私钥 (https://console.qingcloud.com/access_keys/)",
@@ -59,5 +62,7 @@
   "err_code101": "请增加日志节点数或者配置 Elastic Search 依赖或者在在环境变量中指定 Elastic Search 服务器地址",
   "err_code102": "指定的 Elastic Search 服务无法访问，请确保其运行正常再尝试重新部署集群",
   "enalbe hostnic": "打开 hostnic",
-  "switch to open hostnic":"默认网络使用flannel，如果打开 hostnic (=true)，则使用青云 SDN 网络"
+  "switch to open hostnic":"默认网络使用flannel，如果打开 hostnic (=true)，则使用青云 SDN 网络",
+  "Enable Helm":"开启 Helm",
+  "Enable kubernetes pakcage manager Helm":"开启kubernetes包管理器Helm"
 }

@@ -40,6 +40,15 @@
           "required": "no"
         },
         {
+          "key": "etcd_service",
+          "label": "etcd service",
+          "description": "Choose an etcd cluster to store Kubernetes cluster data, leave empty if you choose to use internal etcd service in Kubernetes cluster",
+          "type": "service",
+          "tag": ["ETCD", "etcd"],
+          "default": "",
+          "required": "no"
+        },
+        {
           "key": "master",
           "label": "master",
           "description": "master properties",
@@ -359,6 +368,16 @@
           "required": "yes"
         },
         {
+          "key": "max_pods",
+          "label": "max-pods",
+          "description": "Number of Pods that can run on each working node/kubelet",
+          "type": "integer",
+          "changeable": true,
+          "default": 60,
+          "range":[60,120,180,240],
+          "required": "yes"
+        },
+        {
           "key": "dockerhub_username",
           "label": "Username of docker registry",
           "description": "The username of docker registry, could be dockerhub.qingcloud.com or your private registry",
@@ -431,6 +450,16 @@
           "key": "enable_istio",
           "label": "Enable istio",
           "description": "Enable service mesh platform istio",
+          "type": "string",
+          "changeable": true,
+          "default":"no",
+          "range":["yes", "no"],
+          "required": "no"
+        },
+        {
+          "key": "enable_helm",
+          "label": "Enable Helm",
+          "description": "Enable kubernetes pakcage manager Helm",
           "type": "string",
           "changeable": true,
           "default":"no",

@@ -103,6 +103,17 @@ function replace_vars(){
     sed -i 's/${KUBE_LOG_LEVEL}/'"${ENV_KUBE_LOG_LEVEL}"'/g' ${tmpfile}
     sed -i 's/${HOST_IP}/'"${HOST_IP}"'/g' ${tmpfile}
     sed -i 's/${MASTER_IP}/'"${MASTER_IP}"'/g' ${tmpfile}
+    if [ "${to}" == "/data/kubernetes/manifests/kube-apiserver.yaml" ]
+    then
+        if [ "${ETCD_CLUSTER:-}" != "" ]
+        then
+          sed -i 's/${ETCD_SERVERS}/'"${ETCD_CLUSTER:-}"'/g' ${tmpfile}
+          sed -i 's/${CLUSTER_ID}/'"${CLUSTER_ID:-}"'/g' ${tmpfile}
+        else
+          sed -i 's/${ETCD_SERVERS}/'"http:\/\/127.0.0.1:2379"'/g' ${tmpfile}
+          sed -i '/${CLUSTER_ID}/d' ${tmpfile}
+       fi
+    fi
 
     if [ "${LOG_COUNT}" != "0" ] && [ "${to}" == "/data/kubernetes/addons/monitor/es-controller.yaml" ]
     then
@@ -168,6 +179,7 @@ function process_addons(){
     done
 
     init_istio
+    init_helm
 }
 
 function scale_es(){
@@ -370,7 +382,25 @@ function init_istio(){
       fi
     fi
 }
+function init_helm(){
+    if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_HELM}" == "yes" ]
+    then
+      if kubectl get deploy tiller-deploy -n kube-system > /dev/null 2>&1; then
+        echo "helm has been deployed"
+      else
+        mykubectl apply -f /opt/kubernetes/k8s/services/helm/helm.yaml
+      fi
+    fi
 
+    if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_HELM}" == "no" ]
+    then
+      if kubectl get deploy tiller-deploy -n kube-system > /dev/null 2>&1; then
+        mykubectl delete -f /opt/kubernetes/k8s/services/helm/helm.yaml
+      else
+        echo "helm has not been deployed"
+      fi
+    fi
+}
 
 function get_node_status(){
     local status=$(mykubectl get nodes/${HOST_INSTANCE_ID} -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}')

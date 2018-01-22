@@ -18,3 +18,4 @@ ${K8S_HOME}/image/update-logrotate.sh
 ${K8S_HOME}/image/update-systemd-conf.sh
 ${K8S_HOME}/image/update-docker-images.sh
 ${K8S_HOME}/image/update-istio-bin.sh
+${K8S_HOME}/image/update-helm-bin.sh

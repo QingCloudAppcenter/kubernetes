@@ -1,3 +1,4 @@
+{{$count := lsdir "/links/etcd_service/hosts/etcd_node"|len}}{{if le $count 0}}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -48,3 +49,4 @@ spec:
   - hostPath:
       path: /etc/kubernetes
     name: k8s
+{{end}}

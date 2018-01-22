@@ -33,8 +33,8 @@ docker pull dockerhub.qingcloud.com/google_containers/elasticsearch:v5.5.1-1
 docker pull dockerhub.qingcloud.com/qingcloud/elasticsearch-curator:5.1.1
 docker pull dockerhub.qingcloud.com/qingcloud/file-sync:0.7
 docker pull dockerhub.qingcloud.com/busybox:1.27.1
-docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-volume-provisioner:v1.3
-docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager:v1.1
+docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-volume-provisioner:v1.3.1
+docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager:v1.1.1
 docker pull dockerhub.qingcloud.com/qingcloud/hostnic-cni:v0.8.4
 docker pull dockerhub.qingcloud.com/alpine:3.6
 # istio
@@ -44,4 +44,5 @@ docker pull dockerhub.qingcloud.com/istio/proxy_debug:0.3.0
 docker pull dockerhub.qingcloud.com/istio/mixer:0.3.0
 docker pull dockerhub.qingcloud.com/istio/statsd-exporter:0.3.0
 docker pull dockerhub.qingcloud.com/qingcloud/prometheus:v2.0.0
+docker pull dockerhub.qingcloud.com/kubernetes_helm/tiller:v2.7.2
 docker pull dockerhub.qingcloud.com/coreos/flannel:v0.9.1-amd64

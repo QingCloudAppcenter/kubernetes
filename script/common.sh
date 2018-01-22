@@ -385,7 +385,7 @@ function init_istio(){
 function init_helm(){
     if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_HELM}" == "yes" ]
     then
-      if kubectl get deploy istio-mixer -n istio-system > /dev/null 2>&1; then
+      if kubectl get deploy tiller-deploy -n kube-system > /dev/null 2>&1; then
         echo "helm has been deployed"
       else
         mykubectl apply -f /opt/kubernetes/k8s/services/helm/helm.yaml
@@ -394,7 +394,7 @@ function init_helm(){
 
     if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_HELM}" == "no" ]
     then
-      if kubectl get deploy istio-mixer -n istio-system > /dev/null 2>&1; then
+      if kubectl get deploy tiller-deploy -n kube-system > /dev/null 2>&1; then
         mykubectl delete -f /opt/kubernetes/k8s/services/helm/helm.yaml
       else
         echo "helm has not been deployed"

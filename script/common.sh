@@ -406,7 +406,7 @@ function init_helm(){
 function init_helm_client(){
     if [ "${ENV_ENABLE_HELM}" == "yes" ]
     then
-        helm init --stable-repo-url https://helm-chart-repo.pek3a.qingstor.com/kubernetes-charts/ --client-only
+        helm init --stable-repo-url https://helm-chart-repo.pek3a.qingstor.com/kubernetes-charts/ --client-only --home /root/.helm
     else 
         helm reset --force
     fi

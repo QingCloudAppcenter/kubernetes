@@ -11,3 +11,4 @@ process_manifests
 process_addons
 fi
 docker_login
+init_helm_client

@@ -404,9 +404,14 @@ function init_helm(){
         echo "helm has not been deployed"
       fi
     fi
-    if [ "${HOST_ROLE}" == "client" ] && [ "${ENV_ENABLE_HELM}" == "yes" ]
+    if [ "${HOST_ROLE}" == "client" ] 
     then
-        helm init --stable-repo-url https://helm-chart-repo.pek3a.qingstor.com/kubernetes-charts/ --client-only
+        if [ "${ENV_ENABLE_HELM}" == "yes" ]
+        then
+            helm init --stable-repo-url https://helm-chart-repo.pek3a.qingstor.com/kubernetes-charts/ --client-only
+        else [ "${ENV_ENABLE_HELM}" == "yes" ]
+            helm reset --force
+        fi
     fi
 }
 

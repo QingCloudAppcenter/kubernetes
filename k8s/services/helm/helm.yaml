@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   creationTimestamp: null
@@ -22,7 +22,7 @@ spec:
           value: kube-system
         - name: TILLER_HISTORY_MAX
           value: "0"
-        image: dockerhub.qingcloud.com/kubernetes_helm/tiller:v2.7.2
+        image: dockerhub.qingcloud.com/kubernetes_helm/tiller:v2.8.2
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:

@@ -81,6 +81,16 @@
               "required": "yes"
             },
             {
+              "key": "count",
+              "label": "count",
+              "description": "Number of master for the cluster to create",
+              "type": "integer",
+              "default": 1,
+              "min":1,
+              "max":1,
+              "required": "yes"
+            },
+            {
               "key": "instance_class",
               "label": "resource type",
               "description": "The instance type for the cluster to run, such as high performance, high performance plus",
@@ -180,7 +190,7 @@
           ]
         },
         {
-          "key": "ssd",
+          "key": "ssd_node",
           "label": "ssd",
           "description": "ssd node properties",
           "type": "array",
@@ -254,7 +264,7 @@
           ]
         },
         {
-          "key": "hdd",
+          "key": "hdd_node",
           "label": "hdd",
           "description": "hdd node properties",
           "type": "array",
@@ -328,7 +338,7 @@
           ]
         },
         {
-          "key": "custom",
+          "key": "custom_node",
           "label": "custom",
           "description": "custom node properties",
           "type": "array",
@@ -685,33 +695,6 @@
           "changeable": true,
           "default":"no",
           "range":["yes", "no"],
-          "required": "no"
-        },
-        {
-          "key": "ssd_node_label",
-          "label": "SSD node label",
-          "description": "SSD node label",
-          "type": "string",
-          "changeable": false,
-          "default":"ssd",
-          "required": "no"
-        },
-        {
-          "key": "hdd_node_label",
-          "label": "HDD node label",
-          "description": "HDD node label",
-          "type": "string",
-          "changeable": false,
-          "default":"hdd",
-          "required": "no"
-        },
-        {
-          "key": "custom_node_label",
-          "label": "Customized node label",
-          "description": "Customized node label",
-          "type": "string",
-          "changeable": false,
-          "default":"custom",
           "required": "no"
         }
       ]

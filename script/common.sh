@@ -237,15 +237,15 @@ function train_node(){
     fi
     if [ "${HOST_ROLE}" == "ssd_node" ]
     then
-        retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=${ENV_SSD_NODE_SSD_NODE_LABEL}:NoSchedule
+        retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=ssd:NoSchedule
     fi
     if [ "${HOST_ROLE}" == "hdd_node" ]
     then
-        retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=${ENV_HDD_NODE_HDD_NODE_LABEL}:NoSchedule
+        retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=hdd:NoSchedule
     fi
     if [ "${HOST_ROLE}" == "custom_node" ]
     then
-        retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=${ENV_CUSTOM_NODE_CUSTOM_NODE_LABEL}:NoSchedule
+        retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=custom:NoSchedule
     fi
 }
 

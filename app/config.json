@@ -95,7 +95,7 @@
               "label": "resource type",
               "description": "The instance type for the cluster to run, such as high performance, high performance plus",
               "type": "integer",
-              "default": 0,
+              "default": 1,
               "range": [
                 0,
                 1

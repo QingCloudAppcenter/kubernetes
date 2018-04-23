@@ -243,10 +243,6 @@ function train_node(){
     then
         retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=hdd:NoSchedule
     fi
-    if [ "${HOST_ROLE}" == "custom_node" ]
-    then
-        retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=custom:NoSchedule
-    fi
 }
 
 function cordon_all(){

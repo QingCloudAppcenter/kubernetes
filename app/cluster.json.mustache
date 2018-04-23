@@ -12,7 +12,7 @@
             "appv-auxppj7w"
         ],
         "upgrade_roles": {
-            "add": ["ssd_node","hdd_node","custom_node"]
+            "add": ["ssd_node","hdd_node"]
         },
         "links": {
             "elk_service": {{cluster.elk_service}},
@@ -23,7 +23,7 @@
             "role": "master",
             "container": {
                 "type": "kvm",
-                "image": "img-hhfbert8",
+                "image": "img-8kkd2jw6",
                 "zone": "pek3a"
             },
             "instance_class": {{cluster.master.instance_class}},
@@ -105,7 +105,7 @@
                     "role": "node",
                     "container": {
                         "type": "kvm",
-                        "image": "img-hhfbert8",
+                        "image": "img-8kkd2jw6",
                         "zone": "pek3a"
                     },
                     "instance_class": {{cluster.node.instance_class}},
@@ -190,10 +190,10 @@
                     "role": "ssd_node",
                     "container": {
                         "type": "kvm",
-                        "image": "img-hhfbert8",
+                        "image": "img-8kkd2jw6",
                         "zone": "pek3a"
                     },
-                    "instance_class": {{cluster.ssd_node.instance_class}},
+                    "instance_class": 1,
                     "count": {{cluster.ssd_node.count}},
                     "cpu": {{cluster.ssd_node.cpu}},
                     "memory": {{cluster.ssd_node.memory}},
@@ -275,10 +275,10 @@
                     "role": "hdd_node",
                     "container": {
                         "type": "kvm",
-                        "image": "img-hhfbert8",
+                        "image": "img-8kkd2jw6",
                         "zone": "pek3a"
                     },
-                    "instance_class": {{cluster.hdd_node.instance_class}},
+                    "instance_class": 0,
                     "count": {{cluster.hdd_node.count}},
                     "cpu": {{cluster.hdd_node.cpu}},
                     "memory": {{cluster.hdd_node.memory}},
@@ -356,96 +356,11 @@
                     },
                     "advanced_actions": ["scale_horizontal"]
            },
-        {
-                    "role": "custom_node",
-                    "container": {
-                        "type": "kvm",
-                        "image": "img-hhfbert8",
-                        "zone": "pek3a"
-                    },
-                    "instance_class": {{cluster.custom_node.instance_class}},
-                    "count": {{cluster.custom_node.count}},
-                    "cpu": {{cluster.custom_node.cpu}},
-                    "memory": {{cluster.custom_node.memory}},
-                    "volume": {
-                        "size": {{cluster.custom_node.volume_size}},
-                        "mount_point": "/data",
-                        "mount_options": "defaults,noatime",
-                        "filesystem": "ext4"
-                    },
-                    "services": {
-                        "init": {
-                            "order": 1,
-                            "cmd": "/opt/kubernetes/script/init-node.sh",
-                            "timeout": 300
-                        },
-                         "start": {
-                             "order": 3,
-                             "cmd": "/opt/kubernetes/script/start-node.sh",
-                             "timeout": 300
-                         },
-                         "stop": {
-                             "order": 3,
-                             "cmd": "/opt/kubernetes/script/stop-node.sh",
-                             "timeout": 300
-                         },
-                         "scale_in": {
-                             "nodes_to_execute_on": 1,
-                             "cmd": "/opt/kubernetes/script/scale-in.sh",
-                             "timeout": 86400
-                         },
-                         "destroy": {
-                            "order": 1,
-                            "nodes_to_execute_on": 1,
-                            "post_stop_service": false,
-                            "cmd": "/opt/kubernetes/script/destroy-node.sh",
-                            "timeout": 86400
-                         },
-                         "upgrade": {
-                            "cmd": "/opt/kubernetes/script/upgrade-node.sh 176",
-                            "timeout": 300
-                        }
-                    },
-                    "health_check": {
-                        "enable": true,
-                        "interval_sec": 60,
-                        "timeout_sec": 10,
-                        "action_timeout_sec": 30,
-                        "healthy_threshold": 3,
-                        "unhealthy_threshold": 3,
-                        "check_cmd": "/opt/kubernetes/script/check-node.sh",
-                        "action_cmd": "/opt/kubernetes/script/restart-node.sh"
-                    },
-                    "monitor": {
-                    "enable": true,
-                    "cmd": "/opt/kubernetes/script/prom2json  -insecure https://localhost:10250/metrics",
-                    "items": {
-                        "kubelet_running_container_count": {
-                            "unit": "",
-                            "value_type": "int",
-                            "statistics_type": "latest",
-                            "scale_factor_when_display": 0.001
-                        },
-                        "kubelet_running_pod_count": {
-                            "unit": "",
-                            "value_type": "int",
-                            "statistics_type": "latest",
-                            "scale_factor_when_display": 0.001
-                        }
-                    },
-                    "groups": {
-                        "kubelet": ["kubelet_running_pod_count","kubelet_running_container_count"]
-                    },
-                    "display": ["kubelet"],
-                    "alarm": ["kubelet_running_container_count"]
-                    },
-                    "advanced_actions": ["scale_horizontal"]
-           },
            {
                     "role": "log",
                     "container": {
                         "type": "kvm",
-                        "image": "img-hhfbert8",
+                        "image": "img-8kkd2jw6",
                         "zone": "pek3a"
                     },
                     "instance_class": {{cluster.log.instance_class}},
@@ -530,7 +445,7 @@
                         "role": "client",
                         "container": {
                             "type": "kvm",
-                            "image": "img-hhfbert8",
+                            "image": "img-8kkd2jw6",
                             "zone": "pek3a"
                         },
                         "instance_class": {{cluster.client.instance_class}},

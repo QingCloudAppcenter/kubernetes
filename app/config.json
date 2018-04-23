@@ -170,7 +170,7 @@
               "description": "Number of nodes for the cluster to create",
               "type": "integer",
               "default": 2,
-              "min":1,
+              "min":0,
               "max":100,
               "required": "yes",
               "resource_group": [2, 0]
@@ -407,6 +407,34 @@
           "required": "no"
         },
         {
+          "key": "max_pods",
+          "label": "max-pods",
+          "description": "Number of Pods that can run on each working node/kubelet",
+          "type": "integer",
+          "changeable": true,
+          "default": 60,
+          "range":[60,120,180,240],
+          "required": "no"
+        },
+        {
+          "key": "enable_hostnic",
+          "label": "enalbe hostnic",
+          "description": "switch to open hostnic",
+          "type": "boolean",
+          "changeable": false,
+          "default": false,
+          "required": "no"
+        },
+        {
+          "key": "pod_vxnets",
+          "label": "Pod vxnets",
+          "description": "The vxnets for Kubernetes pod, use a blank to split multi vxnet",
+          "type": "string",
+          "changeable": true,
+          "pattern":"^vxnet\\-[a-z0-9]{5,10}(\\svxnet\\-[a-z0-9]{5,10})*$",
+          "required": "yes"
+        },
+        {
           "key": "registry-mirrors",
           "label": "Registry mirrors",
           "description": "The docker hub registry mirror, use a blank to split multi registry",
@@ -431,40 +459,12 @@
           "required": "no"
         },
         {
-          "key": "pod_vxnets",
-          "label": "Pod vxnets",
-          "description": "The vxnets for Kubernetes pod, use a blank to split multi vxnet",
-          "type": "string",
-          "changeable": true,
-          "pattern":"^vxnet\\-[a-z0-9]{5,10}(\\svxnet\\-[a-z0-9]{5,10})*$",
-          "required": "yes"
-        },
-        {
-          "key": "max_pods",
-          "label": "max-pods",
-          "description": "Number of Pods that can run on each working node/kubelet",
-          "type": "integer",
-          "changeable": true,
-          "default": 60,
-          "range":[60,120,180,240],
-          "required": "no"
-        },
-        {
           "key": "dockerhub_username",
           "label": "Username of docker registry",
           "description": "The username of docker registry, could be dockerhub.qingcloud.com or your private registry",
           "type": "string",
           "default": "",
           "changeable": true,
-          "required": "no"
-        },
-        {
-          "key": "enable_hostnic",
-          "label": "enalbe hostnic",
-          "description": "switch to open hostnic",
-          "type": "boolean",
-          "changeable": false,
-          "default": false,
           "required": "no"
         },
         {

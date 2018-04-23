@@ -144,8 +144,7 @@
                 12,
                 16
               ],
-              "required": "yes",
-              "resource_group": [4, 8]
+              "required": "yes"
             },
             {
               "key": "memory",
@@ -163,8 +162,7 @@
                 49152,
                 65536
               ],
-              "required": "yes",
-              "resource_group": [8192, 16384]
+              "required": "yes"
             },
             {
               "key": "count",
@@ -175,20 +173,7 @@
               "min":1,
               "max":100,
               "required": "yes",
-              "resource_group": [2, 4]
-            },
-            {
-              "key": "instance_class",
-              "label": "resource type",
-              "description": "The instance type for the cluster to run, such as high performance, high performance plus",
-              "type": "integer",
-              "default": 0,
-              "range": [
-                0,
-                1
-              ],
-              "required": "yes",
-              "resource_group": [0, 1]
+              "resource_group": [2, 0]
             },
             {
               "key": "volume_size",
@@ -199,8 +184,7 @@
               "min": 10,
               "max": 1000,
               "step": 10,
-              "required": "yes",
-              "resource_group": [50, 500]
+              "required": "yes"
             }
           ]
         },
@@ -251,69 +235,8 @@
               "default": 0,
               "min":0,
               "max":100,
-              "required": "yes"
-            },
-            {
-              "key": "volume_size",
-              "label": "volume size",
-              "description": "The volume size for each instance",
-              "type": "integer",
-              "default": 50,
-              "min": 10,
-              "max": 1000,
-              "step": 10,
-              "required": "yes"
-            }
-          ]
-        },
-        {
-          "key": "hdd_node",
-          "label": "hdd",
-          "description": "hdd node properties",
-          "type": "array",
-          "properties": [
-            {
-              "key": "cpu",
-              "label": "CPU",
-              "description": "CPUs of each node",
-              "type": "integer",
-              "default": 4,
-              "range": [
-                2,
-                4,
-                8,
-                12,
-                16
-              ],
-              "required": "yes"
-            },
-            {
-              "key": "memory",
-              "label": "Memory",
-              "description": "memory of each node (in MB)",
-              "type": "integer",
-              "default": 4096,
-              "range": [
-                2048,
-                4096,
-                8192,
-                16384,
-                24576,
-                32768,
-                49152,
-                65536
-              ],
-              "required": "yes"
-            },
-            {
-              "key": "count",
-              "label": "count",
-              "description": "Number of nodes for the cluster to create",
-              "type": "integer",
-              "default": 0,
-              "min":0,
-              "max":100,
-              "required": "yes"
+              "required": "yes",
+              "resource_group": [0, 2]
             },
             {
               "key": "volume_size",
@@ -346,8 +269,7 @@
                 8,
                 16
               ],
-              "required": "yes",
-              "resource_group": [4, 8]
+              "required": "yes"
             },
             {
               "key": "memory",
@@ -362,8 +284,7 @@
                 16384,
                 32768
               ],
-              "required": "yes",
-              "resource_group": [4096, 8192]
+              "required": "yes"
             },
             {
               "key": "count",
@@ -372,8 +293,7 @@
               "type": "integer",
               "default": 2,
               "range":[0,2,3,4,5],
-              "required": "yes",
-              "resource_group": [2, 4]
+              "required": "yes"
             },
             {
               "key": "instance_class",

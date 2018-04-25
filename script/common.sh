@@ -105,6 +105,7 @@ function replace_vars(){
     sed -i 's/${MASTER_IP}/'"${MASTER_IP}"'/g' ${tmpfile}
     if [ "${to}" == "/data/kubernetes/manifests/kube-apiserver.yaml" ]
     then
+        sed -i 's/${CLUSTER_PORT_RANGE}/'"${ENV_CLUSTER_PORT_RANGE:-}"'/g' ${tmpfile}
         if [ "${ETCD_CLUSTER:-}" != "" ]
         then
           sed -i 's/${ETCD_SERVERS}/'"${ETCD_CLUSTER:-}"'/g' ${tmpfile}
@@ -233,6 +234,10 @@ function train_node(){
     if [ "${HOST_ROLE}" == "log" ]
     then
         retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=log:NoSchedule
+    fi
+    if [ "${HOST_ROLE}" == "ssd_node" ]
+    then
+        retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=ssd:NoSchedule
     fi
 }
 

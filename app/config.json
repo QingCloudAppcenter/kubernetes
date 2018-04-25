@@ -23,6 +23,14 @@
           "required": "yes"
         },
         {
+          "key": "resource_group",
+          "label": "Resource Configuration",
+          "description": "The resource configuration of the service",
+          "type": "string",
+          "default": "Basic",
+          "range": ["Basic", "Premium"]
+        },
+        {
           "key": "vxnet",
           "label": "VxNet",
           "description": "Choose a vxnet to join",
@@ -65,7 +73,8 @@
                 4,
                 8
               ],
-              "required": "yes"
+              "required": "yes",
+              "resource_group": [4, 8]
             },
             {
               "key": "memory",
@@ -78,7 +87,8 @@
                 4096,
                 8192
               ],
-              "required": "yes"
+              "required": "yes",
+              "resource_group": [4096, 8192]
             },
             {
               "key": "count",
@@ -95,12 +105,13 @@
               "label": "resource type",
               "description": "The instance type for the cluster to run, such as high performance, high performance plus",
               "type": "integer",
-              "default": 0,
+              "default": 1,
               "range": [
                 0,
                 1
               ],
-              "required": "yes"
+              "required": "yes",
+              "resource_group": [0, 1]
             },
             {
               "key": "volume_size",
@@ -141,7 +152,7 @@
               "label": "Memory",
               "description": "memory of each node (in MB)",
               "type": "integer",
-              "default": 4096,
+              "default": 8192,
               "range": [
                 2048,
                 4096,
@@ -160,21 +171,73 @@
               "description": "Number of nodes for the cluster to create",
               "type": "integer",
               "default": 2,
-              "min":1,
+              "min":0,
               "max":100,
+              "required": "yes",
+              "resource_group": [2, 0]
+            },
+            {
+              "key": "volume_size",
+              "label": "volume size",
+              "description": "The volume size for each instance",
+              "type": "integer",
+              "default": 50,
+              "min": 10,
+              "max": 1000,
+              "step": 10,
+              "required": "yes"
+            }
+          ]
+        },
+        {
+          "key": "ssd_node",
+          "label": "ssd",
+          "description": "ssd node properties",
+          "type": "array",
+          "properties": [
+            {
+              "key": "cpu",
+              "label": "CPU",
+              "description": "CPUs of each node",
+              "type": "integer",
+              "default": 4,
+              "range": [
+                2,
+                4,
+                8,
+                12,
+                16
+              ],
               "required": "yes"
             },
             {
-              "key": "instance_class",
-              "label": "resource type",
-              "description": "The instance type for the cluster to run, such as high performance, high performance plus",
+              "key": "memory",
+              "label": "Memory",
+              "description": "memory of each node (in MB)",
               "type": "integer",
-              "default": 0,
+              "default": 4096,
               "range": [
-                0,
-                1
+                2048,
+                4096,
+                8192,
+                16384,
+                24576,
+                32768,
+                49152,
+                65536
               ],
               "required": "yes"
+            },
+            {
+              "key": "count",
+              "label": "count",
+              "description": "Number of nodes for the cluster to create",
+              "type": "integer",
+              "default": 0,
+              "min":0,
+              "max":100,
+              "required": "yes",
+              "resource_group": [0, 2]
             },
             {
               "key": "volume_size",
@@ -243,7 +306,8 @@
                 0,
                 1
               ],
-              "required": "yes"
+              "required": "yes",
+              "resource_group": [0, 1]
             },
             {
               "key": "volume_size",
@@ -335,6 +399,43 @@
           "required": "no"
         },
         {
+          "key": "cluster_port_range",
+          "label": "Port range of each node",
+          "description": "A port range to reserve for services with NodePort visibility. Example: '30000-32767'. Inclusive at both ends of the range.",
+          "type": "string",
+          "default": "30000-32767",
+          "changeable": false,
+          "required": "no"
+        },
+        {
+          "key": "max_pods",
+          "label": "max-pods",
+          "description": "Number of Pods that can run on each working node/kubelet",
+          "type": "integer",
+          "changeable": true,
+          "default": 60,
+          "range":[60,120,180,240],
+          "required": "no"
+        },
+        {
+          "key": "enable_hostnic",
+          "label": "enalbe hostnic",
+          "description": "switch to open hostnic",
+          "type": "boolean",
+          "changeable": false,
+          "default": false,
+          "required": "no"
+        },
+        {
+          "key": "pod_vxnets",
+          "label": "Pod vxnets",
+          "description": "The vxnets for Kubernetes pod, use a blank to split multi vxnet",
+          "type": "string",
+          "changeable": true,
+          "pattern":"^vxnet\\-[a-z0-9]{5,10}(\\svxnet\\-[a-z0-9]{5,10})*$",
+          "required": "yes"
+        },
+        {
           "key": "registry-mirrors",
           "label": "Registry mirrors",
           "description": "The docker hub registry mirror, use a blank to split multi registry",
@@ -359,25 +460,6 @@
           "required": "no"
         },
         {
-          "key": "pod_vxnets",
-          "label": "Pod vxnets",
-          "description": "The vxnets for Kubernetes pod, use a blank to split multi vxnet",
-          "type": "string",
-          "changeable": true,
-          "pattern":"^vxnet\\-[a-z0-9]{5,10}(\\svxnet\\-[a-z0-9]{5,10})*$",
-          "required": "yes"
-        },
-        {
-          "key": "max_pods",
-          "label": "max-pods",
-          "description": "Number of Pods that can run on each working node/kubelet",
-          "type": "integer",
-          "changeable": true,
-          "default": 60,
-          "range":[60,120,180,240],
-          "required": "yes"
-        },
-        {
           "key": "dockerhub_username",
           "label": "Username of docker registry",
           "description": "The username of docker registry, could be dockerhub.qingcloud.com or your private registry",
@@ -385,15 +467,6 @@
           "default": "",
           "changeable": true,
           "required": "no"
-        },
-        {
-          "key": "enable_hostnic",
-          "label": "enalbe hostnic",
-          "description": "switch to open hostnic",
-          "type": "boolean",
-          "changeable": false,
-          "default": false,
-          "required": "yes"
         },
         {
           "key": "dockerhub_password",
@@ -413,7 +486,7 @@
           "min":0,
           "max":30,
           "changeable": true,
-          "required": "yes"
+          "required": "no"
         },
         {
           "key": "kube_log_level",

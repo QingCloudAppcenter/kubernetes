@@ -19,6 +19,7 @@ spec:
     - --cluster-signing-cert-file=/etc/kubernetes/pki/ca.crt
     - --address=127.0.0.1
     - --leader-elect=true
+    - --attach-detach-reconcile-sync-period=30s
     - --use-service-account-credentials=true
     - --controllers=*,bootstrapsigner,tokencleaner
     - --root-ca-file=/etc/kubernetes/pki/ca.crt

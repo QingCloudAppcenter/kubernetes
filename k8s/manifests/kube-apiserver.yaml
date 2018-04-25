@@ -16,6 +16,7 @@ spec:
     - --requestheader-extra-headers-prefix=X-Remote-Extra-
     - --requestheader-allowed-names=front-proxy-client
     - --service-cluster-ip-range=10.96.0.0/16
+    - --service-node-port-range=${CLUSTER_PORT_RANGE}
     - --secure-port=6443
     - --insecure-port=8080
     - --insecure-bind-address=127.0.0.1

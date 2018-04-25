@@ -19,6 +19,8 @@ spec:
       labels:
         k8s-app: prometheus
     spec:
+      nodeSelector:
+        role: master
       containers:
       - name: prometheus
         image: dockerhub.qingcloud.com/qingcloud/prometheus:v2.0.0
@@ -45,3 +47,7 @@ spec:
         fsGroup: 2000
         runAsUser: 1000
         runAsNonRoot: true
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule

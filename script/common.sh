@@ -387,6 +387,7 @@ function init_istio(){
       fi
     fi
 }
+
 function init_helm(){
     if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_HELM}" == "yes" ]
     then
@@ -404,6 +405,15 @@ function init_helm(){
       else
         echo "helm has not been deployed"
       fi
+    fi
+}
+
+function init_helm_client(){
+    if [ "${ENV_ENABLE_HELM}" == "yes" ]
+    then
+        helm init --stable-repo-url https://helm-chart-repo.pek3a.qingstor.com/kubernetes-charts/ --client-only --home /root/.helm
+    else 
+        helm reset --force
     fi
 }
 

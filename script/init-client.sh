@@ -8,7 +8,3 @@ echo "root:k8s" |chpasswd
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 systemctl restart ssh
 
-if [ "${HOST_ROLE}" == "client" ] && [ "${ENV_ENABLE_HELM}" == "yes" ]
-then
-    helm init --stable-repo-url https://helm-chart-repo.pek3a.qingstor.com --client-only
-fi

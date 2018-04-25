@@ -17,8 +17,8 @@ systemctl restart docker
 
 docker login -u guest -p guest dockerhub.qingcloud.com
 
-docker pull dockerhub.qingcloud.com/google_containers/pause-amd64:3.0
-docker pull dockerhub.qingcloud.com/google_containers/etcd-amd64:3.0.17
+docker pull dockerhub.qingcloud.com/google_containers/pause-amd64:3.1
+docker pull dockerhub.qingcloud.com/google_containers/etcd-amd64:3.1.10
 docker pull dockerhub.qingcloud.com/google_containers/hyperkube-amd64:${HYPERKUBE_VERSION}
 docker pull dockerhub.qingcloud.com/google_containers/k8s-dns-kube-dns-amd64:1.14.5
 docker pull dockerhub.qingcloud.com/google_containers/k8s-dns-dnsmasq-nanny-amd64:1.14.5

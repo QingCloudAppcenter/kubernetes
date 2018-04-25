@@ -110,7 +110,8 @@
                 0,
                 1
               ],
-              "required": "yes"
+              "required": "yes",
+              "resource_group": [0, 1]
             },
             {
               "key": "volume_size",

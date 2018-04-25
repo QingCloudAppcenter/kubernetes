@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: kibana-logging
-        image: dockerhub.qingcloud.com/google_containers/kibana:v5.4.0
+        image: dockerhub.qingcloud.com/google_containers/kibana:v5.6.4
         imagePullPolicy: IfNotPresent
         resources:
           requests:

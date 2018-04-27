@@ -414,7 +414,7 @@
           "type": "integer",
           "changeable": true,
           "default": 60,
-          "range":[60,120,180,240],
+          "range":[60,80,100,120,150,180,240],
           "required": "no"
         },
         {

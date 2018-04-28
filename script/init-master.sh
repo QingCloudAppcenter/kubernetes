@@ -12,8 +12,8 @@ systemctl start docker
 
 init_token=$(get_or_gen_init_token)
 #retry kubeadm check --cloud-provider-name qingcloud --cloud-provider-config /etc/kubernetes/qingcloud.conf
-retry kubeadm alpha phase certs all --apiserver-advertise-address ${MASTER_IP} --apiserver-cert-extra-sans ${ENV_API_EXTERNAL_DOMAIN} --service-cidr 10.96.0.0/16 --service-dns-domain cluster.local --kubernetes-version 1.10.1
-retry kubeadm alpha phase kubeconfig all --apiserver-advertise-address ${MASTER_IP}  --kubernetes-version 1.10.1
+retry kubeadm alpha phase certs all --apiserver-advertise-address ${MASTER_IP} --apiserver-cert-extra-sans ${ENV_API_EXTERNAL_DOMAIN} --service-cidr 10.96.0.0/16 --service-dns-domain cluster.local
+retry kubeadm alpha phase kubeconfig all --apiserver-advertise-address ${MASTER_IP}
 
 process_manifests
 
@@ -28,9 +28,9 @@ then
 else
   retry kubeadm token create ${init_token} --ttl 0 --description "the default kubeadm init token" --kubeconfig /etc/kubernetes/admin.conf
 fi
-retry kubeadm alpha phase bootstrap-token node allow-post-csrs --kubeconfig /etc/kubernetes/admin.conf  --kubernetes-version 1.10.1
-retry kubeadm alpha phase bootstrap-token node allow-auto-approve --kubeconfig /etc/kubernetes/admin.conf --kubernetes-version 1.10.1
-retry kubeadm alpha phase bootstrap-token cluster-info /etc/kubernetes/admin.conf --kubeconfig /etc/kubernetes/admin.conf --kubernetes-version 1.10.1
+retry kubeadm alpha phase bootstrap-token node allow-post-csrs --kubeconfig /etc/kubernetes/admin.conf
+retry kubeadm alpha phase bootstrap-token node allow-auto-approve --kubeconfig /etc/kubernetes/admin.conf
+retry kubeadm alpha phase bootstrap-token cluster-info /etc/kubernetes/admin.conf --kubeconfig /etc/kubernetes/admin.conf
 #retry kubeadm alpha phase upload-config --kubeconfig /etc/kubernetes/admin.conf
 #retry kubeadm alpha phase apiconfig --kubeconfig /etc/kubernetes/admin.conf
 if kubectl get clusterrolebinding kubeadm:node-autoapprove-certificate-rotation

@@ -204,7 +204,7 @@ function join_node(){
 
     echo "master ip: ${MASTER_IP} init_token: ${init_token}"
 
-    retry kubeadm join ${MASTER_IP}:6443 --token ${init_token} --skip-preflight-checks
+    retry kubeadm join ${MASTER_IP}:6443 --token ${init_token} --skip-preflight-checks --discovery-token-unsafe-skip-ca-verification
 
     touch ${NODE_INIT_LOCK}
 }
@@ -278,7 +278,7 @@ function drain_node(){
 function link_dynamic_dir(){
     if [ ! -d "/data/var" ]
     then
-        mkdir -p /data/var && mkdir /data/var/lib && mkdir /data/var/log
+        mkdir -p /data/var && mkdir /data/var/lib && mkdir /data/var/log && mkdir /data/var/log/qingcloud-flex-volume-controller-manager && mkdir /data/var/log/qingcloud-flex-volume
     fi
     if [ -d /var/lib/docker ] && [ ! -L /var/lib/docker ]
     then

@@ -237,7 +237,7 @@ function node_ready(){
 }
 function patch_cidr() {
     if [ "${ENV_ENABLE_HOSTNIC}" == "false" ]; then
-        retry node_ready
+        long_retry node_ready
         echo "patch cidr config to node"
         kubectl patch node ${HOST_INSTANCE_ID} -p '{"spec":{"podCIDR":"10.244.0.0/16"}}'
     fi

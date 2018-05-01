@@ -33,6 +33,23 @@ function retry {
   done
 }
 
+function long_retry {
+  local n=1
+  local max=10
+  local delay=20
+  while true; do
+    "$@" && break || {
+      if [[ $n -lt $max ]]; then
+        ((n++))
+        echo "Command failed. Attempt $n/$max:"
+        sleep $delay;
+      else
+        fail "The command has failed after $n attempts."
+      fi
+    }
+  done
+}
+
 timestamp() {
   date +"%s"
 }
@@ -210,9 +227,8 @@ function join_node(){
 }
 
 function patch_cidr() {
-    sleep 10s
     if [ "${ENV_ENABLE_HOSTNIC}" == "false" ]; then
-        retry kubectl patch node ${HOST_INSTANCE_ID} -p '{"spec":{"podCIDR":"10.244.0.0/16"}}'
+        long_retry kubectl patch node ${HOST_INSTANCE_ID} -p '{"spec":{"podCIDR":"10.244.0.0/16"}}'
     fi
 }
 

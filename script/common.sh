@@ -210,6 +210,7 @@ function join_node(){
 }
 
 function patch_cidr() {
+    sleep 10s
     if [ "${ENV_ENABLE_HOSTNIC}" == "false" ]; then
         retry kubectl patch node ${HOST_INSTANCE_ID} -p '{"spec":{"podCIDR":"10.244.0.0/16"}}'
     fi

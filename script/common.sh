@@ -239,7 +239,7 @@ function patch_cidr() {
     if [ "${ENV_ENABLE_HOSTNIC}" == "false" ]; then
         long_retry node_ready
         echo "patch cidr config to node"
-        mykubectl patch node ${HOST_INSTANCE_ID} -p '{"spec":{"podCIDR":"10.244.0.0/16"}}'
+        mykubectl patch node ${HOST_INSTANCE_ID} -p '{"spec":{"podCIDR":"10.244.${CIDR_SUBNET}.0/16"}}'
     fi
 }
 

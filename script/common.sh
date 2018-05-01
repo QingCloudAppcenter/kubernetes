@@ -209,6 +209,12 @@ function join_node(){
     touch ${NODE_INIT_LOCK}
 }
 
+function patch_cidr() {
+    if "${ENV_ENABLE_HOSTNIC}" == "false"; then
+        retry kubectl patch node ${HOST_INSTANCE_ID} -p '{"spec":{"podCIDR":"10.244.0.0/16"}}'
+    fi
+}
+
 function wait_kubelet(){
     local isactive=`systemctl is-active kubelet`
     while [ "${isactive}" != "active" ]

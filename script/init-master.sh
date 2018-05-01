@@ -20,7 +20,7 @@ process_manifests
 systemctl start kubelet
 wait_kubelet
 wait_apiserver
-
+patch_cidr
 train_master
 if kubeadm token list|grep ${init_token}
 then

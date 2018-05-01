@@ -227,7 +227,7 @@ function join_node(){
 }
 
 function node_ready(){
-    status=`kubectl get nodes |grep ${HOST_INSTANCE_ID}|awk '{print $2}'`
+    status=`mykubectl get nodes |grep ${HOST_INSTANCE_ID}|awk '{print $2}'`
     echo "${HOST_INSTANCE_ID} status is ${status}"
     if [ "${status}" == "Ready" ];then
         return 0
@@ -239,7 +239,7 @@ function patch_cidr() {
     if [ "${ENV_ENABLE_HOSTNIC}" == "false" ]; then
         long_retry node_ready
         echo "patch cidr config to node"
-        kubectl patch node ${HOST_INSTANCE_ID} -p '{"spec":{"podCIDR":"10.244.0.0/16"}}'
+        mykubectl patch node ${HOST_INSTANCE_ID} -p '{"spec":{"podCIDR":"10.244.0.0/16"}}'
     fi
 }
 
@@ -425,7 +425,7 @@ function init_istio(){
 function init_helm(){
     if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_HELM}" == "yes" ]
     then
-      if kubectl get deploy tiller-deploy -n kube-system > /dev/null 2>&1; then
+      if mykubectl get deploy tiller-deploy -n kube-system > /dev/null 2>&1; then
         echo "helm has been deployed"
       else
         mykubectl apply -f /opt/kubernetes/k8s/services/helm/helm.yaml
@@ -434,7 +434,7 @@ function init_helm(){
 
     if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_HELM}" == "no" ]
     then
-      if kubectl get deploy tiller-deploy -n kube-system > /dev/null 2>&1; then
+      if mykubectl get deploy tiller-deploy -n kube-system > /dev/null 2>&1; then
         mykubectl delete -f /opt/kubernetes/k8s/services/helm/helm.yaml
       else
         echo "helm has not been deployed"
@@ -457,8 +457,8 @@ function get_node_status(){
 }
 
 function clean_heapster140(){
-    if kubectl get deploy heapster-v1.4.0 -n kube-system > /dev/null 2>&1; then
-      kubectl delete deploy heapster-v1.4.0 -n kube-system
+    if mykubectl get deploy heapster-v1.4.0 -n kube-system > /dev/null 2>&1; then
+      mykubectl delete deploy heapster-v1.4.0 -n kube-system
     else
       echo "try to clean heapster 1.4.0, but no old heapster deployment existed"
     fi

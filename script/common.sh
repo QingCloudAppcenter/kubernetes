@@ -226,9 +226,20 @@ function join_node(){
     touch ${NODE_INIT_LOCK}
 }
 
+function node_ready(){
+    status=`kubectl get nodes |grep ${HOST_INSTANCE_ID}|awk '{print $2}'`
+    echo "${HOST_INSTANCE_ID} status is ${status}"
+    if [ "${status}" == "Ready" ];then
+        return 0
+    else
+        return 1
+    fi
+}
 function patch_cidr() {
     if [ "${ENV_ENABLE_HOSTNIC}" == "false" ]; then
-        long_retry kubectl patch node ${HOST_INSTANCE_ID} -p '{"spec":{"podCIDR":"10.244.0.0/16"}}'
+        retry node_ready
+        echo "patch cidr config to node"
+        kubectl patch node ${HOST_INSTANCE_ID} -p '{"spec":{"podCIDR":"10.244.0.0/16"}}'
     fi
 }
 

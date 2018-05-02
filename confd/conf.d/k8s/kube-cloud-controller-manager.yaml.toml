@@ -1,0 +1,6 @@
+[template]
+src = "k8s/kube-cloud-controller-manager.yaml.tmpl"
+dest = "/opt/kubernetes/k8s/manifests/kube-cloud-controller-manager.yaml"
+keys = [
+    "/env",
+]

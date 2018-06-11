@@ -1,7 +1,7 @@
 {{$flag:=getv "/env/enable_hostnic"}}
 {{if eq "true" $flag}}
 {
-    "cniVersion": "0.3.0",
+    "cniVersion": "0.3.1",
     "name": "hostnic",
     "type": "hostnic",
     "bindaddr":"localhost:31080",

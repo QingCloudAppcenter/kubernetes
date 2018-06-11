@@ -29,7 +29,7 @@ spec:
         command: ['sh', '-c', 'until nc -z -v -w5 elasticsearch-logging 9200; do echo "wait elasticsearch logging service"; sleep 2; done;']
       containers:
       - name: fluent-bit
-        image: dockerhub.qingcloud.com/fluent/fluent-bit:0.12.18
+        image: dockerhub.qingcloud.com/fluent/fluent-bit:0.13.2
         command:
         - /fluent-bit/bin/fluent-bit
         - -c

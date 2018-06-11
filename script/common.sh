@@ -405,19 +405,10 @@ function update_hostnic_config(){
 function init_istio(){
     if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_ISTIO}" == "yes" ]
     then
-      if kubectl get deploy istio-mixer -n istio-system > /dev/null 2>&1; then
+      if mykubectl get svc istio-pilot -n istio-system > /dev/null 2>&1; then
         echo "istio has been deployed"
       else
-        mykubectl apply -f /opt/kubernetes/k8s/services/istio/istio.yaml
-      fi
-    fi
-
-    if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_ISTIO}" == "no" ]
-    then
-      if kubectl get deploy istio-mixer -n istio-system > /dev/null 2>&1; then
-        mykubectl delete -f /opt/kubernetes/k8s/services/istio/istio.yaml
-      else
-        echo "istio has not been deployed"
+        mykubectl apply -f /opt/istio-0.8.0/install/kubernetes/istio-demo.yaml
       fi
     fi
 }
@@ -429,15 +420,6 @@ function init_helm(){
         echo "helm has been deployed"
       else
         mykubectl apply -f /opt/kubernetes/k8s/services/helm/helm.yaml
-      fi
-    fi
-
-    if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_HELM}" == "no" ]
-    then
-      if mykubectl get deploy tiller-deploy -n kube-system > /dev/null 2>&1; then
-        mykubectl delete -f /opt/kubernetes/k8s/services/helm/helm.yaml
-      else
-        echo "helm has not been deployed"
       fi
     fi
 }

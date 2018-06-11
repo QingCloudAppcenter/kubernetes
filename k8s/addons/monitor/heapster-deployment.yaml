@@ -49,7 +49,7 @@ spec:
       serviceAccount: "heapster"
       containers:
         - name: heapster
-          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.5.2
+          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.5.3
           imagePullPolicy: IfNotPresent
           command:
             - /heapster
@@ -70,7 +70,7 @@ spec:
               mountPath: /usr/share/ca-certificates
               readOnly: true
         - name: eventer
-          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.5.2
+          image: dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.5.3
           imagePullPolicy: IfNotPresent
           command:
             - /eventer
@@ -83,7 +83,7 @@ spec:
             - name: usr-ca-certs
               mountPath: /usr/share/ca-certificates
               readOnly: true
-        - image: dockerhub.qingcloud.com/google_containers/addon-resizer:2.1
+        - image: dockerhub.qingcloud.com/google_containers/addon-resizer:1.8.1
           imagePullPolicy: IfNotPresent
           name: heapster-nanny
           resources:
@@ -117,7 +117,7 @@ spec:
             - --container=heapster
             - --poll-period=300000
             - --estimator=exponential
-        - image: dockerhub.qingcloud.com/google_containers/addon-resizer:2.1
+        - image: dockerhub.qingcloud.com/google_containers/addon-resizer:1.8.1
           imagePullPolicy: IfNotPresent
           name: eventer-nanny
           resources:

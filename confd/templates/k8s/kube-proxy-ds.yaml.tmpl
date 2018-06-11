@@ -29,7 +29,8 @@ spec:
         - --masquerade-all
 {{$flag:=getv "/env/enable_hostnic"}}{{if eq "false" $flag}}
         - --cluster-cidr=10.244.0.0/16{{end}}
-        - --feature-gates=AllAlpha=true,DynamicKubeletConfig=false,RotateKubeletServerCertificate=false,RotateKubeletClientCertificate=false
+        - --feature-gates=AllAlpha=true,DynamicKubeletConfig=false,RotateKubeletServerCertificate=false,RotateKubeletClientCertificate=false,SupportIPVSProxyMode=true
+        - --proxy-mode=ipvs
         - --kubeconfig=/var/lib/kube-proxy/kubeconfig.conf
         securityContext:
           privileged: true

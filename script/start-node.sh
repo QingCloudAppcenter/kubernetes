@@ -11,4 +11,4 @@ join_node
 systemctl start kubelet
 wait_kubelet
 train_node
-patch_cidr
+#patch_cidr

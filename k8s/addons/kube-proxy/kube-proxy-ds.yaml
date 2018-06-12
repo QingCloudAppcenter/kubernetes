@@ -38,6 +38,9 @@ spec:
         - mountPath: /run/xtables.lock
           name: xtables-lock
           readOnly: false
+        - mountPath: /lib/modules
+          name: lib-modules
+          readOnly: true
       hostNetwork: true
       serviceAccountName: kube-proxy
       volumes:
@@ -47,6 +50,9 @@ spec:
       - name: xtables-lock
         hostPath:
           path: /run/xtables.lock
+      - name: lib-modules
+        hostPath:
+          path: /lib/modules
       tolerations:
       - key: "CriticalAddonsOnly"
         operator: "Exists"

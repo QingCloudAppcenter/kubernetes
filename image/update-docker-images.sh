@@ -27,14 +27,14 @@ docker pull dockerhub.qingcloud.com/google_containers/kube-addon-manager:v6.4-be
 docker pull dockerhub.qingcloud.com/google_containers/kubernetes-dashboard-amd64:v1.8.0
 docker pull dockerhub.qingcloud.com/fluent/fluent-bit:0.12.9
 docker pull dockerhub.qingcloud.com/google_containers/heapster-amd64:v1.5.0
-docker pull dockerhub.qingcloud.com/google_containers/addon-resizer:1.7
+docker pull dockerhub.qingcloud.com/google_containers/addon-resizer:1.8.1
 docker pull dockerhub.qingcloud.com/google_containers/kibana:v5.4.0
 docker pull dockerhub.qingcloud.com/google_containers/elasticsearch:v5.5.1-1
 docker pull dockerhub.qingcloud.com/qingcloud/elasticsearch-curator:5.1.1
 docker pull dockerhub.qingcloud.com/qingcloud/file-sync:0.7
 docker pull dockerhub.qingcloud.com/busybox:1.27.1
 docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-volume-provisioner:v1.3.1
-docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager:v1.1.1
+docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager:v1.1.2
 docker pull dockerhub.qingcloud.com/qingcloud/hostnic-cni:v0.8.4
 docker pull dockerhub.qingcloud.com/alpine:3.6
 # istio

@@ -59,7 +59,7 @@ docker pull dockerhub.qingcloud.com/coreos/flannel:v0.10.0-amd64
 docker pull busybox:1.28.4
 docker pull openpitrix/openpitrix:v0.1.5
 docker pull openpitrix/openpitrix:metadata-v0.1.5
-openpitrix/openpitrix:flyway-v0.1.5
+docker pull openpitrix/openpitrix:flyway-v0.1.5
 docker pull mysql:5.7.21
 docker pull appcelerator/etcd:3.3.3
 

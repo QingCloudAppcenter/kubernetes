@@ -440,7 +440,7 @@ function init_openpitrix() {
 }
 
 function init_kubesphere() {
-    
+    echo "deploy kubesphere"
 }
 
 function get_node_status(){

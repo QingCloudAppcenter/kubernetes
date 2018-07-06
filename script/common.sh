@@ -198,6 +198,7 @@ function process_addons(){
 
     init_istio
     init_helm
+    init_openpitrix
 }
 
 function scale_es(){
@@ -269,10 +270,10 @@ function train_node(){
     then
         retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=log:NoSchedule
     fi
-    if [ "${HOST_ROLE}" == "ssd_node" ]
-    then
-        retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=ssd:NoSchedule
-    fi
+    #if [ "${HOST_ROLE}" == "ssd_node" ]
+    #then
+    #    retry mykubectl taint nodes ${HOST_INSTANCE_ID} --overwrite dedicated=ssd:NoSchedule
+    #fi
 }
 
 function cordon_all(){
@@ -431,6 +432,15 @@ function init_helm_client(){
     else 
         helm reset --force
     fi
+}
+
+function init_openpitrix() {
+    cd /opt/openpitrix-v0.1.5-kubernetes/kubernetes/scripts
+    ./deploy-k8s.sh -n openpitrix-system -v v0.1.5 -b -d
+}
+
+function init_kubesphere() {
+    
 }
 
 function get_node_status(){

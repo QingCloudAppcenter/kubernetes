@@ -25,7 +25,7 @@ spec:
 {{end}}
     - --use-service-account-credentials=false
     - --feature-gates=AllAlpha=true,DynamicKubeletConfig=false,RotateKubeletServerCertificate=false,RotateKubeletClientCertificate=false
-    image: dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager:v1.1.1
+    image: dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager:v1.1.2
     imagePullPolicy: IfNotPresent
     livenessProbe:
       failureThreshold: 8

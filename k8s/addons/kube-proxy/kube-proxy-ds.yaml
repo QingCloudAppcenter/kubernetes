@@ -27,7 +27,8 @@ spec:
         - kube-proxy
         - --v=${KUBE_LOG_LEVEL}
         - --masquerade-all
-        - --feature-gates=AllAlpha=true,DynamicKubeletConfig=false,RotateKubeletServerCertificate=false,RotateKubeletClientCertificate=false
+        - --feature-gates=AllAlpha=true,DynamicKubeletConfig=false,RotateKubeletServerCertificate=false,RotateKubeletClientCertificate=false,SupportIPVSProxyMode=true
+        - --proxy-mode=ipvs
         - --kubeconfig=/var/lib/kube-proxy/kubeconfig.conf
         securityContext:
           privileged: true
@@ -41,6 +42,9 @@ spec:
         - mountPath: /lib/modules
           name: lib-modules
           readOnly: true
+        - mountPath: /lib/modules
+          name: lib-modules
+          readOnly: true
       hostNetwork: true
       serviceAccountName: kube-proxy
       volumes:
@@ -50,6 +54,9 @@ spec:
       - name: xtables-lock
         hostPath:
           path: /run/xtables.lock
+      - name: lib-modules
+        hostPath:
+          path: /lib/modules
       - name: lib-modules
         hostPath:
           path: /lib/modules

@@ -23,7 +23,7 @@
             "role": "master",
             "container": {
                 "type": "kvm",
-                "image": "img-yqw21ujm",
+                "image": "img-uxiu6k5g",
                 "zone": "ap2a"
             },
             "instance_class": {{cluster.master.instance_class}},
@@ -105,7 +105,7 @@
                     "role": "node",
                     "container": {
                         "type": "kvm",
-                        "image": "img-yqw21ujm",
+                        "image": "img-uxiu6k5g",
                         "zone": "ap2a"
                     },
                     "instance_class": 0,
@@ -190,7 +190,7 @@
                     "role": "ssd_node",
                     "container": {
                         "type": "kvm",
-                        "image": "img-yqw21ujm",
+                        "image": "img-uxiu6k5g",
                         "zone": "ap2a"
                     },
                     "instance_class": 1,
@@ -275,7 +275,7 @@
                     "role": "log",
                     "container": {
                         "type": "kvm",
-                        "image": "img-yqw21ujm",
+                        "image": "img-uxiu6k5g",
                         "zone": "ap2a"
                     },
                     "instance_class": {{cluster.log.instance_class}},
@@ -360,7 +360,7 @@
                         "role": "client",
                         "container": {
                             "type": "kvm",
-                            "image": "img-yqw21ujm",
+                            "image": "img-uxiu6k5g",
                             "zone": "ap2a"
                         },
                         "instance_class": {{cluster.client.instance_class}},
@@ -392,6 +392,7 @@
             "max_pods": {{env.max_pods}},
             "dockerhub_username":{{env.dockerhub_username}},
             "dockerhub_password":{{env.dockerhub_password}},
+            "docker_bip":{{env.docker_bip}},
             "keep_log_days":{{env.keep_log_days}},
             "kube_log_level":{{env.kube_log_level}},
             "fluent_forward_server":{{env.fluent_forward_server}},

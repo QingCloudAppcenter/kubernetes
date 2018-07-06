@@ -64,7 +64,7 @@ spec:
       name: qingcloud
       readOnly: true
   - name: flexlog
-    image: dockerhub.qingcloud.com/busybox:1.27.1
+    image: busybox:1.28.4
     args: [/bin/sh, -c, 'tail -n+1 -F /var/log/qingcloud-flex-volume/flex-volume.INFO']
     volumeMounts:
     - name: flexlog

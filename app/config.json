@@ -478,6 +478,15 @@
           "required": "no"
         },
         {
+          "key": "docker_bip",
+          "label": "IP address and netmask for docker bridge network",
+          "description": "IP address and netmask for docker bridge network, using standard CIDR notation. For example: 192.168.1.5/24",
+          "type": "string",
+          "default": "172.30.0.1/16",
+          "changeable": true,
+          "required": "no"
+        },
+        {
           "key": "keep_log_days",
           "label": "Keep log days",
           "description": "Keep log on log node for x days, 0 indicates that the log is not cleared",

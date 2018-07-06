@@ -10,5 +10,5 @@
     "registry-mirrors": {{split $mirrors " "|toJson}},
     {{end}}
     "storage-driver": "overlay2",
-    "bip": "172.30.0.1/16"
+    "bip": "{{getv "/env/docker_bip"}}"
 }

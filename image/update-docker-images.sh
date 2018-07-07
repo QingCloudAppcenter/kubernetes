@@ -64,6 +64,8 @@ docker pull quay.io/coreos/etcd:v3.2.18
 
 #kubesphere
 docker pull dockerhub.qingcloud.com/kubesphere/ks-console:express-1.0.alpha
-docker pull kubesphere/account:express-1.0.alpha
+docker pull dockerhub.qingcloud.com/kubesphere/ks-account:express-1.0.alpha
 docker pull kubesphere/ks-apiserver:express-1.0.alpha
 docker pull kubesphere/kubectl:1.0
+docker pull googlecontainer/defaultbackend-amd64:1.4
+docker pull redis:4.0

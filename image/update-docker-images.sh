@@ -18,7 +18,6 @@ systemctl restart docker
 docker login -u guest -p guest dockerhub.qingcloud.com
 
 docker pull dockerhub.qingcloud.com/google_containers/pause-amd64:3.1
-docker pull dockerhub.qingcloud.com/google_containers/etcd-amd64:3.1.10
 docker pull dockerhub.qingcloud.com/google_containers/hyperkube-amd64:${HYPERKUBE_VERSION}
 docker pull dockerhub.qingcloud.com/google_containers/k8s-dns-kube-dns-amd64:1.14.10
 docker pull dockerhub.qingcloud.com/google_containers/k8s-dns-dnsmasq-nanny-amd64:1.14.10
@@ -57,14 +56,14 @@ docker pull dockerhub.qingcloud.com/coreos/flannel:v0.10.0-amd64
 
 #openpitrix
 docker pull busybox:1.28.4
-docker pull openpitrix/openpitrix:v0.1.5
-docker pull openpitrix/openpitrix:metadata-v0.1.5
-docker pull openpitrix/openpitrix:flyway-v0.1.5
-docker pull mysql:5.7.21
-docker pull appcelerator/etcd:3.3.3
+docker pull openpitrix/openpitrix:v0.1.6
+docker pull openpitrix/openpitrix:metadata-v0.1.6
+docker pull openpitrix/openpitrix:flyway-v0.1.6
+docker pull mysql:8.0.11
+docker pull quay.io/coreos/etcd:v3.2.18
 
 #kubesphere
-docker pull dockerhub.qingcloud.com/kubesphere/ks-console:v0.1
-docker pull kubesphere/account:latest
-docker pull kubesphere/ks-apiserver:latest
+docker pull dockerhub.qingcloud.com/kubesphere/ks-console:express-1.0.alpha
+docker pull kubesphere/account:express-1.0.alpha
+docker pull kubesphere/ks-apiserver:express-1.0.alpha
 docker pull kubesphere/kubectl:1.0

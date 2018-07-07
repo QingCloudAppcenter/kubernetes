@@ -425,6 +425,13 @@ function init_helm(){
     fi
 }
 
+function upgrade_helm(){
+    if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_HELM}" == "yes" ]
+    then
+      helm init --upgrade
+    fi
+}
+
 function init_helm_client(){
     if [ "${ENV_ENABLE_HELM}" == "yes" ]
     then
@@ -435,8 +442,8 @@ function init_helm_client(){
 }
 
 function init_openpitrix() {
-    cd /opt/openpitrix-v0.1.5-kubernetes/kubernetes/scripts
-    ./deploy-k8s.sh -n openpitrix-system -v v0.1.5 -b -d
+    cd /opt/openpitrix-v0.1.6-kubernetes/kubernetes/scripts
+    ./deploy-k8s.sh -n openpitrix-system -v v0.1.6 -b -d
 }
 
 function init_kubesphere() {

@@ -32,7 +32,7 @@ docker pull dockerhub.qingcloud.com/google_containers/elasticsearch:v5.6.4
 docker pull dockerhub.qingcloud.com/qingcloud/elasticsearch-curator:5.1.1
 docker pull dockerhub.qingcloud.com/qingcloud/file-sync:0.7
 docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-volume-provisioner:v1.3.1
-docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager:v1.1.2
+docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager:v1.1.3
 docker pull dockerhub.qingcloud.com/qingcloud/hostnic-cni:v0.8.4
 docker pull dockerhub.qingcloud.com/alpine:3.6
 docker pull dockerhub.qingcloud.com/qingcloud/go-probe:v1.0
@@ -63,9 +63,9 @@ docker pull mysql:8.0.11
 docker pull quay.io/coreos/etcd:v3.2.18
 
 #kubesphere
-docker pull dockerhub.qingcloud.com/kubesphere/ks-console:express-1.0.alpha
-docker pull dockerhub.qingcloud.com/kubesphere/ks-account:express-1.0.alpha
-docker pull kubesphere/ks-apiserver:express-1.0.alpha
-docker pull kubesphere/kubectl:1.0
+docker pull dockerhub.qingcloud.com/kubesphere/ks-account:express-1.0.0-alpha 
+docker pull dockerhub.qingcloud.com/kubesphere/ks-console:express-1.0.0-alpha
+docker pull kubesphere/ks-apiserver:express-1.0.0-alpha
+docker pull kubesphere/kubectl:express-1.0.0-alpha
 docker pull googlecontainer/defaultbackend-amd64:1.4
 docker pull redis:4.0

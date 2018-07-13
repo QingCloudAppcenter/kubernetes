@@ -10,4 +10,4 @@ apt install ceph-common -y
 
 add-apt-repository ppa:gluster/glusterfs-3.12
 apt-get update
-apt-get install glusterfs-client
+apt-get install glusterfs-client -y

@@ -237,10 +237,15 @@ function node_ready(){
     fi
 }
 function patch_cidr() {
-    if [ "${ENV_ENABLE_HOSTNIC}" == "false" ]; then
+    if [ "${ENV_NETWORK_PLUGINS}" == "flannel" ]; then
         long_retry node_ready
         echo "patch cidr config to node"
         mykubectl patch node ${HOST_INSTANCE_ID} -p '{"spec":{"podCIDR":"10.244.'${CIDR_SUBNET}'.0/24"}}'
+    fi
+}
+function patch_flannel() {
+    if [ "${ENV_NETWORK_PLUGINS}" == "flannel" ]; then
+        ifconfig cni0 promisc
     fi
 }
 
@@ -448,6 +453,19 @@ function init_openpitrix() {
 
 function init_kubesphere() {
     echo "deploy kubesphere"
+    mykubectl create namespaces kubesphere-system
+    mykubectl apply -f /opt/KubeInstaller-express-1.0.alpha/kubesphere-controls-system.yaml
+    mykubectl -n kubesphere-system create secret generic front-proxy-client --from-file=front-proxy-client.crt=/etc/kubernetes/pki/front-proxy-client.crt --from-file=front-proxy-client.key=/etc/kubernetes/pki/front-proxy-client.key
+    mykubectl create configmap ks-console-config --from-file=local_config.alpha.yaml=/opt/KubeInstaller-express-1.0.alpha/ks-console/ks-console-config.ini -n kubesphere-system
+    mykubectl apply -f /opt/KubeInstaller-express-1.0.alpha/ks-console/*.yaml
+    mykubectl apply -f /opt/KubeInstaller-express-1.0.alpha/ks-account/*.yaml
+    CA_KEY=`/opt/KubeInstaller-express-1.0.alpha/ks-apiserver/get-ca-key.sh`
+    CA_CRT=`/opt/KubeInstaller-express-1.0.alpha/ks-apiserver/get-ca.sh`
+    sed 's/${KS_CA_CRT}/'"${CA_CRT}"'/g' /opt/KubeInstaller-express-1.0.alpha/ks-apiserver/kubesphere-secret.tmpl > /opt/KubeInstaller-express-1.0.alpha/ks-apiserver/kubesphere-secret.tmp
+    sed 's/${KS_CA_KEY}/'"${CA_KEY}"'/g' /opt/KubeInstaller-express-1.0.alpha/ks-apiserver/kubesphere-secret.tmp > /opt/KubeInstaller-express-1.0.alpha/ks-apiserver/kubesphere-secret.yaml
+    mykubectl apply -f /opt/KubeInstaller-express-1.0.alpha/ks-apiserver/*.yaml
+    rm /opt/KubeInstaller-express-1.0.alpha/ks-apiserver/kubesphere-secret.tmp
+
 }
 
 function get_node_status(){

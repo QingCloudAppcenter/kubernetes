@@ -1,5 +1,5 @@
-{{$flag:=getv "/env/enable_hostnic"}}
-{{if eq "false" $flag}}
+{{$flag:=getv "/env/network_plugins"}}
+{{if eq "flannel" $flag}}
 apiVersion: apps/v1beta2
 kind: DaemonSet
 metadata:

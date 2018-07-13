@@ -53,7 +53,8 @@ spec:
           imagePullPolicy: IfNotPresent
           command:
             - /heapster
-            - "--source=kubernetes:https://kubernetes.default.svc?insecure=true&kubeletHttps=true&useServiceAccount=true&kubeletPort=10250"
+            - --source=kubernetes.summary_api:''
+            - --api-server
             - --sink=elasticsearch:http://elasticsearch-logging:9200
           livenessProbe:
             httpGet:

@@ -27,7 +27,7 @@ spec:
         - kube-proxy
         - --v=${KUBE_LOG_LEVEL}
         - --masquerade-all
-{{$flag:=getv "/env/enable_hostnic"}}{{if eq "false" $flag}}
+{{$flag:=getv "/env/network_plugins"}}{{if eq "flannel" $flag}}
         - --cluster-cidr=10.244.0.0/16{{end}}
         - --feature-gates=AllAlpha=true,DynamicKubeletConfig=false,RotateKubeletServerCertificate=false,RotateKubeletClientCertificate=false,SupportIPVSProxyMode=true
         - --proxy-mode=ipvs

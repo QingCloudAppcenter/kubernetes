@@ -1,5 +1,5 @@
-{{$flag:=getv "/env/enable_hostnic"}}
-{{if eq "true" $flag}}
+{{$flag:=getv "/env/network_plugins"}}
+{{if eq "hostnic" $flag}}
 {
     "cniVersion": "0.3.1",
     "name": "hostnic",

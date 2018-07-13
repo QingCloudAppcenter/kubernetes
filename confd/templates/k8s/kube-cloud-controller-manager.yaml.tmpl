@@ -16,7 +16,7 @@ spec:
     - --cloud-provider=qingcloud
     - --cloud-config=/etc/kubernetes/qingcloud.conf
     - --kubeconfig=/etc/kubernetes/admin.conf
-{{$flag:=getv "/env/enable_hostnic"}}{{if eq "false" $flag}}
+{{$flag:=getv "/env/network_plugins"}}{{if eq "flannel" $flag}}
     - --allocate-node-cidrs=true
     - --cluster-cidr=10.244.0.0/16
 {{else}}

@@ -418,12 +418,13 @@
           "required": "no"
         },
         {
-          "key": "enable_hostnic",
-          "label": "enalbe hostnic",
-          "description": "switch to open hostnic",
-          "type": "boolean",
+          "key": "network_plugins",
+          "label": "network plugins",
+          "description": "Choose one network plugins",
+          "type": "string",
           "changeable": false,
-          "default": false,
+          "default": "flannel",
+          "range":["calico","flannel","hostnic"],
           "required": "no"
         },
         {

@@ -454,18 +454,19 @@ function init_openpitrix() {
 
 function init_kubesphere() {
     echo "deploy kubesphere"
-    mykubectl create namespaces kubesphere-system
-    mykubectl apply -f /opt/KubeInstaller-express-1.0.alpha/kubesphere-controls-system.yaml
+    mykubectl create namespace kubesphere-system
+    mykubectl apply -f /opt/KubeInstaller-express-1.0.0-alpha/kubesphere-controls-system.yaml
     mykubectl -n kubesphere-system create secret generic front-proxy-client --from-file=front-proxy-client.crt=/etc/kubernetes/pki/front-proxy-client.crt --from-file=front-proxy-client.key=/etc/kubernetes/pki/front-proxy-client.key
-    mykubectl create configmap ks-console-config --from-file=local_config.alpha.yaml=/opt/KubeInstaller-express-1.0.alpha/ks-console/ks-console-config.ini -n kubesphere-system
-    mykubectl apply -f /opt/KubeInstaller-express-1.0.alpha/ks-console/*.yaml
-    mykubectl apply -f /opt/KubeInstaller-express-1.0.alpha/ks-account/*.yaml
+    mykubectl create configmap ks-console-config --from-file=local_config.alpha.yaml=/opt/KubeInstaller-express-1.0.0-alpha/ks-console/ks-console-config.ini -n kubesphere-system
+    mykubectl apply -f /opt/KubeInstaller-express-1.0.0-alpha/ks-console/.
+    mykubectl apply -f /opt/KubeInstaller-express-1.0.0-alpha/ks-account/.
     CA_KEY=`/opt/KubeInstaller-express-1.0.alpha/ks-apiserver/get-ca-key.sh`
     CA_CRT=`/opt/KubeInstaller-express-1.0.alpha/ks-apiserver/get-ca.sh`
-    sed 's/${KS_CA_CRT}/'"${CA_CRT}"'/g' /opt/KubeInstaller-express-1.0.alpha/ks-apiserver/kubesphere-secret.tmpl > /opt/KubeInstaller-express-1.0.alpha/ks-apiserver/kubesphere-secret.tmp
-    sed 's/${KS_CA_KEY}/'"${CA_KEY}"'/g' /opt/KubeInstaller-express-1.0.alpha/ks-apiserver/kubesphere-secret.tmp > /opt/KubeInstaller-express-1.0.alpha/ks-apiserver/kubesphere-secret.yaml
-    mykubectl apply -f /opt/KubeInstaller-express-1.0.alpha/ks-apiserver/*.yaml
-    rm /opt/KubeInstaller-express-1.0.alpha/ks-apiserver/kubesphere-secret.tmp
+    sed 's/${KS_CA_CRT}/'"${CA_CRT}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.tmpl > /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.tmp
+    sed 's/${KS_CA_KEY}/'"${CA_KEY}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.tmp > /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.yaml
+    sed 's/${MASTER_IP}/'"${MASTER_IP}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/ks-apiserver-deploy.tmpl > /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/ks-apiserver-deploy.yaml
+    mykubectl apply -f /opt/KubeInstaller-express-1.0.alpha/ks-apiserver/.
+    rm /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.tmp
 
 }
 

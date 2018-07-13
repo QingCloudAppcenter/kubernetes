@@ -545,7 +545,7 @@
           "description": "Enable kubernetes pakcage manager Helm",
           "type": "string",
           "changeable": true,
-          "default":"no",
+          "default":"yes",
           "range":["yes", "no"],
           "required": "no"
         }

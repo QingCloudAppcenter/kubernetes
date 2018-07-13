@@ -465,7 +465,7 @@ function init_kubesphere() {
     sed 's/${KS_CA_CRT}/'"${CA_CRT}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.tmpl > /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.tmp
     sed 's/${KS_CA_KEY}/'"${CA_KEY}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.tmp > /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.yaml
     sed 's/${MASTER_IP}/'"${MASTER_IP}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/ks-apiserver-deploy.tmpl > /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/ks-apiserver-deploy.yaml
-    mykubectl apply -f /opt/KubeInstaller-express-1.0.alpha/ks-apiserver/.
+    mykubectl apply -f /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/.
     rm /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.tmp
 
 }

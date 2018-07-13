@@ -11,5 +11,5 @@ join_node
 systemctl start kubelet
 wait_kubelet
 train_node
-patch_flannel
+#patch_flannel
 #patch_cidr

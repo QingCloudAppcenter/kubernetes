@@ -21,3 +21,4 @@ ${K8S_HOME}/image/update-istio-bin.sh
 ${K8S_HOME}/image/update-helm-bin.sh
 ${K8S_HOME}/image/update-storage-clients.sh
 ${K8S_HOME}/image/update-openpitrix.sh
+${K8S_HOME}/image/update-kubesphere.sh

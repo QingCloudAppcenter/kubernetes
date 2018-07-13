@@ -199,6 +199,7 @@ function process_addons(){
     init_istio
     init_helm
     init_openpitrix
+    init_kubesphere
 }
 
 function scale_es(){

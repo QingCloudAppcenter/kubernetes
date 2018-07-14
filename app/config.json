@@ -423,7 +423,7 @@
           "description": "Choose one network plugins",
           "type": "string",
           "changeable": false,
-          "default": "flannel",
+          "default": "calico",
           "range":["calico","flannel","hostnic"],
           "required": "no"
         },

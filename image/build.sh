@@ -14,6 +14,7 @@ ${K8S_HOME}/image/update-sysconfig.sh
 ${K8S_HOME}/image/update-sshd-config.sh
 ${K8S_HOME}/image/update-k8s-bin.sh
 ${K8S_HOME}/image/update-cni.sh
+${K8S_HOME}/image/update-calico.sh
 ${K8S_HOME}/image/update-logrotate.sh
 ${K8S_HOME}/image/update-systemd-conf.sh
 ${K8S_HOME}/image/update-docker-images.sh

@@ -89,6 +89,9 @@ function ensure_dir(){
     if [ ! -d /data/kubernetes/hostnic ]; then
         mkdir -p /data/kubernetes/hostnic
     fi
+    if [ ! -d /data/kubernetes/calico ]; then
+        mkdir -p /data/kubernetes/calico
+    fi
     if [ ! -d /data/es ]; then
         mkdir -p /data/es
     fi
@@ -132,6 +135,17 @@ function replace_vars(){
           sed -i '/${CLUSTER_ID}/d' ${tmpfile}
        fi
     fi
+
+    if [ "${to}" == "/data/kubernetes/addons/calico/calico-cm.yaml" ]
+    then
+        if [ "${ETCD_CLUSTER:-}" != "" ]
+        then
+          sed -i 's/${ETCD_SERVERS}/'"${ETCD_CLUSTER:-}"'/g' ${tmpfile}
+        else
+          sed -i 's/${ETCD_SERVERS}/'"http:\/\/${MASTER_IP}:2379"'/g' ${tmpfile}
+        fi
+    fi
+          
 
     if [ "${LOG_COUNT}" != "0" ] && [ "${to}" == "/data/kubernetes/addons/monitor/es-controller.yaml" ]
     then
@@ -421,7 +435,7 @@ function init_istio(){
 }
 
 function init_helm(){
-    if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_HELM}" == "yes" ]
+    if [ "${HOST_ROLE}" == "master" ]
     then
       if mykubectl get deploy tiller-deploy -n kube-system > /dev/null 2>&1; then
         echo "helm has been deployed"
@@ -432,42 +446,44 @@ function init_helm(){
 }
 
 function upgrade_helm(){
-    if [ "${HOST_ROLE}" == "master" ] && [ "${ENV_ENABLE_HELM}" == "yes" ]
+    if [ "${HOST_ROLE}" == "master" ]
     then
       helm init --upgrade
     fi
 }
 
 function init_helm_client(){
-    if [ "${ENV_ENABLE_HELM}" == "yes" ]
-    then
-        helm init --stable-repo-url https://helm-chart-repo.pek3a.qingstor.com/kubernetes-charts/ --client-only --home /root/.helm
-    else 
-        helm reset --force
-    fi
+    helm init --stable-repo-url https://helm-chart-repo.pek3a.qingstor.com/kubernetes-charts/ --client-only --home /root/.helm
 }
 
 function init_openpitrix() {
-    cd /opt/openpitrix-v0.1.6-kubernetes/kubernetes/scripts
-    ./deploy-k8s.sh -n openpitrix-system -v v0.1.6 -b -d
+    mykubectl get ns openpitrix-system
+    retcode=$?
+    if [ $retcode != 0 ]; then
+        cd /opt/openpitrix-v0.1.6-kubernetes/kubernetes/scripts
+        ./deploy-k8s.sh -n openpitrix-system -v v0.1.6 -b -d
+    fi
 }
 
 function init_kubesphere() {
     echo "deploy kubesphere"
-    mykubectl create namespace kubesphere-system
-    mykubectl apply -f /opt/KubeInstaller-express-1.0.0-alpha/kubesphere-controls-system.yaml
-    mykubectl -n kubesphere-system create secret generic front-proxy-client --from-file=front-proxy-client.crt=/etc/kubernetes/pki/front-proxy-client.crt --from-file=front-proxy-client.key=/etc/kubernetes/pki/front-proxy-client.key
-    mykubectl create configmap ks-console-config --from-file=local_config.alpha.yaml=/opt/KubeInstaller-express-1.0.0-alpha/ks-console/ks-console-config.ini -n kubesphere-system
-    mykubectl apply -f /opt/KubeInstaller-express-1.0.0-alpha/ks-console/.
-    mykubectl apply -f /opt/KubeInstaller-express-1.0.0-alpha/ks-account/.
-    CA_KEY=`/opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/get-ca-key.sh`
-    CA_CRT=`/opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/get-ca.sh`
-    sed -i 's/${KS_CA_CRT}/'"${CA_CRT}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.yaml
-    sed -i 's/${KS_CA_KEY}/'"${CA_KEY}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.yaml
-    sed -i 's/${MASTER_IP}/'"${MASTER_IP}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/ks-apiserver-deploy.yaml
-    mykubectl apply -f /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/.
-    rm /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/ca.tmp
-    rm /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/ca-key.tmp
+    mykubectl get ns kubesphere-system
+    retcode=$?
+    if [ $retcode != 0 ]; then
+        mykubectl create namespace kubesphere-system
+        mykubectl apply -f /opt/KubeInstaller-express-1.0.0-alpha/kubesphere-controls-system.yaml
+        mykubectl -n kubesphere-system create secret generic front-proxy-client --from-file=front-proxy-client.crt=/etc/kubernetes/pki/front-proxy-client.crt --from-file=front-proxy-client.key=/etc/kubernetes/pki/front-proxy-client.key
+        mykubectl create configmap ks-console-config --from-file=local_config.alpha.yaml=/opt/KubeInstaller-express-1.0.0-alpha/ks-console/ks-console-config.ini -n kubesphere-system
+        mykubectl apply -f /opt/KubeInstaller-express-1.0.0-alpha/ks-console/.
+        mykubectl apply -f /opt/KubeInstaller-express-1.0.0-alpha/ks-account/.
+        CA_KEY=`base64 -w 0 /data/kubernetes/pki/ca.key`
+        CA_CRT=`base64 -w 0 /data/kubernetes/pki/ca.crt`
+        sed -i 's/${KS_CA_CRT}/'"${CA_CRT}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.yaml
+        sed -i 's/${KS_CA_KEY}/'"${CA_KEY}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.yaml
+        sed -i 's/${MASTER_IP}/'"${MASTER_IP}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/ks-apiserver-deploy.yaml
+        mykubectl apply -f /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/.
+        mykubectl create configmap admin --from-file=config=/etc/kubernetes/admin.conf -n kubesphere-controls-system
+    fi
 }
 
 function get_node_status(){

@@ -462,12 +462,12 @@ function init_kubesphere() {
     mykubectl apply -f /opt/KubeInstaller-express-1.0.0-alpha/ks-account/.
     CA_KEY=`/opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/get-ca-key.sh`
     CA_CRT=`/opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/get-ca.sh`
-    sed 's/${KS_CA_CRT}/'"${CA_CRT}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.tmpl > /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.tmp
-    sed 's/${KS_CA_KEY}/'"${CA_KEY}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.tmp > /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.yaml
-    sed 's/${MASTER_IP}/'"${MASTER_IP}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/ks-apiserver-deploy.tmpl > /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/ks-apiserver-deploy.yaml
+    sed -i 's/${KS_CA_CRT}/'"${CA_CRT}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.yaml
+    sed -i 's/${KS_CA_KEY}/'"${CA_KEY}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.yaml
+    sed -i 's/${MASTER_IP}/'"${MASTER_IP}"'/g' /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/ks-apiserver-deploy.yaml
     mykubectl apply -f /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/.
-    rm /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/kubesphere-secret.tmp
-
+    rm /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/ca.tmp
+    rm /opt/KubeInstaller-express-1.0.0-alpha/ks-apiserver/ca-key.tmp
 }
 
 function get_node_status(){

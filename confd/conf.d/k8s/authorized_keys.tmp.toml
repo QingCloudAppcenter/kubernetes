@@ -1,5 +1,0 @@
-[template]
-src = "authorized_keys.tmp.tmpl"
-dest = "/root/.ssh/authorized_keys.tmp" 
-keys = ["/"] 
-reload_cmd ="grep -vxFf /root/.ssh/authorized_keys.tmp /root/.ssh/authorized_keys >>/root/.ssh/authorized_keys.tmp;cat /root/.ssh/authorized_keys.tmp > /root/.ssh/authorized_keys;"

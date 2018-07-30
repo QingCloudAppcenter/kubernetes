@@ -25,7 +25,7 @@ spec:
     - --root-ca-file=/etc/kubernetes/pki/ca.crt
     - --cluster-signing-key-file=/etc/kubernetes/pki/ca.key
     - --service-cluster-ip-range=10.96.0.0/16
-{{$flag:=getv "/env/network_plugins"}}{{if eq "flannel" $flag}}
+{{$flag:=getv "/env/enable_hostnic"}}{{if or (eq "flannel" $flag) (eq "false" $flag) }}
     - --allocate-node-cidrs=true
     - --cluster-cidr=10.244.0.0/16
     - --node-cidr-mask-size=24

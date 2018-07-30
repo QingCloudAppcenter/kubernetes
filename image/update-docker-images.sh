@@ -37,6 +37,12 @@ docker pull dockerhub.qingcloud.com/qingcloud/hostnic-cni:v0.8.4
 docker pull dockerhub.qingcloud.com/alpine:3.6
 docker pull dockerhub.qingcloud.com/qingcloud/go-probe:v1.0
 docker pull dockerhub.qingcloud.com/wordpress:4.8-apache
+
+# calico
+docker pull quay.io/calico/node:v3.1.3
+docker pull quay.io/calico/kube-controllers:v3.1.3
+docker pull quay.io/calico/cni:v3.1.3
+
 # istio
 docker pull docker.io/istio/proxy_init:0.8.0
 docker pull docker.io/istio/proxyv2:0.8.0
@@ -69,3 +75,4 @@ docker pull kubesphere/ks-apiserver:express-1.0.0-alpha
 docker pull kubesphere/kubectl:express-1.0.0-alpha
 docker pull googlecontainer/defaultbackend-amd64:1.4
 docker pull redis:4.0
+docker pull quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.16.2

@@ -1,19 +1,25 @@
 /var/log/qingcloud-flex-volume/*.log.* {
-    firstaction
-        /opt/kubernetes/script/compressFlexLog.sh
-    endscript
-    rotate 0
+    rotate 1
     missingok
-    ifempty
+    notifempty
     daily
+    compress
+    maxsize 20M
+    create 0644 root root
+    postrotate
+       find /var/log/qingcloud-flex-volum/ -name "*.1.gz" -mtime +7 -delete
+    endscript
 }
 
 /var/log/qingcloud-flex-volume-controller-manager/*.log.* {
-    firstaction
-        /opt/kubernetes/script/compressFlexMgrLog.sh
-    endscript
-    rotate 0
+    rotate 1
     missingok
-    ifempty
+    notifempty
     daily
+    compress
+    maxsize 20M
+    create 0644 root root
+    postrotate
+       find /var/log/qingcloud-flex-volum-controller-manager/ -name "*.1.gz" -mtime +7 -delete
+    endscript
 }

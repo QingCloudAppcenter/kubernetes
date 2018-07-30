@@ -1,0 +1,7 @@
+[template]
+src = "k8s/calico.yaml.tmpl"
+dest = "/opt/kubernetes/k8s/addons/calico/calico.yaml"
+keys = [
+    "/",
+]
+reload_cmd="/opt/kubernetes/script/reload-calico.sh"

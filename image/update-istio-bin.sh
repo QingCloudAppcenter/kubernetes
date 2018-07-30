@@ -16,5 +16,5 @@ chmod +x /usr/bin/istioctl
 cp -rf istio-0.8.0 /opt
 rm istio-0.8.0
 
-istioctl completion bash >/etc/profile.d/istioctl.sh
+#istioctl completion bash >/etc/profile.d/istioctl.sh
 source /etc/profile

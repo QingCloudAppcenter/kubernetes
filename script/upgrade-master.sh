@@ -6,3 +6,4 @@ source "${K8S_HOME}/script/common.sh"
 
 ensure_dir
 upgrade_docker
+wait_apiserver && init_openpitrix && init_kubesphere

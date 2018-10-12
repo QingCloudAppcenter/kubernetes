@@ -4,16 +4,40 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 
 source "${K8S_HOME}/script/common.sh"
 
+certificates=("/etc/kubernetes/pki/ca.crt" \ 
+              "/etc/kubernetes/pki/ca.key" \
+              "/etc/kubernetes/pki/sa.key" \
+              "/etc/kubernetes/pki/sa.pub" \
+              "/etc/kubernetes/pki/front-proxy-ca.crt" \
+              "/etc/kubernetes/pki/front-proxy-ca.key" \
+              "/etc/kubernetes/pki/etcd/ca.crt" \
+              "/etc/kubernetes/pki/etcd/ca.key")
+
 ensure_es
 ensure_dir
 link_dynamic_dir
 
-systemctl start docker
-
 init_token=$(get_or_gen_init_token)
 #retry kubeadm check --cloud-provider-name qingcloud --cloud-provider-config /etc/kubernetes/qingcloud.conf
-retry kubeadm alpha phase certs all --apiserver-advertise-address ${MASTER_IP} --apiserver-cert-extra-sans ${ENV_API_EXTERNAL_DOMAIN} --service-cidr 10.96.0.0/16 --service-dns-domain cluster.local
+retry kubeadm alpha phase certs all --apiserver-advertise-address ${MASTER_IP} --apiserver-cert-extra-sans ${ENV_API_EXTERNAL_DOMAIN},$(join_by , ${MASTER_INSTANCE_IPS[@]}),$(join_by , ${MASTER_INSTANCE_IDS[@]}) --service-cidr 10.96.0.0/16 --service-dns-domain cluster.local
 retry kubeadm alpha phase kubeconfig all --apiserver-advertise-address ${MASTER_IP}
+
+# copy certificates from first master node
+master_instance_id=${MASTER_INSTANCE_IDS[0]}
+if [ $master_instance_id == $HOST_INSTANCE_ID ]
+then
+    ip addr add ${MASTER_IP}/24 dev eth0
+
+  if [ $MASTER_COUNT == 3]
+  then
+    for certificate in "${certificates[@]}"
+    do
+      scp root@${master_instance_id}:${certificate} ${certificate}
+    done
+  fi
+fi
+
+systemctl start docker
 
 process_manifests
 
@@ -21,7 +45,9 @@ systemctl start kubelet
 wait_kubelet
 wait_apiserver
 
-train_master
+# mark self as master
+retry kubeadm alpha phase mark-master ${HOST_INSTANCE_ID}
+
 if kubeadm token list|grep ${init_token}
 then
   echo "token is existed, skip kubeadmin token creation"

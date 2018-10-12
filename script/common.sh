@@ -11,6 +11,12 @@ set -o pipefail
 
 NODE_INIT_LOCK="/data/kubernetes/init.lock"
 
+function join_by {
+    local IFS="$1"
+    shift
+    echo "$*"
+}
+
 function fail {
   echo $1 >&2
   exit 1

@@ -7,7 +7,7 @@
     maxsize 20M
     create 0644 root root
     postrotate
-       find /var/log/qingcloud-flex-volum/ -name "*.1.gz" -mtime +7 -delete
+       find /var/log/qingcloud-flex-volume/ -name "*.1*" -mtime +7 -delete
     endscript
 }
 
@@ -20,6 +20,6 @@
     maxsize 20M
     create 0644 root root
     postrotate
-       find /var/log/qingcloud-flex-volum-controller-manager/ -name "*.1.gz" -mtime +7 -delete
+       find /var/log/qingcloud-flex-volume-controller-manager/ -name "*.1*" -mtime +7 -delete
     endscript
 }

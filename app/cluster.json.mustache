@@ -30,6 +30,7 @@
             "count": {{cluster.master.count}},
             "cpu": {{cluster.master.cpu}},
             "memory": {{cluster.master.memory}},
+            "passphraseless": "ssh-rsa",
             "volume": {
                 "size": {{cluster.master.volume_size}},
                 "mount_point": "/data",
@@ -394,6 +395,7 @@
             "registry-mirrors": {{env.registry-mirrors}},
             "pod_vxnets":{{env.pod_vxnets}},
             "max_pods": {{env.max_pods}},
+            "enable_hostnic": {{env.enable_hostnic}},
             "dockerhub_username":{{env.dockerhub_username}},
             "dockerhub_password":{{env.dockerhub_password}},
             "docker_bip":{{env.docker_bip}},
@@ -402,7 +404,13 @@
             "fluent_forward_server":{{env.fluent_forward_server}},
             "enable_istio":{{env.enable_istio}},
             "enable_helm":{{env.enable_helm}},
-            "network_plugins":{{env.network_plugins}},
             "es_server":{{env.es_server}}
+        },
+        "endpoints": {
+            "reserved_ips": {
+                "vip": {
+                    "value": ""
+                }
+            }
         }
 }

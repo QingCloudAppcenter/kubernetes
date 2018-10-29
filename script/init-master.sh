@@ -17,6 +17,9 @@ ensure_es
 ensure_dir
 link_dynamic_dir
 
+systemctl start docker
+
+
 init_token=$(get_or_gen_init_token)
 #retry kubeadm check --cloud-provider-name qingcloud --cloud-provider-config /etc/kubernetes/qingcloud.conf
 retry kubeadm alpha phase certs all --apiserver-advertise-address ${MASTER_IP} --apiserver-cert-extra-sans ${ENV_API_EXTERNAL_DOMAIN},$(join_by , ${MASTER_INSTANCE_IPS[@]}),$(join_by , ${MASTER_INSTANCE_IDS[@]}) --service-cidr 10.96.0.0/16 --service-dns-domain cluster.local
@@ -37,7 +40,6 @@ then
   fi
 fi
 
-systemctl start docker
 
 process_manifests
 

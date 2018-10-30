@@ -7,5 +7,5 @@ source ${K8S_HOME}/version
 echo "deploy openpitrix"
 
 cd /tmp
-curl -L https://git.io/GetOpenPitrix | sh -
+curl -L https://git.io/GetOpenPitrix | OPENPITRIX_VERSION=${OPENPITRIX_VERSION} sh -
 mv openpitrix-*-kubernetes /opt

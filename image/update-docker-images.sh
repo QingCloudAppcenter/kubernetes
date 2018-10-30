@@ -31,7 +31,7 @@ docker pull dockerhub.qingcloud.com/google_containers/kibana:v5.6.4
 docker pull dockerhub.qingcloud.com/google_containers/elasticsearch:v5.6.4
 docker pull dockerhub.qingcloud.com/qingcloud/elasticsearch-curator:5.1.1
 docker pull dockerhub.qingcloud.com/qingcloud/file-sync:0.7
-docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-volume-provisioner:v1.3.1
+docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-volume-provisioner:v1.3.2
 docker pull dockerhub.qingcloud.com/qingcloud/qingcloud-cloud-controller-manager:v1.1.3
 docker pull dockerhub.qingcloud.com/qingcloud/hostnic-cni:v0.8.4
 docker pull dockerhub.qingcloud.com/alpine:3.6
@@ -44,17 +44,17 @@ docker pull quay.io/calico/kube-controllers:v3.1.3
 docker pull quay.io/calico/cni:v3.1.3
 
 # istio
-docker pull docker.io/istio/proxy_init:0.8.0
-docker pull docker.io/istio/proxyv2:0.8.0
-docker pull docker.io/istio/proxy:0.8.0
+docker pull docker.io/istio/proxy_init:${ISTIO_VERSION}
+docker pull docker.io/istio/proxyv2:${ISTIO_VERSION}
+docker pull docker.io/istio/proxy:${ISTIO_VERSION}
 docker pull quay.io/coreos/hyperkube:v1.7.6_coreos.0
 docker pull prom/statsd-exporter:latest
-docker pull docker.io/istio/grafana:0.8.0
-docker pull docker.io/istio/mixer:0.8.0
-docker pull docker.io/istio/pilot:0.8.0
-docker pull docker.io/istio/citadel:0.8.0
-docker pull docker.io/istio/servicegraph:0.8.0
-docker pull docker.io/istio/sidecar_injector:0.8.0
+docker pull docker.io/istio/grafana:${ISTIO_VERSION}
+docker pull docker.io/istio/mixer:${ISTIO_VERSION}
+docker pull docker.io/istio/pilot:${ISTIO_VERSION}
+docker pull docker.io/istio/citadel:${ISTIO_VERSION}
+docker pull docker.io/istio/servicegraph:${ISTIO_VERSION}
+docker pull docker.io/istio/sidecar_injector:${ISTIO_VERSION}
 docker pull jaegertracing/all-in-one:1.5
 docker pull dockerhub.qingcloud.com/qingcloud/prometheus:v2.0.0
 docker pull dockerhub.qingcloud.com/kubernetes_helm/tiller:v2.9.1
@@ -62,9 +62,9 @@ docker pull dockerhub.qingcloud.com/coreos/flannel:v0.10.0-amd64
 
 #openpitrix
 docker pull busybox:1.28.4
-docker pull openpitrix/openpitrix:v0.1.6
-docker pull openpitrix/openpitrix:metadata-v0.1.6
-docker pull openpitrix/openpitrix:flyway-v0.1.6
+docker pull openpitrix/openpitrix:${OPENPITRIX_VERSION}
+docker pull openpitrix/openpitrix:metadata-${OPENPITRIX_VERSION}
+docker pull openpitrix/openpitrix:flyway-${OPENPITRIX_VERSION}
 docker pull mysql:8.0.11
 docker pull quay.io/coreos/etcd:v3.2.18
 

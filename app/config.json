@@ -118,7 +118,7 @@
               "label": "volume size",
               "description": "The volume size for each instance",
               "type": "integer",
-              "default": 20,
+              "default": 30,
               "min": 10,
               "max": 1000,
               "step": 10,
@@ -536,16 +536,6 @@
           "type": "string",
           "changeable": true,
           "default":"no",
-          "range":["yes", "no"],
-          "required": "no"
-        },
-        {
-          "key": "enable_helm",
-          "label": "Enable Helm",
-          "description": "Enable kubernetes pakcage manager Helm",
-          "type": "string",
-          "changeable": true,
-          "default":"yes",
           "range":["yes", "no"],
           "required": "no"
         }

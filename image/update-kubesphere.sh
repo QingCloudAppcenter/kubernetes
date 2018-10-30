@@ -7,8 +7,7 @@ source ${K8S_HOME}/version
 
 pushd /tmp
 wget -c https://k8s-qingcloud.pek3a.qingstor.com/k8s/kubesphere/express-1.0.0-alpha/KubeInstaller-express-1.0.0-alpha.tar.gz
-mkdir /opt/KubeInstaller-express-1.0.0-alpha
-tar -zxvf KubeInstaller-express-1.0.0-alpha.tar.gz -C /opt/KubeInstaller-express-1.0.0-alpha
+tar -zxvf KubeInstaller-express-1.0.0-alpha.tar.gz -C /opt/
 rm KubeInstaller-express-1.0.0-alpha.tar.gz
 
 popd

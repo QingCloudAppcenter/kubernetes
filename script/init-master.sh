@@ -4,15 +4,6 @@ K8S_HOME=$(dirname "${SCRIPTPATH}")
 
 source "${K8S_HOME}/script/common.sh"
 
-certificates=("/etc/kubernetes/pki/ca.crt" \ 
-              "/etc/kubernetes/pki/ca.key" \
-              "/etc/kubernetes/pki/sa.key" \
-              "/etc/kubernetes/pki/sa.pub" \
-              "/etc/kubernetes/pki/front-proxy-ca.crt" \
-              "/etc/kubernetes/pki/front-proxy-ca.key" \
-              "/etc/kubernetes/pki/etcd/ca.crt" \
-              "/etc/kubernetes/pki/etcd/ca.key")
-
 ensure_es
 ensure_dir
 link_dynamic_dir

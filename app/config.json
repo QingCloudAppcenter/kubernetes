@@ -418,7 +418,7 @@
           "required": "no"
         },
         {
-          "key": "network_plugins",
+          "key": "enable_hostnic",
           "label": "network plugins",
           "description": "Choose one network plugins",
           "type": "string",

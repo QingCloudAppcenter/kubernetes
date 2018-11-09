@@ -237,7 +237,7 @@ function join_node(){
 
     echo "master ip: ${MASTER_IP} init_token: ${init_token}"
 
-    retry kubeadm join ${MASTER_IP}:6443 --token ${init_token} --skip-preflight-checks --discovery-token-unsafe-skip-ca-verification
+    retry kubeadm join ${MASTER_IP}:6443 --token ${init_token} --ignore-preflight-errors=all --discovery-token-unsafe-skip-ca-verification
 
     touch ${NODE_INIT_LOCK}
 }
